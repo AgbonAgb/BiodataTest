@@ -9,5 +9,6 @@ namespace BiodataTest.Interfaces
    public interface IBiodata
     {
         Task<bool> CreateBiodata(BioData biodata);
+        Task<IEnumerable<BioData>> GetexistingBiodata();
     }
 }

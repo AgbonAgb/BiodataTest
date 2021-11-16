@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiodataTest.Interfaces;
 using BiodataTest.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiodataTest.Services
 {
@@ -17,16 +18,29 @@ namespace BiodataTest.Services
         public async Task<bool> CreateBiodata(BioData biodata)
         {
             bool rtn = false;
-            var checkBiodata = _appDbContext.bioData.FindAsync(biodata.Id);
-            if(checkBiodata == null)
+            try
             {
-                await _appDbContext.AddAsync(biodata);
-                await _appDbContext.SaveChangesAsync();
+                var checkBiodata = await _appDbContext.bioData.FindAsync(biodata.Id);
+                if (checkBiodata == null)
+                {
+                    await _appDbContext.AddAsync(biodata);
+                    await _appDbContext.SaveChangesAsync();
 
-                rtn = true;
+                    rtn = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
 
             return rtn;
+        }
+
+        public async Task<IEnumerable<BioData>> GetexistingBiodata()
+        {
+            return await _appDbContext.bioData.ToListAsync();
         }
     }
 }

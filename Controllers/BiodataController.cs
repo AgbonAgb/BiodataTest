@@ -16,12 +16,27 @@ namespace BiodataTest.Controllers
         {
             _bioData = bioData;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> existedBiodata()
         {
-            return View();
+
+            var existing = await _bioData.GetexistingBiodata();
+
+            return View(existing);
         }
-        [HttpPost("CreateBiodata")]
-        public async Task<IActionResult> CreateBiodata([FromBody] BioDataViewModel bioDataViewModel)
+        public IActionResult CreateBiodata()
+        {
+            BioDataViewModel Bid = new BioDataViewModel();
+
+
+            return View(Bid);
+        }
+
+        //[FromBody] 
+        //("CreateBiodata")
+        //Biodata/CreateBiodata
+        [HttpPost]
+        public async Task<IActionResult> CreateBiodata(BioDataViewModel bioDataViewModel)
         {
 
             BioData bio = new BioData();
@@ -35,7 +50,10 @@ namespace BiodataTest.Controllers
             var newbio = await _bioData.CreateBiodata(bio);
             if(newbio)
             {
-                return View(bioDataViewModel);
+                //if sucess go to list page of existing
+                //return View(bioDataViewModel);
+
+                return RedirectToAction("existedBiodata");
             }
             else
             {

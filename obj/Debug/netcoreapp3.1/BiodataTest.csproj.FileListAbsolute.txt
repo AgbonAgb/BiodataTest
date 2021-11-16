@@ -130,3 +130,4 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Users\Mr Agbon\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Mr Agbon\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\CreateBiodata.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\existedBiodata.cshtml.g.cs
