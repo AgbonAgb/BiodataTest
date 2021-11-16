@@ -7,6 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BiodataTest.Models;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.EntityFrameworkCore;
+using BiodataTest.Services;
+using BiodataTest.Interfaces;
 
 namespace BiodataTest
 {
@@ -23,6 +28,9 @@ namespace BiodataTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            var connection = Configuration.GetConnectionString("Cnn");
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IBiodata, BiodataServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
