@@ -48,7 +48,7 @@ namespace BiodataTest.Controllers
             bio.DOB = bioDataViewModel.DOB;
 
             var newbio = await _bioData.CreateBiodata(bio);
-            if(newbio)
+            if (newbio)
             {
                 //if sucess go to list page of existing
                 //return View(bioDataViewModel);
@@ -59,6 +59,52 @@ namespace BiodataTest.Controllers
             {
                 return View(bioDataViewModel);
             }
+
+        }
+
+        //get 
+        [HttpGet]
+        public async Task<IActionResult> EditBiodata(int Id)
+        {
+            // var bio = await _bioData.GetBiodata(Id);
+            BioData bio2 = new BioData();
+            bio2 = await _bioData.GetBiodata(Id);
+
+            BioDataViewModel bio = new BioDataViewModel();
+            bio.Id = bio2.Id;
+            bio.StaffId = bio2.StaffId;
+            bio.FirstName = bio2.FirstName;
+            bio.LastName = bio2.LastName;
+            bio.Address = bio2.Address;
+            bio.DOB = bio2.DOB;
+
+            return View(bio);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditBiodata(BioDataViewModel bioDataViewModel)
+        {
+
+            BioData bio = new BioData();
+            bio.Id = bioDataViewModel.Id;
+            bio.StaffId = bioDataViewModel.StaffId;
+            bio.FirstName = bioDataViewModel.FirstName;
+            bio.LastName = bioDataViewModel.LastName;
+            bio.Address = bioDataViewModel.Address;
+            bio.DOB = bioDataViewModel.DOB;
+
+            var newbio = await _bioData.UpdateBiodata(bio);
+            if (newbio)
+            {
+                //if sucess go to list page of existing
+                //return View(bioDataViewModel);
+
+                return RedirectToAction("existedBiodata");
+            }
+            else
+            {
+                return View(bioDataViewModel);
+            }
+
 
         }
     }

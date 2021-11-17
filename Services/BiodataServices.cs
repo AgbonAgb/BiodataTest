@@ -38,9 +38,60 @@ namespace BiodataTest.Services
             return rtn;
         }
 
+        public async Task<bool> DeleteBiodata(int Id)
+        {
+           var bio = await _appDbContext.bioData.FindAsync(Id);
+
+            if(bio != null)
+            {
+                _appDbContext.Remove(bio);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+
+        public async Task<BioData> GetBiodata(int Id)
+        {
+            BioData bio = new BioData();
+
+            bio = await _appDbContext.bioData.FindAsync(Id);
+
+            return bio;            
+
+        }
+
         public async Task<IEnumerable<BioData>> GetexistingBiodata()
         {
             return await _appDbContext.bioData.ToListAsync();
+        }
+
+        public async Task<bool> UpdateBiodata(BioData biodata)
+        {
+            var bio = await _appDbContext.bioData.FindAsync(biodata.Id);
+
+            if (bio != null)
+            {
+
+                bio.StaffId = biodata.StaffId;
+                bio.FirstName = biodata.FirstName;
+                bio.LastName = biodata.LastName;
+                bio.Address = biodata.Address;
+                bio.DOB = biodata.DOB;
+
+
+
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -15,6 +15,8 @@ namespace BiodataTest.Models
 
         public DbSet<BioData> bioData { get; set; }
 
+        public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+
        // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
     }
 }
