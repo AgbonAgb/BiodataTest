@@ -61,8 +61,24 @@ namespace BiodataTest.Controllers
             }
 
         }
+        //Delete
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var bio = await _bioData.DeleteBiodata(Id);
 
-        //get 
+            if (bio)
+            {
+               
+
+                return RedirectToAction("existedBiodata");
+            }
+            else
+            {
+                return RedirectToAction("existedBiodata");
+            }
+        }
+
+        //Get specific Biodata
         [HttpGet]
         public async Task<IActionResult> EditBiodata(int Id)
         {
