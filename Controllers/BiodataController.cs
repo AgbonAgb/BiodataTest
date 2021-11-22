@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 using BiodataTest.Interfaces;
 using BiodataTest.ViewModels;
 using BiodataTest.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;//.Authentication.Cookies;
 
 namespace BiodataTest.Controllers
 {
+ 
     public class BiodataController : Controller
     {
         private IBiodata _bioData;
-        public BiodataController(IBiodata bioData)
+        private IMapper _mapper;
+        public BiodataController(IBiodata bioData, IMapper mapper)
         {
             _bioData = bioData;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> existedBiodata()
@@ -24,9 +29,22 @@ namespace BiodataTest.Controllers
 
             return View(existing);
         }
-        public IActionResult CreateBiodata()
+       
+        public async Task<IActionResult> CreateBiodata()
         {
             BioDataViewModel Bid = new BioDataViewModel();
+
+
+            //List<User> Users = new List<User>();
+           // var existing1 = await _bioData.GetexistingBiodata();
+            //(from divisions in dbContext.Divisions select divisions).ToList();
+
+            //Users.Insert(existing);
+            //Users.Insert(0, new User { Id = 0, Name = "Select" });
+           // ViewBag.listofUsers = existing1;
+
+
+
 
 
             return View(Bid);
@@ -35,19 +53,23 @@ namespace BiodataTest.Controllers
         //[FromBody] 
         //("CreateBiodata")
         //Biodata/CreateBiodata
+      
         [HttpPost]
         public async Task<IActionResult> CreateBiodata(BioDataViewModel bioDataViewModel)
         {
 
-            BioData bio = new BioData();
+            //BioData bio = new BioData();
 
-            bio.StaffId = bioDataViewModel.StaffId;
-            bio.FirstName = bioDataViewModel.FirstName;
-            bio.LastName = bioDataViewModel.LastName;
-            bio.Address = bioDataViewModel.Address;
-            bio.DOB = bioDataViewModel.DOB;
+            //bio.StaffId = bioDataViewModel.StaffId;
+            //bio.FirstName = bioDataViewModel.FirstName;
+            //bio.LastName = bioDataViewModel.LastName;
+            //bio.Address = bioDataViewModel.Address;
+            //bio.DOB = bioDataViewModel.DOB;
+            //var newbio = await _bioData.CreateBiodata(bio);
 
-            var newbio = await _bioData.CreateBiodata(bio);
+            var mmapper = _mapper.Map<BioData>(bioDataViewModel);
+
+            var newbio = await _bioData.CreateBiodata(mmapper);
             if (newbio)
             {
                 //if sucess go to list page of existing
@@ -93,22 +115,34 @@ namespace BiodataTest.Controllers
             bio.LastName = bio2.LastName;
             bio.Address = bio2.Address;
             bio.DOB = bio2.DOB;
-
             return View(bio);
+
+
+            //BioData bio2 = new BioData();
+            ////var bio = await _bioData.GetBiodata(Id);
+
+            ////var mmapper = _mapper.Map<BioDataViewModel>(bio);
+
+
+            ////return View(bio);
         }
         [HttpPost]
         public async Task<IActionResult> EditBiodata(BioDataViewModel bioDataViewModel)
         {
 
-            BioData bio = new BioData();
-            bio.Id = bioDataViewModel.Id;
-            bio.StaffId = bioDataViewModel.StaffId;
-            bio.FirstName = bioDataViewModel.FirstName;
-            bio.LastName = bioDataViewModel.LastName;
-            bio.Address = bioDataViewModel.Address;
-            bio.DOB = bioDataViewModel.DOB;
+            ////BioData bio = new BioData();
+            ////bio.Id = bioDataViewModel.Id;
+            ////bio.StaffId = bioDataViewModel.StaffId;
+            ////bio.FirstName = bioDataViewModel.FirstName;
+            ////bio.LastName = bioDataViewModel.LastName;
+            ////bio.Address = bioDataViewModel.Address;
+            ////bio.DOB = bioDataViewModel.DOB;
 
-            var newbio = await _bioData.UpdateBiodata(bio);
+
+            var mmapper = _mapper.Map<BioData>(bioDataViewModel);
+
+            var newbio = await _bioData.UpdateBiodata(mmapper);
+            //var newbio = await _bioData.UpdateBiodata(bio);
             if (newbio)
             {
                 //if sucess go to list page of existing

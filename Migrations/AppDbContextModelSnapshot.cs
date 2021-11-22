@@ -38,6 +38,9 @@ namespace BiodataTest.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Referer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
@@ -63,6 +66,9 @@ namespace BiodataTest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Referer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")

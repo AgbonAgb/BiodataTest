@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BiodataTest.ViewModels
 {
@@ -20,6 +21,11 @@ namespace BiodataTest.ViewModels
         public string Address { get; set; }
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
+       //[BindProperty]
+       [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
+        //public DateTime? DOB { get; set; }
+        public string Referer { get; set; }
+
     }
 }
