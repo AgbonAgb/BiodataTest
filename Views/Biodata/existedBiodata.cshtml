@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BiodataTest.Models.BioData>
+﻿@model IEnumerable<BiodataTest.ViewModels.BioDataViewModel>
 
 @{
     ViewData["Title"] = "existedBiodata";
@@ -27,6 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DOB)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,6 +50,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
             </td>
             <td>
                 <a asp-action="EditBiodata" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |

@@ -14,8 +14,10 @@ namespace BiodataTest.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
-        public DateTime DOB { get; set; }
-        public string Referer { get; set; }
+        public DateTime DOB { get; set; }        
+        public int DeptId { get; set; }
+        //public string Department { get; set; }
+        //public string Referer { get; set; }
 
 
     }

@@ -40,6 +40,7 @@ namespace BiodataTest
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
             services.AddScoped<IBiodata, BiodataServices>();
             services.AddScoped<IUserRepository, UserRepositoryServices>();
+            services.AddScoped<IDept, DeptServices>();
             services.AddAutoMapper();
             //using Coogies//;//we could add this o => o.LoginPath="account/signin. Stop at .AddCookie(); if no external authentication required
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -63,6 +64,7 @@ namespace BiodataTest
         {
             if (env.IsDevelopment())
             {
+                 context.Database.Migrate();
                 app.UseDeveloperExceptionPage();
             }
             else

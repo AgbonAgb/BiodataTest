@@ -14,9 +14,20 @@ namespace BiodataTest.Models
         }
 
         public DbSet<BioData> bioData { get; set; }
-
+        public DbSet<Dept> dept { get; set; }
         public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+       
 
-       // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+        // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BioDataViewModel>()
+                .HasNoKey()
+                .ToView("BioDataViewModel");
+        }
+       
+
+        // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.DeptViewModel> DeptViewModel { get; set; }
     }
 }

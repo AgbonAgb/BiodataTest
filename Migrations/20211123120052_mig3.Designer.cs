@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211122134411_mig2")]
-    partial class mig2
+    [Migration("20211123120052_mig3")]
+    partial class mig3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,13 @@ namespace BiodataTest.Migrations
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DeptId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Referer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")
@@ -51,34 +51,34 @@ namespace BiodataTest.Migrations
                     b.ToTable("bioData");
                 });
 
-            modelBuilder.Entity("BiodataTest.ViewModels.BioDataViewModel", b =>
+            modelBuilder.Entity("BiodataTest.Models.Dept", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DeptId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
+                    b.HasKey("DeptId");
 
-                    b.Property<string>("FirstName")
+                    b.ToTable("dept");
+                });
+
+            modelBuilder.Entity("BiodataTest.ViewModels.DeptViewModel", b =>
+                {
+                    b.Property<int>("DeptId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("DeptId");
 
-                    b.Property<string>("Referer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StaffId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BioDataViewModel");
+                    b.ToTable("DeptViewModel");
                 });
 #pragma warning restore 612, 618
         }

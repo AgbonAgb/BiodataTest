@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiodataTest.Interfaces;
 using BiodataTest.Models;
+using BiodataTest.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BiodataTest.Services
@@ -55,19 +56,76 @@ namespace BiodataTest.Services
             
         }
 
-        public async Task<BioData> GetBiodata(int Id)
+        //public async Task<BioData> GetBiodata(int Id)
+        //{
+        //    BioData bio = new BioData();
+
+        //    bio = await _appDbContext.bioData.FindAsync(Id);
+
+        //    return bio;            
+
+        //}
+        public async Task<BioDataViewModel> GetBiodata(int Id)
         {
-            BioData bio = new BioData();
+            //BioData bio = new BioData();
 
-            bio = await _appDbContext.bioData.FindAsync(Id);
+            //bio = await _appDbContext.bioData.FindAsync(Id);
 
-            return bio;            
+
+            var query = await  _appDbContext.bioData
+                                .Where(x=> x.Id == Id)
+                           .Join(
+                                _appDbContext.dept,
+                                biodata => biodata.DeptId,
+                                department => department.DeptId,
+                                (biodata, department) => new BioDataViewModel
+                                {
+                                    Id = biodata.Id,
+                                    StaffId = biodata.StaffId,
+                                    FirstName = biodata.FirstName,
+                                    LastName = biodata.LastName,
+                                    Address = biodata.Address,
+                                    DOB = biodata.DOB,
+                                    DeptId = biodata.DeptId,
+                                    Department = department.DepartmentName
+                                }
+                            ).FirstOrDefaultAsync();
+            return query;
 
         }
 
-        public async Task<IEnumerable<BioData>> GetexistingBiodata()
+        public async Task<IEnumerable<BioDataViewModel>> GetexistingBiodata()
         {
-            return await _appDbContext.bioData.ToListAsync();
+            try
+            {
+
+                //  return await _appDbContext.bioData.ToListAsync();
+
+                var query = await _appDbContext.bioData
+                          .Join(
+                               _appDbContext.dept,
+                               biodata => biodata.DeptId,
+                               department => department.DeptId,
+                               (biodata, department) => new BioDataViewModel
+                               {
+                                   Id = biodata.Id,
+                                   StaffId = biodata.StaffId,
+                                   FirstName = biodata.FirstName,
+                                   LastName = biodata.LastName,
+                                   Address = biodata.Address,
+                                   DOB = biodata.DOB,
+                                   DeptId = biodata.DeptId,
+                                   Department = department.DepartmentName
+                               }
+                           ).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
 
         public async Task<bool> UpdateBiodata(BioData biodata)
@@ -82,6 +140,7 @@ namespace BiodataTest.Services
                 bio.LastName = biodata.LastName;
                 bio.Address = biodata.Address;
                 bio.DOB = biodata.DOB;
+                bio.DeptId = biodata.DeptId;
 
 
 

@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20211123115210_mig2.cs" />
+    <Compile Remove="Migrations\20211123115210_mig2.Designer.cs" />
+    <Compile Remove="Migrations\20211123115646_mig2.cs" />
+    <Compile Remove="Migrations\20211123115646_mig2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="3.1.0" />

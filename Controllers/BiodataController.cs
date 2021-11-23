@@ -8,6 +8,8 @@ using BiodataTest.ViewModels;
 using BiodataTest.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;//.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Rendering;
+//using System.Web.MVC;
 
 namespace BiodataTest.Controllers
 {
@@ -16,10 +18,12 @@ namespace BiodataTest.Controllers
     {
         private IBiodata _bioData;
         private IMapper _mapper;
-        public BiodataController(IBiodata bioData, IMapper mapper)
+        private IDept _idept;
+        public BiodataController(IBiodata bioData, IMapper mapper, IDept idept)
         {
             _bioData = bioData;
             _mapper = mapper;
+            _idept = idept;
         }
 
         public async Task<IActionResult> existedBiodata()
@@ -29,23 +33,131 @@ namespace BiodataTest.Controllers
 
             return View(existing);
         }
-       
+       public async Task<JsonResult> populatereferers()
+        {
+            var existing = await _bioData.GetexistingBiodata();
+
+
+            //return Json(existing.Select(x => new
+            //    {
+            //        id = x.Id,
+            //        FirstName = x.FirstName
+            //    }
+            //    )); 
+
+            List<BioDataViewModel> list2 = existing.AsEnumerable()
+                          .Select(o => new BioDataViewModel
+                          {
+                              RefererId = o.Id,
+                              Referer = o.FirstName
+
+                          }).ToList();
+            //$('#refererId').append('<option value="' + item.refererId + '">' + item.Referer + '</option>')
+
+            //////// list2.Insert(0, new BioData { Id = 0, FirstName = "Select" });
+            ////////// ViewBag.listofreferers = list2;
+
+            //////// return Json(list2);
+            ///
+
+            ////List<BioData> list2 = new List<BioData>();
+
+            ////var data = existing.Where(x => x.Id == 1).ToList();
+
+
+            return Json(list2);
+
+
+            //List<BioData> list2 = existing.AsEnumerable()
+            //             .Select(o => new BioData
+            //             {
+            //                 Id = o.Id,
+            //                 FirstName = o.FirstName
+
+            //             }).ToList();
+
+            //list2.Insert(0, new BioData { Id = 0, FirstName = "Select" });
+            // ViewBag.listofreferers = list2;
+
+            //return Json(list2);
+
+        }
+        public async Task<List<Dept>> loadDept()
+        {
+            //ViewData  
+                
+                
+            var alldept    = await _idept.GetDepts();
+
+            List<Dept> dp = new List<Dept>();
+
+            dp = alldept.Select(a => new Dept
+            {
+                DeptId = a.DeptId,
+                DepartmentName = a.DepartmentName
+            }
+
+            ).ToList();
+
+
+            dp.Insert(0, new Dept { DeptId = 0, DepartmentName = "Select Dept" });
+            
+
+
+            return dp;
+            //return View();
+        }
+        public async Task<List<Dept>> loadDept2()
+        {
+            //ViewData  
+
+
+            var alldept = await _idept.GetDepts();
+
+            List<Dept> dp = new List<Dept>();
+
+            dp = alldept.Select(a => new Dept
+            {
+                DeptId = a.DeptId,
+                DepartmentName = a.DepartmentName
+            }
+
+            ).ToList();
+
+
+           // dp.Insert(0, new Dept { DeptId = 0, DepartmentName = "Select Dept" });
+
+
+
+            return dp;
+            //return View();
+        }
         public async Task<IActionResult> CreateBiodata()
         {
             BioDataViewModel Bid = new BioDataViewModel();
 
 
-            //List<User> Users = new List<User>();
-           // var existing1 = await _bioData.GetexistingBiodata();
-            //(from divisions in dbContext.Divisions select divisions).ToList();
-
-            //Users.Insert(existing);
-            //Users.Insert(0, new User { Id = 0, Name = "Select" });
-           // ViewBag.listofUsers = existing1;
+            //var existing = await _bioData.GetexistingBiodata();
 
 
 
+            //var list2 = existing.AsEnumerable()
+            //               .Select(o => new SelectListItem()
+            //               {
+            //                   Text = o.FirstName,
+            //                   Value = o.Id.ToString(),
 
+            //               }).ToList();
+
+            //list2.Insert(0, new SelectListItem()
+            //{
+            //    Text = "----Select----",
+            //    Value = string.Empty
+            //});
+
+
+            //Bid.Referer = list2;
+            ViewBag.listofDept = await loadDept();
 
             return View(Bid);
         }
@@ -58,15 +170,7 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> CreateBiodata(BioDataViewModel bioDataViewModel)
         {
 
-            //BioData bio = new BioData();
-
-            //bio.StaffId = bioDataViewModel.StaffId;
-            //bio.FirstName = bioDataViewModel.FirstName;
-            //bio.LastName = bioDataViewModel.LastName;
-            //bio.Address = bioDataViewModel.Address;
-            //bio.DOB = bioDataViewModel.DOB;
-            //var newbio = await _bioData.CreateBiodata(bio);
-
+          
             var mmapper = _mapper.Map<BioData>(bioDataViewModel);
 
             var newbio = await _bioData.CreateBiodata(mmapper);
@@ -105,17 +209,23 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> EditBiodata(int Id)
         {
             // var bio = await _bioData.GetBiodata(Id);
-            BioData bio2 = new BioData();
-            bio2 = await _bioData.GetBiodata(Id);
+            //BioData bio2 = new BioData();
+            var bio2 = await _bioData.GetBiodata(Id);
+            ViewBag.listofDept2 = await loadDept2();
 
-            BioDataViewModel bio = new BioDataViewModel();
-            bio.Id = bio2.Id;
-            bio.StaffId = bio2.StaffId;
-            bio.FirstName = bio2.FirstName;
-            bio.LastName = bio2.LastName;
-            bio.Address = bio2.Address;
-            bio.DOB = bio2.DOB;
-            return View(bio);
+            //BioDataViewModel bio = new BioDataViewModel();
+            //bio.Id = bio2.Id;
+            //bio.StaffId = bio2.StaffId;
+            //bio.FirstName = bio2.FirstName;
+            //bio.LastName = bio2.LastName;
+            //bio.Address = bio2.Address;
+            //bio.DOB = bio2.DOB;
+            //bio.DeptId = bio2.DeptId;
+           // bio.Department = await getDept(bio2.DeptId);
+           
+            //loadExisting dept and set select to above deptid
+
+            return View(bio2);
 
 
             //BioData bio2 = new BioData();

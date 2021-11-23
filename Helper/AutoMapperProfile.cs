@@ -13,6 +13,7 @@ namespace BiodataTest.Helper
         public AutoMapperProfile()
         {
             CreateMap<BioData, BioDataViewModel>().ReverseMap();
+            CreateMap<Dept,DeptViewModel>().ReverseMap();
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiodataTest.Migrations
 {
-    public partial class Initial : Migration
+    public partial class mig3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace BiodataTest.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    DOB = table.Column<DateTime>(nullable: false)
+                    DOB = table.Column<DateTime>(nullable: false),
+                    DeptId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,20 +26,29 @@ namespace BiodataTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BioDataViewModel",
+                name: "dept",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    DeptId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffId = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    DOB = table.Column<DateTime>(nullable: false)
+                    DepartmentName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BioDataViewModel", x => x.Id);
+                    table.PrimaryKey("PK_dept", x => x.DeptId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeptViewModel",
+                columns: table => new
+                {
+                    DeptId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DepartmentName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeptViewModel", x => x.DeptId);
                 });
         }
 
@@ -48,7 +58,10 @@ namespace BiodataTest.Migrations
                 name: "bioData");
 
             migrationBuilder.DropTable(
-                name: "BioDataViewModel");
+                name: "dept");
+
+            migrationBuilder.DropTable(
+                name: "DeptViewModel");
         }
     }
 }
