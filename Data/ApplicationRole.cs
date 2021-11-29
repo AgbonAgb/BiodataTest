@@ -8,5 +8,6 @@ namespace BiodataTest.Data
 {
     public class ApplicationRole: IdentityRole
     {
+        //public virtual ICollection<IdentityUserRole<string>> Users { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<UsersViewModels>> AllUsers()
         {
-
+           // var users = await _userManager.Users;
 
             var users = await _userManager.Users.Select(s => new UsersViewModels
             {
@@ -91,55 +91,48 @@ namespace BiodataTest.Services
 
 
             }).ToListAsync();//.FirstOrDefaultAsync();//.ToListAsync();
-            
+
+
+            List<UsersViewModels> urols = new List<UsersViewModels>();
+
+
+            var roles = new List<string>();
+            foreach (var user in users)
+            {
+
+                var roless = await _roleManager.Roles.Where(x => x.Id==user.Id).Select(s => new RoleViewModel
+                {
+                    Id = s.Id,
+                    Name = s.Name
+
+                }).ToListAsync();
+
+
+                string str = "";
+                foreach (var role in roless)
+                {
+                    str = (str == "") ? role.ToString() : str + " - " + role.ToString();
+                }
+
+                //roles.Add(str);
+
+                urols.Add(new UsersViewModels {Email= user.Email, UserName= user.UserName, FirstName= user.FirstName, LastName= user.LastName, Id= user.Id, RoleName= str });
+
+            }
 
 
 
-            //    var users = await _userManager.Users.Include(ur => ur.Role).ToListAsync();
 
-            ////var userList = await (from user in _userManager.Users
-            ////                      select new UsersViewModels
-            ////                      {
-            ////                          Email = user.Email,
-            ////                          UserName = user.UserName,
-            ////                          FirstName = user.FirstName,
-            ////                          LastName = user.LastName,
-            ////                          Id = user.Id,
-            ////                          RoleName = (from userRole in _roleManager.Roles  //[AspNetUserRoles]
-            ////                                      join role in _appDbContext.Roles //[AspNetRoles]//
-            ////                                      on userRole.Id
-            ////                                      equals role.Id
-            ////                                      select role.Name).ToList()
-            ////                      }).ToListAsync();
+            //var model = new ListUserViewModel()
+            //{
+            //    users = users.ToList(),
+            //    roles = roles.ToList()
+            //};
+            //return View(model);
 
+            return urols;
 
-            ////var UsersViewModels = userList.Select(p => new UsersViewModels
-            ////{
-            ////    Email = p.Email,
-            ////    UserName = p.UserName,
-            ////    FirstName = p.FirstName,
-            ////    LastName = p.LastName,
-            ////    Id = p.Id,
-            ////    RoleName = string.Join(",", p.RoleNames),
-
-            ////});
-
-            ////return UsersViewModels;
-
-
-            // return users;
-            ///
-            //var users = await _userManager.Users
-            //    .Join(_roleManager.Roles
-            //     umanager => umanager.Id,
-            //     dermanager  => dermanager..DeptId,
-            //     .DeptId,
-
-
-
-            //    );
-
-            ////    .Select(s => new UsersViewModels
+            ////var users = await _userManager.Users.Select(s => new UsersViewModels
             ////{
 
             ////    Email = s.Email,
@@ -147,13 +140,80 @@ namespace BiodataTest.Services
             ////    FirstName = s.FirstName,
             ////    LastName = s.LastName,
             ////    Id = s.Id
+
+
             ////}).ToListAsync();//.FirstOrDefaultAsync();//.ToListAsync();
 
-            return users;
+
+
+
+            //    var users = await _userManager.Users.Include(ur => ur.Role).ToListAsync();
+
+            //var userList = await (from user in _userManager.Users
+            //                      select new UsersViewModels
+            //                      {
+            //                          Email = user.Email,
+            //                          UserName = user.UserName,
+            //                          FirstName = user.FirstName,
+            //                          LastName = user.LastName,
+            //                          Id = user.Id,
+            //                          RoleName = (from userRole in _roleManager.Roles                                                  
+            //                                      on user.Id
+            //                                      equals userRole.Id
+            //                                      select userRole.Name).ToList()
+            //                      }).ToListAsync();
+
+
+            //var UsersViewModels = userList.Select(p => new UsersViewModels
+            //{
+            //    Email = p.Email,
+            //    UserName = p.UserName,
+            //    FirstName = p.FirstName,
+            //    LastName = p.LastName,
+            //    Id = p.Id,
+            //    RoleName = string.Join(",", p.RoleNames),
+
+            //});
+
+            //return UsersViewModels;
+
+
+            // return users;
+            ///
+
+            // var users = string.Empty;
+            //string y = null;
+            //var users = y;
+
+            ////try
+            ////{
+            ////    var users = await _userManager.Users
+            ////           .Join(_roleManager.Roles,
+            ////            umanager => umanager.Id,
+            ////            dermanager => dermanager.Id,
+            ////             (umanager, dermanager) => new UsersViewModels
+            ////             {
+            ////                 Email = umanager.Email,
+            ////                 UserName = umanager.UserName,
+            ////                 FirstName = umanager.FirstName,
+            ////                 LastName = umanager.LastName,
+            ////                 Id = umanager.Id,
+            ////                 RoleName = dermanager.Name
+            ////             }).FirstOrDefault();//.ToListAsync();
+
+
+            ////    return users;
+            ////}
+            ////catch (Exception ex)
+            ////{
+
+            ////    throw;
+            ////}
+
 
         }
 
-        public async Task<bool> CreateRole(ApplicationRole role)
+    public async Task<bool> CreateRole(ApplicationRole role)
         {
             try
             {
