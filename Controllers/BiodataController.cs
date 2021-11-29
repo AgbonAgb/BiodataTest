@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BiodataTest.Controllers
 {
- 
+    [Authorize]
     public class BiodataController : Controller
     {
         private IBiodata _bioData;

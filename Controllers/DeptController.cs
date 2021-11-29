@@ -7,9 +7,11 @@ using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using BiodataTest.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiodataTest.Controllers
-{
+{ 
+    [Authorize]
     public class DeptController : Controller
     {
         private readonly IDept _idept;

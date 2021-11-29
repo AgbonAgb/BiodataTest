@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BiodataTest.AccountsModels;
+using BiodataTest.Data;
 using BiodataTest.Models;
 using BiodataTest.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace BiodataTest.Helper
 {
@@ -14,6 +17,11 @@ namespace BiodataTest.Helper
         {
             CreateMap<BioData, BioDataViewModel>().ReverseMap();
             CreateMap<Dept,DeptViewModel>().ReverseMap();
+            CreateMap<ApplicationUser, RegisterUser>().ReverseMap();
+            //CreateMap<UsersViewModels, UserManager>().ReverseMap();
+            //UsersViewModels
+
+            //< ApplicationUser > (Ruser);
         }
     }
 }

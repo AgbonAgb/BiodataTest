@@ -1,126 +1,325 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BiodataTest.AccountsModels;
+using BiodataTest.Data;
+using BiodataTest.Interfaces;
+using BiodataTest.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BiodataTest.Models;
-using BiodataTest.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-
+using System.Threading.Tasks;
 
 namespace BiodataTest.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly IUserRepository userRepository;
-
-        public AccountController(IUserRepository userRepository)
+        private IAccounts _iaccounts;
+        //Auto mapper
+        private IMapper _mapper;
+        private readonly ILogger<RegisterUser> _logger;
+        public AccountController(IAccounts account, IMapper mapper, ILogger<RegisterUser> logger)
         {
-            this.userRepository = userRepository;
+            _iaccounts = account;
+            _mapper = mapper;
+            _logger = logger;
+            //_logger.LogInformation("User created a new account with password.");
         }
 
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = "/")
-        {
-            return View(new LoginModel { ReturnUrl = returnUrl });
-        }
 
+        public async Task<IActionResult> Login()
+        {
+            loginModel logindetails = new loginModel();
+
+
+            //return View(logindetails);
+            return View("login");
+        }
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(loginModel logindetails)
         {
-            var user = userRepository.GetByUsernameAndPassword(model.Username, model.Password);
-            if (user == null)
+            bool remb = logindetails.RememberMe;
+
+
+            var resp = await _iaccounts.SignIn(logindetails);//this will retiurn SignInModel
+            if(resp.UserExist != false)
             {
-                return Unauthorized();
+                bool isPersistent = false;// this is tru if the user chcked Remember me to allow the credential go through other browsers
+
+                var claims = new List<Claim>();
+
+                try
+                {
+                    // Setting  
+                    claims.Add(new Claim(ClaimTypes.Name, resp.FullName));
+                    claims.Add(new Claim(ClaimTypes.Email, resp.Email));
+                    claims.Add(new Claim("Full Name", resp.FirstName +" "+ resp.LastName));
+                    //Claim Identity
+                    var claimIdenties = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    //Claim Principal
+                    var claimPrincipal = new ClaimsPrincipal(claimIdenties);
+
+                    var authenticationManager = Request.HttpContext;
+
+                    // Sign In.  
+                    await authenticationManager.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties() { IsPersistent = isPersistent , ExpiresUtc = DateTime.UtcNow.AddMinutes(20) });
+                }
+                catch (Exception ex)
+                {
+                    // Info  
+                    throw ex;
+                }
+
+
+                //add claims here
+                //if exist and passwaord not ok, riderect to login
+
+                ////var tokenHandler = new JwtSecurityTokenHandler();
+                //////Get the secrete key from appsettings class
+                ////var key = Encoding.ASCII.GetBytes(_appSettings.Secrete.ToString());
+                //////Describe token and its contents
+                ////var tokenDescriptor = new SecurityTokenDescriptor
+                ////{
+                ////    Subject = new ClaimsIdentity(new Claim[]
+                ////{
+                ////    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                ////    new Claim(ClaimTypes.Name, user.UserName),
+                ////    new Claim(ClaimTypes.GivenName, user.FullName),
+                ////    //this returns the role for activities
+                ////   new Claim(ClaimTypes.Role, userRole.First())
+                ////}),
+
+
+
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-                var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Role, user.Role),
-                new Claim("FavoriteColor", user.FavoriteColor)
-            };
-
-                var identity = new ClaimsIdentity(claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    new AuthenticationProperties { IsPersistent = model.RememberLogin });
-
-                return LocalRedirect(model.ReturnUrl);
+                return View("RegisterUser");// View();
             }
 
-
+         
         }
-
-        [AllowAnonymous]
-        public IActionResult LoginWithGoogle(string returnUrl = "/")
+        public async Task<IActionResult> RegisterUser()
         {
-            var props = new AuthenticationProperties
-            {
-                //This get call when authentication with google is complete
-                RedirectUri = Url.Action("GoogleLoginCallback"),
-                Items =
-                {
-                    { "returnUrl", returnUrl }
-                }
-            };
-            return Challenge(props, GoogleDefaults.AuthenticationScheme);
+            RegisterUser Ruser = new RegisterUser();
+
+
+            return View(Ruser);
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> GoogleLoginCallback()
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterUser Ruser)
         {
-            // read google identity from the temporary cookie
-            var result = await HttpContext.AuthenticateAsync(
-                ExternalAuthenticationDefaults.AuthenticationScheme);
 
-            //the is google claim
-            var externalClaims = result.Principal.Claims.ToList();
+            //(ModelState.IsValid) to ensure validation as required by object is coreect
 
-            var subjectIdClaim = externalClaims.FirstOrDefault(
-                x => x.Type == ClaimTypes.NameIdentifier);
-            var subjectValue = subjectIdClaim.Value;
+            //[FromBody]
+            string userpassw = Ruser.password;
+            var mapped = _mapper.Map<ApplicationUser>(Ruser);
+            //Note password cannot be mapped in identity user
 
-            var user = userRepository.GetByGoogleId(subjectValue);
-
-            //claim transformation from google to local claim
-            var claims = new List<Claim>
+            bool resp = await _iaccounts.CreateUser(mapped, userpassw);
+            if(resp == true)
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Role, user.Role),
-                new Claim("FavoriteColor", user.FavoriteColor)
-            };
+                _logger.LogInformation("User created a new account with username " + Ruser.UserName);
+                return RedirectToAction("getAllUsers");
+            }
+            else
+            {
+                return View("RegisterUser");
 
-            var identity = new ClaimsIdentity(claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            // delete temporary cookie used during google authentication
-            await HttpContext.SignOutAsync(ExternalAuthenticationDefaults.AuthenticationScheme);
-
-            //resignid with local cookie since transformation has happened
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-            return LocalRedirect(result.Properties.Items["returnUrl"]);
+            }
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout1()
+        {
+            //var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View("Logout");
+        }
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            // var login =  HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+
+            if (HttpContext.Request.Cookies.Count > 0)
+            {
+                var siteCookies = HttpContext.Request.Cookies.Where(c => c.Key.Contains(".AspNetCore.") || c.Key.Contains("Microsoft.Authentication"));
+                foreach (var cookie in siteCookies)
+                {
+                    Response.Cookies.Delete(cookie.Key);
+                }
+            }
+
+////            await HttpContext.SignOutAsync(
+////CookieAuthenticationDefaults.AuthenticationScheme);
+           
+
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("/");
+
+            //identity Signout
+
+            bool IdentitySignout = await _iaccounts.SignOutUser();
+            if(IdentitySignout ==true)
+            {
+                return RedirectToAction("Login");
+            }
+
+           // HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
+
+        public async Task<IActionResult>  getAllUsers()
+        {
+            //List<UsersViewModels> users = new List<UsersViewModels>();//  liUsersViewModels();
+
+
+            //users = await _iaccounts.AllUsers();
+            var allusers= await _iaccounts.AllUsers();
+
+            return View(allusers);
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditUsers(string Id)
+        {
+            UsersViewModels users = new UsersViewModels();
+
+
+             users = await _iaccounts.getUser(Id);
+
+            return View(users);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditUsers(UsersViewModels user, string Id)
+        {
+            //UsersViewModels users = new UsersViewModels();
+            user.Id = Id;
+
+           bool succ = await _iaccounts.UpdateUser(user);
+
+            if(succ ==true)
+            {
+                return RedirectToAction("getAllUsers");
+            }
+            else
+            {
+                return View(user);
+            }
+            //users = await _iaccounts.getUser(personId);
+
+           
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteUsers(UsersViewModels user, string Id)
+        {
+            //UsersViewModels users = new UsersViewModels();
+            user.Id = Id;
+
+            bool succ = await _iaccounts.DeleteUser(user);
+
+            if (succ == true)
+            {
+                return RedirectToAction("getAllUsers");
+            }
+            else
+            {
+                return View(user);
+            }
+            //users = await _iaccounts.getUser(personId);
+
+
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> createRole()
+        {
+            ApplicationRole role = new ApplicationRole();
+            return View(role);
+            //users = await _iaccounts.getUser(personId);
+
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createRole(ApplicationRole role)
+        {
+            var urole = await _iaccounts.CreateRole(role);
+
+            if(urole == true)
+            {
+                return RedirectToAction("getAllRoles");
+            }
+            else
+            {
+                return View(role);
+            }
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> getAllRoles()
+        {
+
+            //List<ApplicationRole> uroles = new List<ApplicationRole>();
+
+            // uroles = await _iaccounts.ExistRoles();
+
+            // IEnumerable<RoleViewModel> allRoles = new IEnumerable<RoleViewModel>();
+
+            //RoleViewModel urole = new RoleViewModel();
+            //SelectList
+
+          var  urole = await _iaccounts.ExistRoles();
+           
+
+            if (urole.Count() > 0)
+            {
+                return View(urole);
+            }
+            else
+            {
+                return View("createRole");
+            }
+
+        }
+        //AddUserRole
+        [HttpPost]
+        public async Task<IActionResult> AddUserRole(UsersViewModels user, string Role)
+        {
+            //UsersViewModels users = new UsersViewModels();
+           // user.Id = Id;
+
+            bool succ = await _iaccounts.AddUserRole(user.Id,Role);
+
+            if (succ == true)
+            {
+                return RedirectToAction("getAllUsers");
+            }
+            else
+            {
+                return View(user);
+            }
+            //users = await _iaccounts.getUser(personId);
+
+
+
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using BiodataTest.Interfaces;
+﻿using BiodataTest.Data;
+using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

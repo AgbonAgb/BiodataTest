@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BiodataTest.Controllers
 {
- [AllowAnonymous]
+ [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BiodataTest.Data;
 using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using BiodataTest.ViewModels;

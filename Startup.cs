@@ -16,6 +16,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Http;
+using BiodataTest.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace BiodataTest
 {
@@ -33,21 +36,62 @@ namespace BiodataTest
         {
 
             //To authorize all controllers
-            services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter()));
+            services.AddControllersWithViews();// (o => o.Filters.Add(new AuthorizeFilter()));
+
+
             //services.AddControllersWithViews();//Authorize controllers o =>o.Filters.Add(new AuthorizeFilter())
             //services.AddRazorPages().AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter()));//authorize all pages
-            var connection = Configuration.GetConnectionString("Cnn");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+           
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
+
+            })
+            .AddSignInManager<SignInManager<ApplicationUser>>()
+            .AddUserManager<UserManager<ApplicationUser>>()
+            .AddRoleManager<RoleManager<ApplicationRole>>()
+            .AddEntityFrameworkStores<AppDbContext>();
+
+           
+
             services.AddScoped<IBiodata, BiodataServices>();
             services.AddScoped<IUserRepository, UserRepositoryServices>();
             services.AddScoped<IDept, DeptServices>();
+            services.AddScoped<IPurchaseOrder, PurchaseOrderServices>();
+            //this handles logins and related operations
+            services.AddScoped<IAccounts, AccountServices>();
+
             services.AddAutoMapper();
+
+            var connection = Configuration.GetConnectionString("Cnn");
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+
             //using Coogies//;//we could add this o => o.LoginPath="account/signin. Stop at .AddCookie(); if no external authentication required
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            services.AddAuthentication(o => {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.  
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+
+                // Cookie settings
+                //options.HttpOnly = true;
+                ////options.Cookie.Expiration 
+
+                //options.Secure..ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                //options.LoginPath = "/Identity/Account/Login";
+                //options.LogoutPath = "/Identity/Account/Logout";
+                //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                //options.SlidingExpiration = true;
+            });
+            services.AddAuthentication(o =>
+            {
                 o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 //this will challenge user to google login page if not authenticated and want to bypass
-               // o.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                // o.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
             })
                 .AddCookie()
                 .AddCookie(ExternalAuthenticationDefaults.AuthenticationScheme)
@@ -88,7 +132,8 @@ namespace BiodataTest
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=index}/{id?}");
+                     //pattern: "{controller=Home}/{action=Index}/{id?}");
+                     pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
