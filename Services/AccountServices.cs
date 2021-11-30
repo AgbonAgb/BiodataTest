@@ -35,13 +35,14 @@ namespace BiodataTest.Services
             {
                 //Find user
                 //var user = await _userManager.FindByIdAsync(userId);
-                var user = await _userManager.FindByEmailAsync(userId);//find create snapshop of that user
+                var user = await _userManager.FindByIdAsync(userId);//find create snapshop of that user
                 if (user == null)
                 {
                     return suc;
                 }
 
                 var roleExist = await _roleManager.RoleExistsAsync(role);
+                //var roleExist = await _roleManager.FindByIdAsync(role);
                 if (!roleExist)
                 {
                     return suc;
@@ -78,7 +79,10 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<UsersViewModels>> AllUsers()
         {
-           // var users = await _userManager.Users;
+            // var users = await _userManager.Users;
+
+            
+
 
             var users = await _userManager.Users.Select(s => new UsersViewModels
             {
@@ -92,33 +96,72 @@ namespace BiodataTest.Services
 
             }).ToListAsync();//.FirstOrDefaultAsync();//.ToListAsync();
 
+            //map UsersViewModels
 
             List<UsersViewModels> urols = new List<UsersViewModels>();
 
+            var userRoleIds = _appDbContext.Roles.Select(r => r.Id);
+            var roleks = _appDbContext.Roles.Where(r => userRoleIds.Contains(r.Id));
+            //Array rolesssk = new Array();
 
-            var roles = new List<string>();
-            foreach (var user in users)
+            List<string> list2 = new List<string>();
+
+            foreach(var rok in roleks)
             {
 
-                var roless = await _roleManager.Roles.Where(x => x.Id==user.Id).Select(s => new RoleViewModel
-                {
-                    Id = s.Id,
-                    Name = s.Name
+                list2.Add(rok.Name);
+            }
 
-                }).ToListAsync();
+            //list.Add(2);
+            //list.Add(3);
 
 
+            var roles = new List<string>();
+
+
+            List<ApplicationUser> list3 = new List<ApplicationUser>();
+            foreach (var user in _userManager.Users)
+            {
+                list3.AddRange(new List<ApplicationUser>
+            {
+                 new ApplicationUser {UserName = user.UserName, Email = user.Email, Id=user.Id, FirstName=user.FirstName,LastName=user.LastName},
+                 //new ApplicationUser {Name = "Bhanu", Email = "bhanu@gmail.com" }
+             });
+            }
+
+            //list3 = _userManager.Users;
+            //foreach (var user in users)
+            foreach (var user in list3)
+            {
                 string str = "";
-                foreach (var role in roless)
-                {
-                    str = (str == "") ? role.ToString() : str + " - " + role.ToString();
-                }
 
-                //roles.Add(str);
+                foreach(string item in list2)
+                { // Loop through List with foreach
+                    if (await _userManager.IsInRoleAsync(user, item))
+                    {
+
+                        //foreach (var role in roless)
+                        //{
+                            str = (str == "") ? item.ToString() : str + " ; " + item.ToString();
+                        //}
+                    }
+                }
+               
+               
 
                 urols.Add(new UsersViewModels {Email= user.Email, UserName= user.UserName, FirstName= user.FirstName, LastName= user.LastName, Id= user.Id, RoleName= str });
 
             }
+
+
+            //List<Student> studentList = new List<Student>();
+
+            //studentList.AddRange(new List<Student>
+            //{
+            //     new Student { Name = "Vikram", Email = "vikram@gmail.com" },
+            //     new Student {Name = "Bhanu", Email = "bhanu@gmail.com" }
+            // });
+
 
 
 

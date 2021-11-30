@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace BiodataTest.Controllers
             //_logger.LogInformation("User created a new account with password.");
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
             loginModel logindetails = new loginModel();
@@ -41,13 +43,14 @@ namespace BiodataTest.Controllers
             return View("login");
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(loginModel logindetails)
         {
             bool remb = logindetails.RememberMe;
 
 
             var resp = await _iaccounts.SignIn(logindetails);//this will retiurn SignInModel
-            if(resp.UserExist != false)
+            if (resp.UserExist != false)
             {
                 bool isPersistent = false;// this is tru if the user chcked Remember me to allow the credential go through other browsers
 
@@ -58,7 +61,7 @@ namespace BiodataTest.Controllers
                     // Setting  
                     claims.Add(new Claim(ClaimTypes.Name, resp.FullName));
                     claims.Add(new Claim(ClaimTypes.Email, resp.Email));
-                    claims.Add(new Claim("Full Name", resp.FirstName +" "+ resp.LastName));
+                    claims.Add(new Claim("Full Name", resp.FirstName + " " + resp.LastName));
                     //Claim Identity
                     var claimIdenties = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -68,7 +71,7 @@ namespace BiodataTest.Controllers
                     var authenticationManager = Request.HttpContext;
 
                     // Sign In.  
-                    await authenticationManager.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties() { IsPersistent = isPersistent , ExpiresUtc = DateTime.UtcNow.AddMinutes(20) });
+                    await authenticationManager.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties() { IsPersistent = isPersistent, ExpiresUtc = DateTime.UtcNow.AddMinutes(20) });
                 }
                 catch (Exception ex)
                 {
@@ -104,8 +107,9 @@ namespace BiodataTest.Controllers
                 return View("RegisterUser");// View();
             }
 
-         
+
         }
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterUser()
         {
             RegisterUser Ruser = new RegisterUser();
@@ -115,6 +119,7 @@ namespace BiodataTest.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterUser(RegisterUser Ruser)
         {
 
@@ -126,7 +131,7 @@ namespace BiodataTest.Controllers
             //Note password cannot be mapped in identity user
 
             bool resp = await _iaccounts.CreateUser(mapped, userpassw);
-            if(resp == true)
+            if (resp == true)
             {
                 _logger.LogInformation("User created a new account with username " + Ruser.UserName);
                 return RedirectToAction("getAllUsers");
@@ -149,6 +154,7 @@ namespace BiodataTest.Controllers
             return View("Logout");
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             // var login =  HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -163,9 +169,9 @@ namespace BiodataTest.Controllers
                 }
             }
 
-////            await HttpContext.SignOutAsync(
-////CookieAuthenticationDefaults.AuthenticationScheme);
-           
+            ////            await HttpContext.SignOutAsync(
+            ////CookieAuthenticationDefaults.AuthenticationScheme);
+
 
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -173,46 +179,70 @@ namespace BiodataTest.Controllers
             //identity Signout
 
             bool IdentitySignout = await _iaccounts.SignOutUser();
-            if(IdentitySignout ==true)
+            if (IdentitySignout == true)
             {
                 return RedirectToAction("Login");
             }
 
-           // HttpContext.Session.Clear();
+            // HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
+        // [Authorize(Roles ="Admin")]
 
-        public async Task<IActionResult>  getAllUsers()
+        [HttpPost]
+        //public async Task<IActionResult> SearchList(string SearchString)
+        //{
+        //    var allusers = await _iaccounts.AllUsers();
+        //    var srch = allusers.Where(s => s.UserName.Contains(SearchString) || s.Email.Contains(SearchString)).ToList();
+
+        //    // return View(srch);
+        //    return RedirectToAction("srch");
+        //}
+        [HttpGet]
+        public async Task<IActionResult> getAllUsers(string SearchString)
         {
             //List<UsersViewModels> users = new List<UsersViewModels>();//  liUsersViewModels();
+           // var allusers = "{}";
+            if (string.IsNullOrEmpty(SearchString))
+            {
+                var allusers = await _iaccounts.AllUsers();
 
+               return View(allusers);
+            }
+            else
+            {
+                var allusers1 = await _iaccounts.AllUsers();
+                var allusers = allusers1.Where(s => s.UserName.Contains(SearchString) || s.Email.Contains(SearchString)).ToList();
 
+                return View(allusers);
+                
+            }
             //users = await _iaccounts.AllUsers();
-            var allusers= await _iaccounts.AllUsers();
 
-            return View(allusers);
-
+            //return RedirectToAction(allusers);
         }
         [HttpGet]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsers(string Id)
         {
             UsersViewModels users = new UsersViewModels();
 
 
-             users = await _iaccounts.getUser(Id);
+            users = await _iaccounts.getUser(Id);
 
             return View(users);
 
         }
         [HttpPost]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsers(UsersViewModels user, string Id)
         {
             //UsersViewModels users = new UsersViewModels();
             user.Id = Id;
 
-           bool succ = await _iaccounts.UpdateUser(user);
+            bool succ = await _iaccounts.UpdateUser(user);
 
-            if(succ ==true)
+            if (succ == true)
             {
                 return RedirectToAction("getAllUsers");
             }
@@ -222,10 +252,11 @@ namespace BiodataTest.Controllers
             }
             //users = await _iaccounts.getUser(personId);
 
-           
+
 
         }
         [HttpPost]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUsers(UsersViewModels user, string Id)
         {
             //UsersViewModels users = new UsersViewModels();
@@ -247,6 +278,7 @@ namespace BiodataTest.Controllers
 
         }
         [HttpGet]
+        // [Authorize(Roles ="Admin")]
         public async Task<IActionResult> createRole()
         {
             ApplicationRole role = new ApplicationRole();
@@ -258,11 +290,12 @@ namespace BiodataTest.Controllers
         }
 
         [HttpPost]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> createRole(ApplicationRole role)
         {
             var urole = await _iaccounts.CreateRole(role);
 
-            if(urole == true)
+            if (urole == true)
             {
                 return RedirectToAction("getAllRoles");
             }
@@ -273,6 +306,7 @@ namespace BiodataTest.Controllers
 
         }
         [HttpGet]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> getAllRoles()
         {
 
@@ -285,8 +319,8 @@ namespace BiodataTest.Controllers
             //RoleViewModel urole = new RoleViewModel();
             //SelectList
 
-          var  urole = await _iaccounts.ExistRoles();
-           
+            var urole = await _iaccounts.ExistRoles();
+
 
             if (urole.Count() > 0)
             {
@@ -299,27 +333,142 @@ namespace BiodataTest.Controllers
 
         }
         //AddUserRole
-        [HttpPost]
-        public async Task<IActionResult> AddUserRole(UsersViewModels user, string Role)
+        [HttpGet]
+        // [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddUserRole(string Id)
         {
-            //UsersViewModels users = new UsersViewModels();
-           // user.Id = Id;
+            UsersViewModels users = new UsersViewModels();
 
-            bool succ = await _iaccounts.AddUserRole(user.Id,Role);
+            users = await _iaccounts.getUser(Id);
 
-            if (succ == true)
-            {
-                return RedirectToAction("getAllUsers");
-            }
-            else
-            {
-                return View(user);
-            }
-            //users = await _iaccounts.getUser(personId);
+            // users = await _iaccounts.getUser(Id);
 
+            await allRoles();//THIS WILL LOAD THE VIEWBAG WHEN PAGE IS COMIMG UP
 
+            return View(users);
 
         }
 
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddUserRole(UsersViewModels user, string RoleName)
+        {
+
+            //List<UserInfo> userList = _context.UserInfo.ToList();
+            //ViewBag.ShowMembers = new SelectList(userList, "Id", "Email");
+
+            var allRoless = await _iaccounts.ExistRoles();
+
+
+            foreach (var Item in allRoless)
+            {
+                if (Item.Id.Trim() == user.RoleId.Trim())
+                {
+                    RoleName = Item.Name;
+                    break;
+                }
+
+            }
+            if (!string.IsNullOrEmpty(RoleName) && !string.IsNullOrEmpty(user.Id))
+            {
+                bool succ = await _iaccounts.AddUserRole(user.Id, RoleName);
+
+                if (succ == true)
+                {
+                    ViewBag.Msg = "User added successfully ---" + RoleName;
+                    ModelState.AddModelError("Add User to role", "User added successfully ---" + RoleName);
+                    return RedirectToAction("getAllUsers");
+                }
+                else
+                {
+                    ViewBag.Msg = "User existed before for this role " + RoleName;
+                    ModelState.AddModelError("Add User to role", "User existed before for this role " + RoleName);
+
+                    await allRoles();
+
+                    return View(user);
+                }
+            }
+            else
+            {
+                ViewBag.Msg = "User existed before for this role " + RoleName;
+                ModelState.AddModelError("Add User to role", "User existed before for this role " + RoleName);
+                await allRoles();
+                return View(user);
+            }
+
+            await allRoles();
+            return View(user);
+
+        }
+
+        //get list of roles
+        //new SelectList(@ViewBag.listofRoles,"RoleId","RoletName"))
+        // [Authorize(Roles = "Admin")]
+        public async Task<List<RoleViewModel>> allRoles()
+        {
+
+
+
+            //ViewData  
+
+
+            // var allRoles = await _iaccounts.ExistRoles();
+
+
+            ////  var model = new RoleViewModel();
+            ////  var ALLROLE = allRoles.Select(c => new SelectListItem()
+            ////  {
+            ////    Value = c.Id,
+            ////    Text = c.Name
+            ////  }).ToList();
+
+            ////  // ViewBag.listofRoles = new MultiSelectList(categories, "CategoryID", "CategoryName");
+
+            ////  ViewBag.listofRoles = ALLROLE;// new SelectListItem(ALLROLE, "Value", "Text");
+            //////  model.RoleIdd = new[] { 1, 3, 7 };
+
+
+            ////  return ViewBag.listofRoles;
+
+
+            ////////List<RoleViewModel> dp = new List<RoleViewModel>();
+
+            ////////dp = allRoles.Select(s => new RoleViewModel
+            ////////{
+            ////////    Id = s.Id.ToString(),
+            ////////    Name = s.Name
+            ////////}
+
+            ////////).ToList();
+            ////////ViewBag.listofRoles = new SelectList(dp, "Id", "Name");
+            // ViewBag.listofRoles = dp;
+
+
+            // ViewBag.listofRoles = allRoles;
+
+            //var list = allRoles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            //ViewBag.listofRoles = list;
+
+            //good
+            var allRoles = await _iaccounts.ExistRoles();
+
+            List<RoleViewModel> dp = new List<RoleViewModel>();
+
+            dp = allRoles.Select(s => new RoleViewModel
+            {
+                Id = s.Id.ToString(),
+                Name = s.Name
+            }
+
+            ).ToList();
+
+
+            dp.Insert(0, new RoleViewModel { Id = "0", Name = "Select Role" });
+
+            ViewBag.listofRoles = dp;
+
+            return ViewBag.listofRoles;
+        }
     }
 }

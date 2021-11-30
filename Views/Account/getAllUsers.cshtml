@@ -1,11 +1,24 @@
-﻿@model IEnumerable<BiodataTest.ViewModels.UsersViewModels>
+﻿
+@model IEnumerable<BiodataTest.ViewModels.UsersViewModels>
 
 @{
     ViewData["Title"] = "getAllUsers";
 }
 
 <h1>getAllUsers</h1>
-
+@*<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" placeholder="Search ID, Customer, Date Imported, vCenter, Imported By, or Notes" class="form-control" asp-for="SearchTerm" />
+        </div>
+    </div>
+</form>*@
+<form asp-controller="Account" asp-action="getAllUsers" method="get">
+    <p>
+        Title: <input type="text" name="SearchString" id="SearchString" />
+        <input type="submit" class="btn btn-danger btn-sm"/>
+    </p>
+</form>
 <p>
     <a asp-action="RegisterUser" asp-controller="Account">Create New User</a>
 </p>
@@ -28,50 +41,50 @@
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                <a asp-action="EditUsers" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-controller="Account" asp-route-id="@item.Id">Details</a> |
-                <div>
-                    <form asp-action="AddUserRole" asp-controller="Account" method="post">
-                        <button asp-action="AddUserRole" asp-route-id="@item.Id" onclick="return confirm('Are you sure of adding this user to role?')" class="btn btn-danger btn-sm">Add User to Role</button>
-                    </form>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    <a asp-action="EditUsers" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-controller="Account" asp-route-id="@item.Id">Details</a> |
+                    <div>
+                        <form asp-action="AddUserRole" asp-controller="Account" method="get">
+                            <button asp-action="AddUserRole" asp-route-id="@item.Id" onclick="return confirm('Are you sure of adding this user to role?')" class="btn btn-danger btn-sm">Add User to Role</button>
+                        </form>
 
-                </div>
+                    </div>
 
-                <div>
-                    <form asp-action="DeleteUsers" asp-controller="Account" method="post">
-                        <button asp-action="DeleteUsers" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                    <div>
+                        <form asp-action="DeleteUsers" asp-controller="Account" method="post">
+                            <button asp-action="DeleteUsers" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
 
-                </div>
+                    </div>
 
-                @*<a asp-action="DeleteUsers" asp-controller="Account" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>*@
-            </td>
-        </tr>
+                    @*<a asp-action="DeleteUsers" asp-controller="Account" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>*@
+                </td>
+            </tr>
         }
     </tbody>
 </table>

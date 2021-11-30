@@ -22,7 +22,7 @@ namespace BiodataTest.Data
         {
             modelBuilder.Entity<RegisterUser>().HasKey(m => m.id);
             modelBuilder.Entity<ApplicationUser>().HasKey(m => m.Id);
-            //modelBuilder.Entity<UsersViewModels>().HasKey(m => m.Id);
+           //modelBuilder.Entity<RoleViewModel>().HasNoKey();
             //UsersViewModels
             //modelBuilder.Entity<Target>().HasKey(m => m.Guid);
             base.OnModelCreating(modelBuilder);

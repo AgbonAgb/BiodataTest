@@ -121,6 +121,14 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\scopedcss\bun
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.TagHelpers.input.cache
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.TagHelpers.output.cache
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.RazorCoreGenerate.cache
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\AddUserRole.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\createRole.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\DeleteUsers.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditUsers.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllRoles.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllUsers.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogOut.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\RegisterUser.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\CreateBiodata.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\EditBiodata.cshtml.g.cs
@@ -134,6 +142,7 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\S
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Loading.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_login.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NotificationPanel.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
@@ -145,12 +154,4 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.c
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.dll
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_login.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogOut.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllUsers.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditUsers.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\DeleteUsers.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\createRole.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllRoles.cshtml.g.cs
