@@ -155,3 +155,4 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.d
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\approvedstaffCatalog.cshtml.g.cs

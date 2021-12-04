@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211127053125_ital")]
-    partial class ital
+    [Migration("20211203122646_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace BiodataTest.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -44,7 +45,9 @@ namespace BiodataTest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("id");
 
@@ -59,10 +62,16 @@ namespace BiodataTest.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("RememberMe")
+                        .HasColumnType("bit");
+
                     b.Property<string>("password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("id");
 
@@ -94,6 +103,14 @@ namespace BiodataTest.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "35d0c11c-30c6-49d0-a379-97537b0f4713",
+                            ConcurrencyStamp = "ee71ba89-b62a-4c52-bf49-9a9bfd88f2ec",
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("BiodataTest.Data.ApplicationUser", b =>
@@ -165,11 +182,29 @@ namespace BiodataTest.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "d15c3228-84ba-4a36-b13f-aece366a85f3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0428572c-dfac-41b4-8b3f-5ad5e3382e86",
+                            Email = "agbonwinn@yahoo.com",
+                            EmailConfirmed = false,
+                            FirstName = "Agbon",
+                            LastName = "Godwin",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e21b6cf2-d9ee-4432-b280-4fbc051dea62",
+                            TwoFactorEnabled = false,
+                            UserName = "Agbon"
+                        });
                 });
 
             modelBuilder.Entity("BiodataTest.Models.BioData", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StaffId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -189,10 +224,10 @@ namespace BiodataTest.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StaffId")
+                    b.Property<int>("StaffNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("StaffId");
 
                     b.ToTable("bioData");
                 });
@@ -268,16 +303,83 @@ namespace BiodataTest.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("totalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("unitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("poOrderDetailsId");
 
                     b.HasIndex("PurchaseOrderPoId");
 
                     b.ToTable("purchaseOrderDetails");
+                });
+
+            modelBuilder.Entity("BiodataTest.Models.StaffCost", b =>
+                {
+                    b.Property<int>("staffcostid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BioDataStaffId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("staffcostid");
+
+                    b.HasIndex("BioDataStaffId");
+
+                    b.ToTable("staffcost");
+                });
+
+            modelBuilder.Entity("BiodataTest.ViewModels.RoleViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleViewModel");
+                });
+
+            modelBuilder.Entity("BiodataTest.ViewModels.UsersViewModels", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SearchTerm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UsersViewModels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -389,6 +491,13 @@ namespace BiodataTest.Migrations
                     b.HasOne("BiodataTest.Models.PurchaseOrder", null)
                         .WithMany("PoDetails")
                         .HasForeignKey("PurchaseOrderPoId");
+                });
+
+            modelBuilder.Entity("BiodataTest.Models.StaffCost", b =>
+                {
+                    b.HasOne("BiodataTest.Models.BioData", null)
+                        .WithMany("staffCost")
+                        .HasForeignKey("BioDataStaffId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

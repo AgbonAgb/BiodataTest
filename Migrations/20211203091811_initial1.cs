@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiodataTest.Migrations
 {
-    public partial class ital : Migration
+    public partial class initial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,9 +52,9 @@ namespace BiodataTest.Migrations
                 name: "bioData",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    StaffId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffId = table.Column<int>(nullable: false),
+                    StaffNumber = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
@@ -63,7 +63,7 @@ namespace BiodataTest.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_bioData", x => x.Id);
+                    table.PrimaryKey("PK_bioData", x => x.StaffId);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,8 +85,9 @@ namespace BiodataTest.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: true),
-                    password = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: false),
+                    password = table.Column<string>(maxLength: 100, nullable: false),
+                    RememberMe = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,14 +120,44 @@ namespace BiodataTest.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    password = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    password = table.Column<string>(maxLength: 100, nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RegisterUser", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleViewModel",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleViewModel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsersViewModels",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    RoleName = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: true),
+                    SearchTerm = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersViewModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,6 +267,27 @@ namespace BiodataTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "staffcost",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StaffId = table.Column<int>(nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    BioDataStaffId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_staffcost", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_staffcost_bioData_BioDataStaffId",
+                        column: x => x.BioDataStaffId,
+                        principalTable: "bioData",
+                        principalColumn: "StaffId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "purchaseOrderDetails",
                 columns: table => new
                 {
@@ -246,8 +298,8 @@ namespace BiodataTest.Migrations
                     item = table.Column<string>(nullable: true),
                     itemDesc = table.Column<string>(nullable: true),
                     Qty = table.Column<int>(nullable: false),
-                    unitPrice = table.Column<decimal>(nullable: false),
-                    totalPrice = table.Column<decimal>(nullable: false),
+                    unitPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    totalPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     PurchaseOrderPoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -260,6 +312,11 @@ namespace BiodataTest.Migrations
                         principalColumn: "PoId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "62057566-3c18-419f-9477-d359c349ca1d", 0, "9dece490-6c82-401a-ba94-782dd49e820a", "agbonwinn@yahoo.com", false, "Agbon", "Godwin", false, null, null, null, "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==", null, false, "aa49dd5c-7da9-4048-9f66-ee395287703d", false, "Agbon" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -304,6 +361,11 @@ namespace BiodataTest.Migrations
                 name: "IX_purchaseOrderDetails_PurchaseOrderPoId",
                 table: "purchaseOrderDetails",
                 column: "PurchaseOrderPoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_staffcost_BioDataStaffId",
+                table: "staffcost",
+                column: "BioDataStaffId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -324,9 +386,6 @@ namespace BiodataTest.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "bioData");
-
-            migrationBuilder.DropTable(
                 name: "dept");
 
             migrationBuilder.DropTable(
@@ -339,6 +398,15 @@ namespace BiodataTest.Migrations
                 name: "RegisterUser");
 
             migrationBuilder.DropTable(
+                name: "RoleViewModel");
+
+            migrationBuilder.DropTable(
+                name: "staffcost");
+
+            migrationBuilder.DropTable(
+                name: "UsersViewModels");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -346,6 +414,9 @@ namespace BiodataTest.Migrations
 
             migrationBuilder.DropTable(
                 name: "purchaseOrder");
+
+            migrationBuilder.DropTable(
+                name: "bioData");
         }
     }
 }

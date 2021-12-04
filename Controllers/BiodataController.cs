@@ -33,7 +33,7 @@ namespace BiodataTest.Controllers
 
             return View(existing);
         }
-       public async Task<JsonResult> populatereferers()
+        public async Task<JsonResult> populatereferers()
         {
             var existing = await _bioData.GetexistingBiodata();
 
@@ -48,7 +48,7 @@ namespace BiodataTest.Controllers
             List<BioDataViewModel> list2 = existing.AsEnumerable()
                           .Select(o => new BioDataViewModel
                           {
-                              RefererId = o.Id,
+                              RefererId = o.StaffId,
                               Referer = o.FirstName
 
                           }).ToList();
@@ -85,9 +85,9 @@ namespace BiodataTest.Controllers
         public async Task<List<Dept>> loadDept()
         {
             //ViewData  
-                
-                
-            var alldept    = await _idept.GetDepts();
+
+
+            var alldept = await _idept.GetDepts();
 
             List<Dept> dp = new List<Dept>();
 
@@ -101,7 +101,7 @@ namespace BiodataTest.Controllers
 
 
             dp.Insert(0, new Dept { DeptId = 0, DepartmentName = "Select Dept" });
-            
+
 
 
             return dp;
@@ -125,7 +125,7 @@ namespace BiodataTest.Controllers
             ).ToList();
 
 
-           // dp.Insert(0, new Dept { DeptId = 0, DepartmentName = "Select Dept" });
+            // dp.Insert(0, new Dept { DeptId = 0, DepartmentName = "Select Dept" });
 
 
 
@@ -165,12 +165,30 @@ namespace BiodataTest.Controllers
         //[FromBody] 
         //("CreateBiodata")
         //Biodata/CreateBiodata
-      
+
         [HttpPost]
         public async Task<IActionResult> CreateBiodata(BioDataViewModel bioDataViewModel)
         {
 
-          
+
+            //List<Student> studentList = new List<Student>();
+
+            //studentList.AddRange(new List<Student>
+            //{
+            //     new Student { Name = "Vikram", Email = "vikram@gmail.com" },
+            //     new Student {Name = "Bhanu", Email = "bhanu@gmail.com" }
+            // });
+
+            List<StaffCost> stc = new List<StaffCost>();
+
+            stc.AddRange(new List<StaffCost>
+            {
+                //new StaffCost{StaffId = bioDataViewModel.StaffId,Cost = 45000 }
+                 new StaffCost{Cost = 45000 }
+            });
+
+            bioDataViewModel.staffCost=stc;
+
             var mmapper = _mapper.Map<BioData>(bioDataViewModel);
 
             var newbio = await _bioData.CreateBiodata(mmapper);
@@ -194,7 +212,7 @@ namespace BiodataTest.Controllers
 
             if (bio)
             {
-               
+
 
                 return RedirectToAction("existedBiodata");
             }
@@ -221,8 +239,8 @@ namespace BiodataTest.Controllers
             //bio.Address = bio2.Address;
             //bio.DOB = bio2.DOB;
             //bio.DeptId = bio2.DeptId;
-           // bio.Department = await getDept(bio2.DeptId);
-           
+            // bio.Department = await getDept(bio2.DeptId);
+
             //loadExisting dept and set select to above deptid
 
             return View(bio2);
@@ -267,5 +285,55 @@ namespace BiodataTest.Controllers
 
 
         }
+
+        //Get all approved staff to add to catlog
+        [HttpGet]
+        public async Task<IActionResult> approvedstaffCatalog()
+        {
+            // var bio = await _bioData.GetBiodata(Id);
+            //BioData bio2 = new BioData();
+           
+            //Pull only approved employees for selection to cart
+            var approvedstaff = await _bioData.GetexistingBiodata();
+            var realapproved = approvedstaff.Where(r => r.approved==true && r.available==true);
+
+
+            return View(realapproved);
+
+
+        }
+
+        //AddUserCartlog
+        [HttpPost]
+        public async Task<IActionResult> AddUserCartlog(int Id)
+        {
+            //get approved staff along with their cost
+            var approvedstaff = await _bioData.GetBiodataCost(Id);
+
+            //step2: Add to Cart-Table <userId, staffname,DOB,Desc,Amount>
+            //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
+
+
+            return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
+
+
+        }
+        //Edit
+        //public async Task<IActionResult> Edit(int Id)
+        //{
+        //    // var bio = await _bioData.GetBiodata(Id);
+        //    //BioData bio2 = new BioData();
+
+        //    //Pull only approved employees for selection to cart
+        //    var approvedstaff = await _bioData.GetBiodata(Id);
+
+        //    // var realapproved = approvedstaff.Where(r => r.Department == "Software");
+
+
+        //    return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
+
+
+        //}
+        //ViewCv
     }
 }

@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="EditBiodata" asp-controller="Biodata" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="StaffId" />
             <div class="form-group">
-                <label asp-for="StaffId" class="control-label"></label>
-                <input asp-for="StaffId" class="form-control" />
-                <span asp-validation-for="StaffId" class="text-danger"></span>
+                <label asp-for="StaffNumber" class="control-label"></label>
+                <input asp-for="StaffNumber" class="form-control" />
+                <span asp-validation-for="StaffNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>

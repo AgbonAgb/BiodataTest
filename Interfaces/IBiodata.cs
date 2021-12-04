@@ -12,6 +12,8 @@ namespace BiodataTest.Interfaces
         Task<bool> CreateBiodata(BioData biodata);
         Task<IEnumerable<BioDataViewModel>> GetexistingBiodata();
         Task<BioDataViewModel> GetBiodata(int Id);
+        //
+        Task<BioData> GetBiodataCost(int Id);
         Task<bool> UpdateBiodata(BioData biodata);
         Task<bool> DeleteBiodata(int Id);
     }

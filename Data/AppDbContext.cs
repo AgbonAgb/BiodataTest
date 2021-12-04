@@ -22,11 +22,42 @@ namespace BiodataTest.Data
         {
             modelBuilder.Entity<RegisterUser>().HasKey(m => m.id);
             modelBuilder.Entity<ApplicationUser>().HasKey(m => m.Id);
-           //modelBuilder.Entity<RoleViewModel>().HasNoKey();
+            modelBuilder.Entity<StaffCost>().Property(o => o.Cost)
+            .HasColumnType("decimal(18,4)");
+
+            //PurchaseOrderDetails
+            modelBuilder.Entity<PurchaseOrderDetails>()
+                .Property(o => o.unitPrice)
+
+            .HasColumnType("decimal(18,4)");
+
+
+            modelBuilder.Entity<PurchaseOrderDetails>().Property(o => o.totalPrice)
+            .HasColumnType("decimal(18,4)");
+
+
+            //modelBuilder.Entity<RoleViewModel>().HasNoKey();
             //UsersViewModels
             //modelBuilder.Entity<Target>().HasKey(m => m.Guid);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                UserName = "Agbon",
+                Email = "agbonwinn@yahoo.com",
+                FirstName = "Agbon",
+                LastName = "Godwin",
+                PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ=="
+               
+
+            });
+            modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole
+            {
+                Name="Admin"       
+
+            });
         }
+        public DbSet<StaffCost> staffcost { get; set; }
         public DbSet<BioData> bioData { get; set; }
         public DbSet<Dept> dept { get; set; }
         public DbSet<PurchaseOrder> purchaseOrder { get; set; }
@@ -35,6 +66,7 @@ namespace BiodataTest.Data
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }
         public DbSet<BiodataTest.ViewModels.RoleViewModel> RoleViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
         //  public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
 
 

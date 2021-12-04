@@ -15,9 +15,17 @@
 </form>*@
 <form asp-controller="Account" asp-action="getAllUsers" method="get">
     <p>
-        Title: <input type="text" name="SearchString" id="SearchString" />
-        <input type="submit" class="btn btn-danger btn-sm"/>
+        Search With: <input type="text" name="SearchString" id="SearchString" />
+
+        Order By: <input type="text" name="sortOrder" id="sortOrder" />
+        <input type="submit" class="btn btn-danger btn-sm" />
     </p>
+    <p>
+        @*Order By: <input type="text" name="sortOrder" id="sortOrder" />*@
+        @*<input type="submit" class="btn btn-danger btn-sm" />*@
+    </p>
+
+    @*<input type="submit" class="btn btn-danger btn-sm" />*@
 </form>
 <p>
     <a asp-action="RegisterUser" asp-controller="Account">Create New User</a>

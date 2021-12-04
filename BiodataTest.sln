@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiodataTest", "BiodataTest.csproj", "{1326E8EB-AED0-4034-BD06-7CB902ACBC29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollMVC1", "..\PayrollMVC1\PayrollMVC1\PayrollMVC1.csproj", "{AB6ABC64-728F-42E8-A137-298022D93301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PieShop1", "..\PieShop\PieShop1.csproj", "{D2832133-97E2-4877-8937-017E61E23527}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1326E8EB-AED0-4034-BD06-7CB902ACBC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1326E8EB-AED0-4034-BD06-7CB902ACBC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1326E8EB-AED0-4034-BD06-7CB902ACBC29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB6ABC64-728F-42E8-A137-298022D93301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB6ABC64-728F-42E8-A137-298022D93301}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB6ABC64-728F-42E8-A137-298022D93301}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB6ABC64-728F-42E8-A137-298022D93301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2832133-97E2-4877-8937-017E61E23527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2832133-97E2-4877-8937-017E61E23527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2832133-97E2-4877-8937-017E61E23527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2832133-97E2-4877-8937-017E61E23527}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

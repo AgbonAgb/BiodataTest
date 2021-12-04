@@ -5,21 +5,21 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BiodataTest.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BiodataTest.ViewModels
 {
     public class BioDataViewModel
     {
         [Key]
-        public int Id { get; set; }
-        //[Required]
-        [Display(Name ="Staff Id")]
         public int StaffId { get; set; }
+        public int StaffNumber { get; set; }
         [Display(Name = "First Name ")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name ")]
         public string LastName { get; set; }
-        [BindProperty, MaxLength(10)]
+        [BindProperty, MaxLength(50)]
         public string Address { get; set; }
         [Display(Name = "Date of Birth")]
         //[DataType(DataType.Date)]
@@ -30,9 +30,14 @@ namespace BiodataTest.ViewModels
         public string Referer { get; set; }
         public int RefererId { get; set; }
         public int LocationId { get; set; }
-        public List<SelectListItem> Location { get; set; }
+        [BindNever]
+        public string Location { get; set; }
         public int DeptId { get; set; }
         public string Department { get; set; }
+        [BindNever]
+        public List<StaffCost> staffCost { get; set; }
+        public bool approved { get; set; }
+        public bool available { get; set; }
         //public List<SelectListItem> Referer { get; set; }
 
     }

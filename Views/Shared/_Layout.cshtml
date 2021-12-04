@@ -163,24 +163,27 @@
                                             <a asp-controller="BioData" asp-action="existedBiodata" class="nav-link">List</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New</a>
+                                            <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New Biodata</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">Users</a>
-                                        </li>
-                                        <li class="nav-item">
                                             <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
                                         </li>
                                         @*<li class="nav-item">
-                                                <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
-                                            </li>*@
+            <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
+        </li>*@
 
                                     </ul>
                                 </div>
@@ -397,7 +400,7 @@
     <!-- Agbon Added Scripts -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
+    
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />

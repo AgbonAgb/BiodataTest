@@ -199,15 +199,31 @@ namespace BiodataTest.Controllers
         //    return RedirectToAction("srch");
         //}
         [HttpGet]
-        public async Task<IActionResult> getAllUsers(string SearchString)
+        public async Task<IActionResult> getAllUsers(string SearchString, string sortOrder)
         {
             //List<UsersViewModels> users = new List<UsersViewModels>();//  liUsersViewModels();
-           // var allusers = "{}";
+            // var allusers = "{}";
+           // students = students.OrderByDescending(s => s.LastName);
             if (string.IsNullOrEmpty(SearchString))
             {
                 var allusers = await _iaccounts.AllUsers();
 
-               return View(allusers);
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        allusers = allusers.OrderByDescending(s => s.FirstName);
+                        break;
+                    case "Email":
+                        allusers = allusers.OrderByDescending(s => s.Email);
+                        break;
+
+                    default:
+                        allusers = allusers.OrderByDescending(s => s.UserName);
+                        break;
+                }
+
+
+                return View(allusers);
             }
             else
             {
@@ -217,9 +233,21 @@ namespace BiodataTest.Controllers
                 return View(allusers);
                 
             }
-            //users = await _iaccounts.AllUsers();
-
-            //return RedirectToAction(allusers);
+            ////switch (sortOrder)
+            ////{
+            ////    case "name_desc":
+            ////        students = students.OrderByDescending(s => s.LastName);
+            ////        break;
+            ////    case "Date":
+            ////        students = students.OrderBy(s => s.EnrollmentDate);
+            ////        break;
+            ////    case "date_desc":
+            ////        students = students.OrderByDescending(s => s.EnrollmentDate);
+            ////        break;
+            ////    default:
+            ////        students = students.OrderBy(s => s.LastName);
+            ////        break;
+            ////}
         }
         [HttpGet]
         // [Authorize(Roles = "Admin")]

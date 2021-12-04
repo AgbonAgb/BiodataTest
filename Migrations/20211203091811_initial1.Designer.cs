@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211203091811_initial1")]
+    partial class initial1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,14 +103,6 @@ namespace BiodataTest.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "4368bc32-af54-47db-9cab-7cbea46fd3b3",
-                            ConcurrencyStamp = "291fb55d-9052-45db-98ec-6055a77d1829",
-                            Name = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("BiodataTest.Data.ApplicationUser", b =>
@@ -184,9 +178,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "950e19c7-ecb2-4bfb-a326-1e3629ecc77c",
+                            Id = "62057566-3c18-419f-9477-d359c349ca1d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1087a5bc-bc3e-4a54-bf70-55e530ac5e64",
+                            ConcurrencyStamp = "9dece490-6c82-401a-ba94-782dd49e820a",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +188,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b12e394a-f9da-45c6-9911-3f15c742be52",
+                            SecurityStamp = "aa49dd5c-7da9-4048-9f66-ee395287703d",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -224,12 +218,6 @@ namespace BiodataTest.Migrations
 
                     b.Property<int>("StaffNumber")
                         .HasColumnType("int");
-
-                    b.Property<bool>("approved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("available")
-                        .HasColumnType("bit");
 
                     b.HasKey("StaffId");
 
@@ -329,71 +317,17 @@ namespace BiodataTest.Migrations
                     b.Property<int?>("BioDataStaffId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BioDataViewModelStaffId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("BioDataStaffId");
 
-                    b.HasIndex("BioDataViewModelStaffId");
-
                     b.ToTable("staffcost");
-                });
-
-            modelBuilder.Entity("BiodataTest.ViewModels.BioDataViewModel", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DeptId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Referer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RefererId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StaffNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("approved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("available")
-                        .HasColumnType("bit");
-
-                    b.HasKey("StaffId");
-
-                    b.ToTable("BioDataViewModel");
                 });
 
             modelBuilder.Entity("BiodataTest.ViewModels.RoleViewModel", b =>
@@ -556,10 +490,6 @@ namespace BiodataTest.Migrations
                     b.HasOne("BiodataTest.Models.BioData", null)
                         .WithMany("staffCost")
                         .HasForeignKey("BioDataStaffId");
-
-                    b.HasOne("BiodataTest.ViewModels.BioDataViewModel", null)
-                        .WithMany("staffCost")
-                        .HasForeignKey("BioDataViewModelStaffId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
