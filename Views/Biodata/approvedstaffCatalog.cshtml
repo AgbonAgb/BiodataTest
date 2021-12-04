@@ -57,24 +57,39 @@
             </td>
 
             @*<td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>*@
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |
+                @*<a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |*@
                 @*<a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
             <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>*@
                 <div>
-                    <form asp-action="ViewCv" asp-controller="Biodata" method="post">
-                        <button asp-action="ViewCv" asp-route-id="@item.StaffId" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">View CV</button>
-                    </form>
-                </div>
-                <div>
-                    <form asp-action="AddUserCartlog" asp-controller="Biodata" method="post">
-                        <button asp-action="AddUserCartlog" asp-route-id="@item.StaffId" onclick="return confirm('Are you sure of adding this user to cartlog?')" class="btn btn-danger btn-sm">Add to Cartlog</button>
-                    </form>
+                    <li class="nav-item">
+                        <a href="@Url.Action("OnGetDownloadCV", "Biodata", new { Id = item.CvPath })">View CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ApproveCV", "Biodata", new { Id = item.StaffId })">Approve CV</a>
+                    </li>
+                    
+                    @*<a href="@Url.Action("AddUserCartlog", "Biodata", new { Id = item.StaffId })">View CV</a>*@
+                    @*<img src="~/CVFiles/@item.CvPath"
+        class="rounded-circle"
+        height="40" width="40"
+        asp-append-version="true" />*@
+                    @*<td>@item.CvPath</td>*@
+                    @*<td><a href="@Url.Action("OnGetDownloadCV","Biodata",new {Id=item.CvPath })">View CV</a></td>*@
 
+                    @*<form asp-action="OnGetDownloadCV" asp-controller="Biodata" method="get">
+            <button asp-action="OnGetDownloadCV" asp-route-id="@item.CvPath" onclick="return confirm('Are you sure of downloading this filw?')" class="btn btn-danger btn-sm">View CV</button>
+        </form>*@
                 </div>
+            <div>
+                <form asp-action="AddUserCartlog" asp-controller="Biodata" method="post">
+                    <button asp-action="AddUserCartlog" asp-route-id="@item.StaffId" onclick="return confirm('Are you sure of adding this user to cartlog?')" class="btn btn-danger btn-sm">Add to Cartlog</button>
+                </form>
+
+            </div>
 
 
 

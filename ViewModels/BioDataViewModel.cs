@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BiodataTest.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiodataTest.ViewModels
 {
@@ -38,6 +40,10 @@ namespace BiodataTest.ViewModels
         public List<StaffCost> staffCost { get; set; }
         public bool approved { get; set; }
         public bool available { get; set; }
+        [Required(ErrorMessage = "Please choose CV to upload")]
+        [NotMapped]
+        public IFormFile CVfile { get; set; }
+        public string CvPath { get; set; }
         //public List<SelectListItem> Referer { get; set; }
 
     }

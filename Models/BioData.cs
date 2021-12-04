@@ -23,6 +23,7 @@ namespace BiodataTest.Models
         public int DeptId { get; set; }
         public bool approved { get; set; }
         public bool available { get; set; }
+        public string CvPath { get; set; }
         //public string Department { get; set; }
         //public string Referer { get; set; }
 

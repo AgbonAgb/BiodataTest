@@ -101,7 +101,8 @@ namespace BiodataTest.Services
                                     Address = biodata.Address,
                                     DOB = biodata.DOB,
                                     DeptId = biodata.DeptId,
-                                    Department = department.DepartmentName
+                                    Department = department.DepartmentName,
+                                    CvPath = biodata.CvPath
                                 }
                             ).FirstOrDefaultAsync();
             return query;
@@ -166,7 +167,8 @@ namespace BiodataTest.Services
                                    DeptId = biodata.DeptId,
                                    Department = department.DepartmentName,
                                    approved=biodata.approved,
-                                   available=biodata.available
+                                   available=biodata.available,
+                                   CvPath=biodata.CvPath
                                    
                                }
                            ).ToListAsync();

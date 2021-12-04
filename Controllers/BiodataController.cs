@@ -9,6 +9,8 @@ using BiodataTest.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;//.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 //using System.Web.MVC;
 
 namespace BiodataTest.Controllers
@@ -19,11 +21,14 @@ namespace BiodataTest.Controllers
         private IBiodata _bioData;
         private IMapper _mapper;
         private IDept _idept;
-        public BiodataController(IBiodata bioData, IMapper mapper, IDept idept)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private string[] permittedExtensions = { ".doc", ".pdf", ".docx" };
+        public BiodataController(IBiodata bioData, IMapper mapper, IDept idept, IWebHostEnvironment webHostEnvironment)
         {
             _bioData = bioData;
             _mapper = mapper;
             _idept = idept;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> existedBiodata()
@@ -169,8 +174,25 @@ namespace BiodataTest.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBiodata(BioDataViewModel bioDataViewModel)
         {
+            long size = bioDataViewModel.CVfile.Length;//.Sum(f => f.Length);
 
 
+
+            var ext = Path.GetExtension(bioDataViewModel.CVfile.FileName).ToLowerInvariant();
+
+            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+            {
+                //Add to model state, not permited ext
+                return View(bioDataViewModel);
+            }
+            //Try to upload file and get the URL for DB 
+            //get the mimetype only pdf or word is ALLOWED
+            string uniqueFileName = await UploadedFile(bioDataViewModel);
+
+            //if (string.IsNullOrEmpty(uniqueFileName))
+            //{
+            //    return View(bioDataViewModel);
+            //}
             //List<Student> studentList = new List<Student>();
 
             //studentList.AddRange(new List<Student>
@@ -187,11 +209,12 @@ namespace BiodataTest.Controllers
                  new StaffCost{Cost = 45000 }
             });
 
-            bioDataViewModel.staffCost=stc;
+            bioDataViewModel.staffCost = stc;
 
             var mmapper = _mapper.Map<BioData>(bioDataViewModel);
-
+            mmapper.CvPath = uniqueFileName;//add the cv path for DB
             var newbio = await _bioData.CreateBiodata(mmapper);
+
             if (newbio)
             {
                 //if sucess go to list page of existing
@@ -204,6 +227,24 @@ namespace BiodataTest.Controllers
                 return View(bioDataViewModel);
             }
 
+        }
+
+        private async Task<string> UploadedFile(BioDataViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.CVfile != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "CVFiles");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.CVfile.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    // model.CVfile.CopyTo(fileStream);
+                    await model.CVfile.CopyToAsync(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
         //Delete
         public async Task<IActionResult> Delete(int Id)
@@ -292,10 +333,10 @@ namespace BiodataTest.Controllers
         {
             // var bio = await _bioData.GetBiodata(Id);
             //BioData bio2 = new BioData();
-           
+
             //Pull only approved employees for selection to cart
             var approvedstaff = await _bioData.GetexistingBiodata();
-            var realapproved = approvedstaff.Where(r => r.approved==true && r.available==true);
+            var realapproved = approvedstaff.Where(r => r.approved == true && r.available == true);
 
 
             return View(realapproved);
@@ -317,6 +358,39 @@ namespace BiodataTest.Controllers
             return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
 
 
+        }
+        //ApproveCV
+        public async Task<IActionResult> ApproveCV(int Id)
+        {
+            //get approved staff along with their cost
+            var approvedstaff = await _bioData.GetBiodataCost(Id);
+
+            //step2: Add to Cart-Table <userId, staffname,DOB,Desc,Amount>
+            //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
+
+
+            return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
+
+
+        }
+        //DownLoad File
+        [HttpGet]
+        public async Task<IActionResult> OnGetDownloadCV(string Id)
+        {
+
+            if(string.IsNullOrEmpty(Id))
+            {
+                return RedirectToAction ("approvedstaffCatalog");
+            }
+            string fileName = Id;
+            //Build the File Path.
+            string path = Path.Combine(this._webHostEnvironment.WebRootPath, "CVFiles/") + fileName;
+
+            //Read the File data into Byte Array.
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+
+            //Send the File to Download.
+            return File(bytes, "application/octet-stream", fileName);
         }
         //Edit
         //public async Task<IActionResult> Edit(int Id)
