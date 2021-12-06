@@ -11,9 +11,9 @@ using BiodataTest.AccountsModels;
 
 namespace BiodataTest.Data
 {
-    public class AppDbContext:IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
         }
@@ -35,6 +35,8 @@ namespace BiodataTest.Data
             modelBuilder.Entity<PurchaseOrderDetails>().Property(o => o.totalPrice)
             .HasColumnType("decimal(18,4)");
 
+            //modelBuilder.Entity<CategoryViewModel>().HasKey(m => m.CategoryID);
+
 
             //modelBuilder.Entity<RoleViewModel>().HasNoKey();
             //UsersViewModels
@@ -48,12 +50,12 @@ namespace BiodataTest.Data
                 FirstName = "Agbon",
                 LastName = "Godwin",
                 PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ=="
-               
+
 
             });
             modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole
             {
-                Name="Admin"       
+                Name = "Admin"
 
             });
         }
@@ -63,19 +65,15 @@ namespace BiodataTest.Data
         public DbSet<PurchaseOrder> purchaseOrder { get; set; }
         public DbSet<PurchaseOrderDetails> purchaseOrderDetails { get; set; }
         public DbSet<loginModel> loginm { get; set; }
+        public DbSet<Career> careers { get; set; }
+        public DbSet<Category> categorys { get; set; }
+        public DbSet<Skills> skills { get; set; }
+
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }
         public DbSet<BiodataTest.ViewModels.RoleViewModel> RoleViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
-        //  public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.CategoryViewModel> CategoryViewModel { get; set; }
 
-
-        // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
-
-
-        // public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
-        // public DbSet<BiodataTest.ViewModels.DeptViewModel> DeptViewModel { get; set; }
-
-        //loginModel
     }
 }

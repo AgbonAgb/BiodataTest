@@ -63,6 +63,9 @@ namespace BiodataTest
             services.AddScoped<IPurchaseOrder, PurchaseOrderServices>();
             //this handles logins and related operations
             services.AddScoped<IAccounts, AccountServices>();
+            services.AddScoped<ICategory, CategoryServices>();
+            services.AddScoped<ISkills, SkillServices>();
+
 
             services.AddAutoMapper();
 

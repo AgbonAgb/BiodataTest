@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211206085024_Category")]
+    partial class Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ea571719-2201-4424-a36b-4f3a479c8fc7",
-                            ConcurrencyStamp = "44f6de45-c3fe-4249-8a93-eb1c7a56a996",
+                            Id = "eaed6060-6087-4667-8b89-6bdebfda6134",
+                            ConcurrencyStamp = "aac30f03-d8dc-4826-a5f0-46a4949599b6",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1874cb1d-2a0c-474a-954c-cdfa97ec03a8",
+                            Id = "03b4773c-5977-4009-b83e-86ca40642cdb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed27b23e-323d-43f1-a4df-97bf38c26c86",
+                            ConcurrencyStamp = "f816fefe-0397-48e0-a8c2-db8e70c4a926",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c76fe88-06f9-4a6d-8076-02f398dd5099",
+                            SecurityStamp = "0d76259b-702a-4f56-9fb3-276c2383d027",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -370,27 +372,6 @@ namespace BiodataTest.Migrations
                     b.ToTable("purchaseOrderDetails");
                 });
 
-            modelBuilder.Entity("BiodataTest.Models.Skills", b =>
-                {
-                    b.Property<int>("skillId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("skillCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("skillDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("skillId");
-
-                    b.ToTable("skills");
-                });
-
             modelBuilder.Entity("BiodataTest.Models.StaffCost", b =>
                 {
                     b.Property<int>("id")
@@ -469,24 +450,6 @@ namespace BiodataTest.Migrations
                     b.HasKey("StaffId");
 
                     b.ToTable("BioDataViewModel");
-                });
-
-            modelBuilder.Entity("BiodataTest.ViewModels.CategoryViewModel", b =>
-                {
-                    b.Property<int>("CategoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoryCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CategoryID");
-
-                    b.ToTable("CategoryViewModel");
                 });
 
             modelBuilder.Entity("BiodataTest.ViewModels.RoleViewModel", b =>

@@ -18,7 +18,7 @@ namespace BiodataTest.Helper
             CreateMap<BioData, BioDataViewModel>().ReverseMap();
             CreateMap<Dept,DeptViewModel>().ReverseMap();
             CreateMap<ApplicationUser, RegisterUser>().ReverseMap();
-            //CreateMap<UsersViewModels, UserManager>().ReverseMap();
+            CreateMap<CategoryViewModel, Category>().ReverseMap();
             //UsersViewModels
 
             //< ApplicationUser > (Ruser);
