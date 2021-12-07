@@ -40,6 +40,12 @@ namespace BiodataTest.ViewModels
         public List<StaffCost> staffCost { get; set; }
         public bool approved { get; set; }
         public bool available { get; set; }
+        
+        [Required(ErrorMessage = "Please enter your phone number")]
+        [StringLength(25)]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "Please choose CV to upload")]
         [NotMapped]
         public IFormFile CVfile { get; set; }

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<BiodataTest.ViewModels.CareerViewModel>
+
+
+
+
+
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+    <div class="card">
+        <div class="card-img">
+            <img src="~/CareerIMG/@item.CareerImageUrl" height="100" width="100" sp-append-version="true"/>
+            <div class="card-body">
+                <h3 class="card-title">@item.CareerName</h3>
+                <h4>@item.CareerDesc</h4>
+                <h5>@item.CareerID</h5>
+                <a asp-action="Application" asp-route-id="@item.CareerID" asp-controller="Career">View Details/Apply</a>
+            </div>
+        </div>
+       
+    </div>  
+    
+   
+    }
+
+</div>
+

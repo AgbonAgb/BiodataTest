@@ -134,6 +134,9 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\B
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\CreateBiodata.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\EditBiodata.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Biodata\existedBiodata.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\CreateCareer.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Category\CreateCategory.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Category\existedCategories.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Dept\CreateDept.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Dept\ExistingDept.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -146,6 +149,8 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\S
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_login.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NotificationPanel.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Skills\CreateSkills.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Skills\ExistingSkill.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.RazorTargetAssemblyInfo.cache
@@ -155,8 +160,9 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.c
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.dll
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Category\CreateCategory.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Category\existedCategories.cshtml.g.cs
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Skills\CreateSkills.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\existedCareers.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\Old2existedCareers.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\Application.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
-C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Skills\ExistingSkill.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\ApplicationForm.cshtml.g.cs
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\existedApplications.cshtml.g.cs

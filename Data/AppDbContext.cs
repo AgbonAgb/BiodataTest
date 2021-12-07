@@ -68,12 +68,16 @@ namespace BiodataTest.Data
         public DbSet<Career> careers { get; set; }
         public DbSet<Category> categorys { get; set; }
         public DbSet<Skills> skills { get; set; }
+        //ApplicationDetails
+        public DbSet<ApplicationDetails> applications { get; set; }
 
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }
         public DbSet<BiodataTest.ViewModels.RoleViewModel> RoleViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.BioDataViewModel> BioDataViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.CategoryViewModel> CategoryViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.CareerViewModel> CareerViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.ApplicationViewModel> ApplicationViewModel { get; set; }
 
     }
 }

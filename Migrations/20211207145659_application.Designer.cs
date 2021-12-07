@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211207145659_application")]
+    partial class application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f23e4a0-dace-4126-a1e0-0d62966f5a80",
-                            ConcurrencyStamp = "eff5531d-8ed8-43a1-9a89-35167400b0d3",
+                            Id = "7dadd407-9b33-4858-b1ed-2b58806fbf62",
+                            ConcurrencyStamp = "f6a4b166-88e5-4d55-8b67-4faef943395f",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bfd05091-6694-42cf-8f47-48378eb6f36c",
+                            Id = "820d8f2e-b45e-4e7f-b0cf-269039033888",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e8568fd-1aea-4e5d-b0a5-2890e0d15e9a",
+                            ConcurrencyStamp = "a54df2bb-f04a-4eb7-abe2-005af60aab73",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "572a192a-0882-4f39-a976-d66a5fcb8e23",
+                            SecurityStamp = "197572e0-331b-4502-a265-18afc74863eb",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -249,15 +251,9 @@ namespace BiodataTest.Migrations
                     b.Property<bool>("available")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("iSActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("rejected")
-                        .HasColumnType("bit");
-
                     b.HasKey("ApplicationId");
 
-                    b.ToTable("applications");
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("BiodataTest.Models.BioData", b =>
@@ -481,66 +477,6 @@ namespace BiodataTest.Migrations
                     b.HasIndex("BioDataViewModelStaffId");
 
                     b.ToTable("staffcost");
-                });
-
-            modelBuilder.Entity("BiodataTest.ViewModels.ApplicationViewModel", b =>
-                {
-                    b.Property<int>("ApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CareerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CvPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("EmployerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("POprocessing")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.Property<bool>("approved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("available")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("iSActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("rejected")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ApplicationId");
-
-                    b.ToTable("ApplicationViewModel");
                 });
 
             modelBuilder.Entity("BiodataTest.ViewModels.BioDataViewModel", b =>

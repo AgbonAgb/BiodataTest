@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BiodataTest.ViewModels.CareerViewModel>
+
+@{
+  //  ViewData["Title"] = "existedCareers";
+}
+
+<h1>existedCareers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.skills)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.skillId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.skills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.skillId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CareerID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CareerID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CareerID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

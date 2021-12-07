@@ -65,6 +65,8 @@ namespace BiodataTest
             services.AddScoped<IAccounts, AccountServices>();
             services.AddScoped<ICategory, CategoryServices>();
             services.AddScoped<ISkills, SkillServices>();
+                services.AddScoped<ICareer, CareerServices>();
+            services.AddScoped<IApplication, ApplicationServices>();
 
 
             services.AddAutoMapper();

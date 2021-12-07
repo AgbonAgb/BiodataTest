@@ -1,0 +1,89 @@
+﻿@model BiodataTest.ViewModels.CareerViewModel
+
+@{
+    //ViewData["Title"] = "Application";
+}
+
+@*<h1>Application</h1>*@
+
+<h4>CareerViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="ApplicationForm" asp-controller="Career" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CareerID" />
+            <div>
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label asp-for="CareerName" class="control-label"></label>
+                        <input asp-for="CareerName" class="form-control" readonly />
+                        <span asp-validation-for="CareerName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="CareerDesc" class="control-label"></label>
+                        <textarea asp-for="CareerDesc" class="form-control" readonly></textarea>
+                        <span asp-validation-for="CareerDesc" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                <div class="card-img">
+                    <img src="~/CareerIMG/@ViewBag.Imagerul" height="100" width="100" sp-append-version="true" />
+                </div>
+            </div>*@
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label asp-for="CategoryName" class="control-label"></label>
+                        <input asp-for="CategoryName" class="form-control" readonly />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="skills" class="control-label"></label>
+                        <textarea asp-for="skills" class="form-control" readonly></textarea>
+                        <span asp-validation-for="skills" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-4">
+                        @*<label asp-for="skillId" class="control-label"></label>*@
+                        <input asp-for="skillId" class="form-control" hidden readonly />
+                        @*<span asp-validation-for="skillId" class="text-danger"></span>*@
+                    </div>
+                    <div class="col-md-4">
+                        @*<label asp-for="CategoryID" class="control-label"></label>*@
+                        <input asp-for="CategoryID" class="form-control" hidden />
+                        @*<span asp-validation-for="CategoryID" class="text-danger"></span>*@
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-md-2">
+                    @*<label asp-for="skillId" class="control-label"></label>*@
+                    <input type="submit" value="Apply" class="btn btn-primary" />
+                    @*<span asp-validation-for="skillId" class="text-danger"></span>*@
+                </div>
+                <div class="col-md-2">
+                    @*<label asp-for="CategoryID" class="control-label"></label>*@
+                    <a asp-controller="Career" asp-action="MyApplication" class="nav-link">View My Application</a>
+                    @*<span asp-validation-for="CategoryID" class="text-danger"></span>*@
+                </div>
+
+            </div>
+            @*<div class="form-group">
+                <input type="submit" value="Apply" class="btn btn-primary" />
+            </div>*@
+        </form>
+
+    </div>
+    </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

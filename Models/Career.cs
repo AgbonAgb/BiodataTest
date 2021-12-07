@@ -12,8 +12,10 @@ namespace BiodataTest.Models
         public string CareerDesc { get; set; }
         public string CareerImageUrl { get; set; }
         public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
         public string skills { get; set; }
         public int skillId { get; set; }
+        public bool isActive { get; set; }
 
     }
 }
