@@ -14,5 +14,6 @@ namespace BiodataTest.Interfaces
         Task<bool> UpdateApplication(ApplicationDetails Ap);
         Task<ApplicationDetails> GetApplication(int Id);
         Task<IEnumerable<ApplicationDetails>> GetAllApplications();
+        Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles);
     }
 }

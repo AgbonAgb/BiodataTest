@@ -43,7 +43,11 @@ namespace BiodataTest.Models
         public bool POprocessing { get; set; }
         public bool iSActive { get; set; }
         public bool rejected { get; set; }
+        public int yearsExpe { get; set; }
         [NotMapped]
         public IFormFile CVfile { get; set; }
+        public DateTime TransDate { get; set; }
+        public string CareerName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

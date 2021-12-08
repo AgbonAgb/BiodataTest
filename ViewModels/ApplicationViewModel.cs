@@ -44,5 +44,11 @@ namespace BiodataTest.ViewModels
         public bool POprocessing { get; set; }
         public bool iSActive { get; set; }
         public bool rejected { get; set; }
+        [Display(Name = "Years of Experience")]
+        [Range(1, 100)]
+        public int yearsExpe { get; set; }
+        public DateTime TransDate { get; set; }
+        public string CareerName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

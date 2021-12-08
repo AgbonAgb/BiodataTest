@@ -32,6 +32,7 @@
                     <input asp-for="LastName" class="form-control" />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
+
             </div>
 
             <div class="form-group row">
@@ -54,13 +55,18 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 @*<div class="col-md-4">
-                    <label asp-for="CvPath" class="control-label"></label>
-                    <input asp-for="CvPath" class="form-control" type="file" />
-                    <span asp-validation-for="CvPath" class="text-danger"></span>
-                </div>*@
+            <label asp-for="CvPath" class="control-label"></label>
+            <input asp-for="CvPath" class="form-control" type="file" />
+            <span asp-validation-for="CvPath" class="text-danger"></span>
+        </div>*@
 
-                <div class="col-md-4">
-                    <label asp-for="CVfile" class="control-label"></label>
+                <div class="col-md-2">
+                    <label asp-for="yearsExpe" class="control-label"></label>
+                    <input asp-for="yearsExpe" class="form-control" />
+                    <span asp-validation-for="yearsExpe" class="text-danger"></span>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label">Upload CV</label>
                     <input asp-for="CVfile" class="form-control" type="file" />
                     <span asp-validation-for="CVfile" class="text-danger"></span>
                 </div>

@@ -414,7 +414,7 @@ namespace BiodataTest.Services
                         signInDetails.Email = user.Email;
                         //signInDetails.Expires = tokenDescriptor.Expires.ToString();
                         //signInDetails.Token = tokenHandler.WriteToken(token);
-                        signInDetails.Role = userRole.FirstOrDefault();
+                        signInDetails.Role = userRole.ToList();//.FirstOrDefault();
 
 
                         ////var tokenHandler = new JwtSecurityTokenHandler();

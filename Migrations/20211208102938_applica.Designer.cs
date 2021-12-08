@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208102938_applica")]
+    partial class applica
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb40425d-e91b-47ec-bb10-e65db17b0319",
-                            ConcurrencyStamp = "5e83fb0b-e724-4080-b1d9-7b88f85561e1",
+                            Id = "17ab7eb6-cebe-4a71-a7a2-864616fa196e",
+                            ConcurrencyStamp = "07bc07f0-0eb7-43da-af02-f97caf121d6c",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8277c8b1-9a35-463b-b9e1-22dc06615743",
+                            Id = "e706a219-cd52-42c8-a8b2-49ed4b334a91",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5f43fd5a-c453-4024-8020-6de211c69b00",
+                            ConcurrencyStamp = "5507f563-ec37-485e-9949-5c3929d6f034",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dfe0b50b-351b-4422-99e5-0affecfa4297",
+                            SecurityStamp = "473748e5-0e93-42fb-bc7b-225eea687724",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -213,14 +215,8 @@ namespace BiodataTest.Migrations
                     b.Property<int>("CareerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CareerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CvPath")
                         .HasColumnType("nvarchar(max)");
@@ -248,9 +244,6 @@ namespace BiodataTest.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25);
-
-                    b.Property<DateTime>("TransDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("approved")
                         .HasColumnType("bit");
@@ -508,14 +501,8 @@ namespace BiodataTest.Migrations
                     b.Property<int>("CareerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CareerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CvPath")
                         .HasColumnType("nvarchar(max)");
@@ -543,9 +530,6 @@ namespace BiodataTest.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25);
-
-                    b.Property<DateTime>("TransDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("approved")
                         .HasColumnType("bit");

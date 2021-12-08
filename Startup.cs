@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Http;
 using BiodataTest.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace BiodataTest
 {
@@ -68,11 +69,15 @@ namespace BiodataTest
                 services.AddScoped<ICareer, CareerServices>();
             services.AddScoped<IApplication, ApplicationServices>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.Add<HttpContextAccessor>();
+
 
             services.AddAutoMapper();
 
             var connection = Configuration.GetConnectionString("Cnn");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+
 
             //using Coogies//;//we could add this o => o.LoginPath="account/signin. Stop at .AddCookie(); if no external authentication required
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

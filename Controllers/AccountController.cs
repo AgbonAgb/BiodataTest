@@ -58,10 +58,19 @@ namespace BiodataTest.Controllers
 
                 try
                 {
+
                     // Setting  
                     claims.Add(new Claim(ClaimTypes.Name, resp.FullName));
                     claims.Add(new Claim(ClaimTypes.Email, resp.Email));
                     claims.Add(new Claim("Full Name", resp.FirstName + " " + resp.LastName));
+                    foreach(string rol in resp.Role)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, rol));
+                    }
+
+                    
+                   // claims.Add(new Claim("UserID", .FirstName + " " + resp.LastName));
+
                     //Claim Identity
                     var claimIdenties = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
