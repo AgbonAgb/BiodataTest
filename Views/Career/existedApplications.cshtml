@@ -3,11 +3,16 @@
 
 <head>
     <script type="text/javascript">
-        $(function () {
+        //$(function () {
+        //    $('#txtStartDate').datetimepicker();
+        //});
+
+
+        @*$(function () {
 
             $('#txtStartDate').datetimepicker();
-            /*alert("Am ok");*/
-            @*$('#categoryid').change(function () {
+            /*alert("Am ok");*/-->
+            $('#categoryid').change(function () {
 
                 var Categoryid = $("#categoryid").val();
 
@@ -28,240 +33,255 @@
                         //}
                     });
                 }
-            });*@
+            });
 
-           
-        });
+
+        });*@
     </script>
 </head>
 
-<<!--div class="row">
-    <div class="col-md-12">
-        <form asp-controller="Career" asp-action="existedApplications" method="get">
-            <p>
-                Search With: <input type="text" name="SearchString" id="SearchString" />-->
+<
+<!--div class="row">
+   <div class="col-md-12">
+       <form asp-controller="Career" asp-action="existedApplications" method="get">
+           <p>
+               Search With: <input type="text" name="SearchString" id="SearchString" />-->
+@*Order By: <input type="text" name="sortOrder" id="sortOrder" />*@
+@*<input type="submit" class="btn btn-danger btn-sm" />*@
 
-                @*Order By: <input type="text" name="sortOrder" id="sortOrder" />*@
-                @*<input type="submit" class="btn btn-danger btn-sm" />*@
-
-                <!--<input type="Submit" value="Search" class="btn btn-default-alt" />
+<!--<input type="Submit" value="Search" class="btn btn-default-alt" />
             </p>
 
         </form>
 
     </div>
 </div>-->
-
 <div class="panel panel-default">
-    <div class="panel-body">
-        <form asp-controller="Career" asp-action="FilterApplications" method="post" enctype="multipart/form-data">
-            <p>
-                <div class="form-group">
-                    <label class="control-label">Search with Career Category</label>
-                    <select id="categoryid" class="form-control" name="categoryid" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
-                        @*<option>Select Career Category</option>
-                <option>All Category</option>*@
-                    </select>
-                    @*<span asp-validation-for="CategoryID" class="text-danger"></span>*@
+<div class="panel-body">
+    <form asp-controller="Career" asp-action="existedApplications" method="get" enctype="multipart/form-data">
+
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Filter Section</div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Search with Career Category</label>
+                                <select id="categoryid" class="form-control" name="categoryid" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @*<label class="control-label">Last Name</label>
+                                    <input type="text" class="form-control" name="lname" id="lname">*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Start Date</label>
+                                <input type="date" id="StartDate" name="StartDate" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">End Date</label>
+                                <input type="date" id="EndDate" name="EndDate" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Search" class="btn btn-primary" />
                 </div>
-                
-                    <div class="form-group">
-                        <label class="control-label">Start Date</label>
-                        <input type="datetime" id="txtStartDate" name="StartDate" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">End Date</label>
-                        <input type="datetime" id="txtEndDate" name="EndDate" />
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Search" class="btn btn-primary" />
-                    </div>
-            </p>
-
-
-
-        </form>
-
-
-
-
-    </div>
+            </div>
+        </div>
+    </form>
+</div>
 </div>
 
-<div class="panel panel-default">
 
-    <div>
-        <table class="table">
-            <thead class="th">
-                <tr>
-                    <th>
-                        @*@Html.DisplayNameFor(model => model.ApplicationId)*@
-                        ID
+<div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <div class="row">
+                <table class="table">
+                    <thead class="th">
+                        <tr>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.ApplicationId)*@
+                                ID
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.CareerID)*@
+                                @*@Html.DisplayNameFor(model => model.CareerID)*@
+                                Career
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.CategoryID)*@
+                                Category
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+
+                            <th hidden>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th hidden>
+                                @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+                                Phone
+                            </th>
+                            <th hidden>
+                                @*@Html.DisplayNameFor(model => model.Address)*@
+                                Address
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.yearsExpe)*@
+                                Years
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TransDate)
+                            </th>
+
+
+                            <th hidden>
+                                @Html.DisplayNameFor(model => model.approved)
+                            </th>
+                            @*<th>
+                        @Html.DisplayNameFor(model => model.available)
                     </th>
                     <th>
-                        @*@Html.DisplayNameFor(model => model.CareerID)*@
-                        @*@Html.DisplayNameFor(model => model.CareerID)*@
-                        Career
+                        @Html.DisplayNameFor(model => model.POprocessing)
                     </th>
                     <th>
-                        @*@Html.DisplayNameFor(model => model.CategoryID)*@
-                        Category
+                        @Html.DisplayNameFor(model => model.iSActive)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </th>
+                        @Html.DisplayNameFor(model => model.rejected)
+                    </th>*@
 
-                    <th hidden>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-                    <th hidden>
-                        @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
-                        Phone
-                    </th>
-                    <th hidden>
-                        @*@Html.DisplayNameFor(model => model.Address)*@
-                        Address
-                    </th>
-                    <th>
-                        @*@Html.DisplayNameFor(model => model.yearsExpe)*@
-                        Years
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TransDate)
-                    </th>
+                            <th>
+                                Actions
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApplicationId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CareerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.yearsExpe)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransDate)
+                                </td>
 
 
-                    <th hidden>
-                        @Html.DisplayNameFor(model => model.approved)
-                    </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.available)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.POprocessing)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.iSActive)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.rejected)
-                        </th>*@
-
-                    <th>
-                        Actions
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="td">
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ApplicationId)
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.approved)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.CvPath)
+                                </td>
+                                @*<td>
+                            @Html.DisplayFor(modelItem => item.available)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CareerName)
+                            @Html.DisplayFor(modelItem => item.POprocessing)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CategoryName)
+                            @Html.DisplayFor(modelItem => item.iSActive)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
+                            @Html.DisplayFor(modelItem => item.rejected)
+                        </td>*@
+                                <td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <div>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
+                                            </li>
 
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.yearsExpe)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TransDate)
-                        </td>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("OnGetDownloadCV", "Career", new { Id = item.CvPath })">View CV</a>
+                                            </li>
 
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("ApproveCV", "Career", new { Id = item.ApplicationId})">Approve</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("RejectCV", "Career", new { Id = item.ApplicationId})">Reject</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                            </li>
 
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.approved)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.CvPath)
-                        </td>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.available)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.POprocessing)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.iSActive)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.rejected)
-                            </td>*@
-                        <td>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <div>
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
-                                    </li>
+                                        </div>
+                                    }
+                                    @if (User.IsInRole("Employer"))
+                                    {
+                                        <div>
 
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("OnGetDownloadCV", "Career", new { Id = item.CvPath })">View CV</a>
-                                    </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                            </li>
 
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ApproveCV", "Career", new { Id = item.ApplicationId})">Approve</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("RejectCV", "Career", new { Id = item.ApplicationId})">Reject</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
-                                    </li>
+                                        </div>
+                                    }
 
-                                </div>
-                            }
-                            @if (User.IsInRole("Employer"))
-                            {
-                                <div>
+                                </td>
+                                @*<td>
+                            <div>
+                                <form asp-action="AddUserCartlog" asp-controller="Career" method="post">
+                                    <button asp-action="AddUserCartlog" asp-route-id="@item.ApplicationId" onclick="return confirm('Are you sure of adding this to your cartlog?')" class="nav-link-text">Add to Cartlog</button>
+                                </form>
 
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
-                                    </li>
+                            </div>
+                        </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-                                </div>
-                            }
-
-                        </td>
-                        @*<td>
-                                <div>
-                                    <form asp-action="AddUserCartlog" asp-controller="Career" method="post">
-                                        <button asp-action="AddUserCartlog" asp-route-id="@item.ApplicationId" onclick="return confirm('Are you sure of adding this to your cartlog?')" class="nav-link-text">Add to Cartlog</button>
-                                    </form>
-
-                                </div>
-                            </td>*@
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+            </div>
+        </div>
     </div>
-
 </div>
-

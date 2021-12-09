@@ -54,20 +54,57 @@ body {
 #qrCode {
     margin: 15px;
 }
-
+/*
 .table-condensed {
     font-size:9px;
 }
 .table-bordered {
     font-size: 9px;
-}
+}*/
 .table .th .td {
-    border: 5px solid black;
-    padding: 0 15px;
-    font-size: 15px;
-    border-spacing: 15px;
+    /*background-color:brown;
+    border-color:blue;*/
+    border: 0.5px solid black;
+    padding: 5px;
+    /*font-size: 20px;*/
+    font-size: 20em;
+    border-spacing: 5px;
+}
+/*.table {*/
+    /* width: 100%;
+    max-width: 400px;
+    height: 240px;*/
+    /*margin: 0 auto;
+    display: block;
+    overflow-x: auto;
+    border-spacing: 10px;
+    font-size: 25px;
+}*/
+.tbody {
+    white-space: nowrap;
 }
 
+/*.th ,td {
+    padding: 5px 10px;
+    border-top-width: 0;
+    border-left-width: 0;
+}
+
+.th {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    vertical-align: bottom;
+}*/
+/*.table.a {
+    table-layout: auto;
+    width: 180px;
+}
+
+.table.b {
+    table-layout: fixed;
+    width: 180px;
+}*/
 /*.table {
     border-spacing: 15px;
 }*/
