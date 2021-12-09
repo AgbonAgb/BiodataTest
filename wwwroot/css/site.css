@@ -54,19 +54,40 @@ body {
 #qrCode {
     margin: 15px;
 }
-.th, .td {
-    font-size: 12px;
-}
+
 .table-condensed {
     font-size:9px;
 }
 .table-bordered {
     font-size: 9px;
 }
+.table .th .td {
+    border: 5px solid black;
+    padding: 0 15px;
+    font-size: 15px;
+    border-spacing: 15px;
+}
+
+/*.table {
+    border-spacing: 15px;
+}*/
+.linkbutton {
+    border: none;
+    background: none;
+    color: blue;
+    text-decoration: underline;
+}
+
+    .linkbutton:hover {
+        cursor: pointer;
+    }
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
+    }
+    .table-responsive {
+        font-size: 10px !important;
     }
 }

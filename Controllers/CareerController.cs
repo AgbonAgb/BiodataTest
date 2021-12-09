@@ -71,7 +71,7 @@ namespace BiodataTest.Controllers
 
             var mmapper = _mapper.Map<Career>(CVM);
             mmapper.CareerImageUrl = uniqueFileName;//add the cv path for DB
-            var newCr= await _career.CreateCareer(mmapper);
+            var newCr = await _career.CreateCareer(mmapper);
 
             if (newCr)
             {
@@ -123,10 +123,10 @@ namespace BiodataTest.Controllers
             return uniqueFileName;
         }
         public async Task<List<Category>> loadCategories()
-        {            
+        {
             var existing = await _category.GetAllCategory();
 
-            
+
             ///
             List<Category> list2 = existing.AsEnumerable()
                          .Select(o => new Category
@@ -145,7 +145,7 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> existedCareers()
         {
 
-            var existed =await _career.GetCareers();
+            var existed = await _career.GetCareers();
 
 
             return View(existed);
@@ -161,7 +161,7 @@ namespace BiodataTest.Controllers
             var existed = await _career.GetCareer(Id);
 
 
-           //ViewBag.Imagerul = existed.CareerImageUrl;
+            //ViewBag.Imagerul = existed.CareerImageUrl;
 
             return View(existed);
 
@@ -179,7 +179,7 @@ namespace BiodataTest.Controllers
             return View(APpVm);
         }
 
-            [HttpPost]
+        [HttpPost]
         //public async Task<IActionResult> ApplicationForm(CareerViewModel CRw)
         public async Task<IActionResult> ApplicationForm(ApplicationViewModel ApVM)
         {
@@ -188,7 +188,7 @@ namespace BiodataTest.Controllers
             {
                 return View(ApVM);
             }
-                long size = ApVM.CVfile.Length;//.Sum(f => f.Length);
+            long size = ApVM.CVfile.Length;//.Sum(f => f.Length);
 
 
 
@@ -230,11 +230,77 @@ namespace BiodataTest.Controllers
 
         }
         //existedApplications
+        [HttpPost]
+        // [HttpGet]
+        //public JsonResult FilterApplications(int CategoryId)
+        ////public async Task<IActionResult> FilterApplications(int  Id)
+        ///
+        //[AcceptVerbs("GET")]//[FromBody]
+        public async Task<IActionResult> FilterApplications(string EndDate, string StartDate, int categoryid, int Id)
+        {
+            // string done = "";
 
+
+
+            // // await existedApplications(Id);
+
+
+            // //var Carr = await _category.GetAllCategory();
+            // //ViewBag.listofCategory = Carr;//
+
+            // List<Dept> departmentlist = new List<Dept>();
+            List<string> Roles = new List<string>();
+            var allapp = await _application.GetAllApplications(Roles);
+            var Retactualdata = allapp;
+
+            var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
+            {
+                ApplicationId = x.ApplicationId,
+                EmployerId = x.EmployerId,
+                CareerID = x.CareerID,
+                CategoryID = x.CategoryID,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                yearsExpe = x.yearsExpe,
+                CvPath = x.CvPath,
+                Address = x.Address,
+                CategoryName = x.CategoryName,
+                CareerName = x.CareerName
+
+
+
+
+            }).Where(k => k.approved == false && k.rejected == false && (k.CategoryID == Id)).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
+
+            Retactualdata = actualdata;
+
+
+
+            //return Json (actualdata);// View(actualdata);
+
+            // return RedirectToAction("existedApplications", new { @id = Id });
+            return View(actualdata);
+            //return done;
+        }
+        //
 
         [HttpGet]
-        public async Task<IActionResult> existedApplications(string SearchString)
+        public async Task<IActionResult> existedApplications(int Id, string SearchString)
         {
+
+            int SearchString2 = Id;
+
+            if (SearchString ==null)
+            { 
+            }
+            else
+            {
+                SearchString2 = int.Parse(SearchString.ToString());
+            }
+
+           
             //ApplicationViewModel ApVM = new ApplicationViewModel();
             //  ApplicationDetails APD = new ApplicationDetails();
 
@@ -242,14 +308,34 @@ namespace BiodataTest.Controllers
             ////     .Where(c => c.Type == ClaimTypes.Role)
             ////     .Select(c => c.Value).ToList();
             ///
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);          
+            //Load Career for search
+
+
+            //if (SearchString2 == 0)
+            //{
+                var Carr = await _category.GetAllCategory();
+            List<Category> dp = new List<Category>();
+            dp = Carr.Select(a => new Category
+            {
+               CategoryID = a.CategoryID,
+               CategoryName  = a.CategoryName
+            }
+
+            ).ToList();
+
+            dp.Insert(0, new Category { CategoryID = 0, CategoryName = "Select All" });
+            ViewBag.listofCategory = dp;
+            //ViewBag.listofCategory = Carr
+
+
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var username = HttpContext.User.Identity.Name;
 
 
 
             List<string> Roles = ((ClaimsIdentity)User.Identity).Claims
-                
+
                 .Where(c => c.Type == ClaimTypes.Role)
                 .Select(c => c.Value).ToList();
 
@@ -257,7 +343,7 @@ namespace BiodataTest.Controllers
 
             foreach (string rl in Roles)
             {
-                role = role + ","+ rl;
+                role = role + "," + rl;
             }
 
             /* var Retactualdata = string.Empty;// */
@@ -274,108 +360,108 @@ namespace BiodataTest.Controllers
 
             var allapp = await _application.GetAllApplications(Roles);
             var Retactualdata = allapp;
-
-            if (User.IsInRole("Admin"))
+            //if (User.IsInRole("Admin"))
+            //{//string.IsNullOrEmpty(SearchString.ToString())
+            if (SearchString2 == 0)
             {
-                if (string.IsNullOrEmpty(SearchString))
+                var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
                 {
-                    var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
-                    {
-                        ApplicationId = x.ApplicationId,
-                        EmployerId = x.EmployerId,
-                        CareerID = x.CareerID,
-                        CategoryID = x.CategoryID,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        Email = x.Email,
-                        PhoneNumber = x.PhoneNumber,
-                        yearsExpe = x.yearsExpe,
-                        CvPath = x.CvPath,
-                        Address = x.Address,
-                        CategoryName=x.CategoryName,
-                        CareerName=x.CareerName
-                        
+                    ApplicationId = x.ApplicationId,
+                    EmployerId = x.EmployerId,
+                    CareerID = x.CareerID,
+                    CategoryID = x.CategoryID,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    yearsExpe = x.yearsExpe,
+                    CvPath = x.CvPath,
+                    Address = x.Address,
+                    CategoryName = x.CategoryName,
+                    CareerName = x.CareerName
 
 
 
-                    }).Where(k => k.approved == false && k.rejected == false).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
 
-                    Retactualdata = actualdata;
-                }
-                else
-                {
-                    var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
-                    {
-                        ApplicationId = x.ApplicationId,
-                        EmployerId = x.EmployerId,
-                        CareerID = x.CareerID,
-                        CategoryID = x.CategoryID,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        Email = x.Email,
-                        PhoneNumber = x.PhoneNumber,
-                        yearsExpe = x.yearsExpe,
-                        CvPath = x.CvPath,
-                        Address = x.Address,
-                        CategoryName = x.CategoryName,
-                        CareerName = x.CareerName
+                }).Where(k => k.approved == false && k.rejected == false).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
 
-
-
-                    }).Where(k => k.approved == false && k.rejected == false && (k.FirstName.Contains(SearchString) || k.Email.Contains(SearchString) || k.LastName.Contains(SearchString) || k.Address.Contains(SearchString))).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
-
-                    Retactualdata = actualdata;
-                }
-                //return View(Retactualdata);
+                Retactualdata = actualdata;
             }
-
-            
-            if (User.IsInRole("Employer"))
+            else
             {
-                if (string.IsNullOrEmpty(SearchString))
+                var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
                 {
-                    var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
-                    {
-                        ApplicationId = x.ApplicationId,
-                        EmployerId = x.EmployerId,
-                        CareerID = x.CareerID,
-                        CategoryID = x.CategoryID,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        yearsExpe = x.yearsExpe,
-                        CategoryName = x.CategoryName,
-                        CareerName = x.CareerName
+                    ApplicationId = x.ApplicationId,
+                    EmployerId = x.EmployerId,
+                    CareerID = x.CareerID,
+                    CategoryID = x.CategoryID,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    yearsExpe = x.yearsExpe,
+                    CvPath = x.CvPath,
+                    Address = x.Address,
+                    CategoryName = x.CategoryName,
+                    CareerName = x.CareerName
 
 
-                    }).Where(k => k.approved == true && k.rejected == false && k.iSActive == true && (k.FirstName.Contains(SearchString) || k.Email.Contains(SearchString) || k.LastName.Contains(SearchString) || k.Address.Contains(SearchString))).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
 
-
-                    Retactualdata = actualdata;
-                }
-                else
-                    {
-                    var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
-                    {
-                        ApplicationId = x.ApplicationId,
-                        EmployerId = x.EmployerId,
-                        CareerID = x.CareerID,
-                        CategoryID = x.CategoryID,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        yearsExpe = x.yearsExpe,
-                        CategoryName = x.CategoryName,
-                        CareerName = x.CareerName
-
-
-                    }).Where(k => k.approved == true && k.rejected == false && k.iSActive == true).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
-
-
-                    Retactualdata = actualdata;
-
-                }
-                
-               // return View(Retactualdata);
+                }).Where(k => k.approved == false && k.rejected == false && (k.CategoryID == SearchString2)).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
+                                                                                                                                                             //.Where(k => k.approved == false && k.rejected == false && (k.FirstName.Contains(SearchString) || k.Email.Contains(SearchString) || k.LastName.Contains(SearchString) || k.Address.Contains(SearchString))).OrderByDescending(s => s.ApplicationId).ToList();
+                Retactualdata = actualdata;
             }
+            //return View(Retactualdata);
+            // }
+
+
+
+            ////if (User.IsInRole("Employer"))
+            ////{
+            ////    if (string.IsNullOrEmpty(SearchString))
+            ////    {
+            ////        var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
+            ////        {
+            ////            ApplicationId = x.ApplicationId,
+            ////            EmployerId = x.EmployerId,
+            ////            CareerID = x.CareerID,
+            ////            CategoryID = x.CategoryID,
+            ////            FirstName = x.FirstName,
+            ////            LastName = x.LastName,
+            ////            yearsExpe = x.yearsExpe,
+            ////            CategoryName = x.CategoryName,
+            ////            CareerName = x.CareerName
+
+
+            ////        }).Where(k => k.approved == true && k.rejected == false && k.iSActive == true && (k.FirstName.Contains(SearchString) || k.Email.Contains(SearchString) || k.LastName.Contains(SearchString) || k.Address.Contains(SearchString))).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
+
+
+            ////        Retactualdata = actualdata;
+            ////    }
+            ////    else
+            ////        {
+            ////        var actualdata = allapp.AsEnumerable().Select(x => new ApplicationDetails
+            ////        {
+            ////            ApplicationId = x.ApplicationId,
+            ////            EmployerId = x.EmployerId,
+            ////            CareerID = x.CareerID,
+            ////            CategoryID = x.CategoryID,
+            ////            FirstName = x.FirstName,
+            ////            LastName = x.LastName,
+            ////            yearsExpe = x.yearsExpe,
+            ////            CategoryName = x.CategoryName,
+            ////            CareerName = x.CareerName
+
+
+            ////        }).Where(k => k.approved == true && k.rejected == false && k.iSActive == true).OrderByDescending(s => s.ApplicationId).ToList();//.FirstOrDefaultAsync();
+
+
+            ////        Retactualdata = actualdata;
+
+            ////    }
+
+            ////   // return View(Retactualdata);
+            ////}
             // var userEmail = User.FindFirstValue(ClaimTypes.Email);
 
 
@@ -401,9 +487,9 @@ namespace BiodataTest.Controllers
         {
             //get approved staff along with their cost
             //var Application = await _application.getCost();//
-                      //Update Application table for approval
-                      //set available to true, isactive to true//
-                                                           //_bioData.GetBiodataCost(Id);
+            //Update Application table for approval
+            //set available to true, isactive to true//
+            //_bioData.GetBiodataCost(Id);
 
             //step2: Add to Cart-Table <userId, staffname,DOB,Desc,Amount>
             //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
@@ -447,7 +533,7 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> MyApplication()
         {
             ApplicationViewModel ApVM = new ApplicationViewModel();
-            
+
             //ApVM.CareerID = CRw.CareerID;
             //ApVM.CategoryID = CRw.CategoryID;
 
