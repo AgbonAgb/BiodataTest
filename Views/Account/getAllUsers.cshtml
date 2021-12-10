@@ -7,12 +7,12 @@
 
 <h1>getAllUsers</h1>
 @*<form method="get">
-    <div class="form-group">
-        <div class="input-group">
-            <input type="search" placeholder="Search ID, Customer, Date Imported, vCenter, Imported By, or Notes" class="form-control" asp-for="SearchTerm" />
+        <div class="form-group">
+            <div class="input-group">
+                <input type="search" placeholder="Search ID, Customer, Date Imported, vCenter, Imported By, or Notes" class="form-control" asp-for="SearchTerm" />
+            </div>
         </div>
-    </div>
-</form>*@
+    </form>*@
 <form asp-controller="Account" asp-action="getAllUsers" method="get">
     <p>
         Search With: <input type="text" name="SearchString" id="SearchString" />
@@ -77,18 +77,23 @@
                     <a asp-action="EditUsers" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-controller="Account" asp-route-id="@item.Id">Details</a> |
                     <div>
-                        <form asp-action="AddUserRole" asp-controller="Account" method="get">
-                            <button asp-action="AddUserRole" asp-route-id="@item.Id" onclick="return confirm('Are you sure of adding this user to role?')" class="btn btn-danger btn-sm">Add User to Role</button>
-                        </form>
-
+                        @*<form asp-action="AddUserRole" asp-controller="Account" method="get">
+                            <button asp-action="AddUserRole" asp-route-id="@item.Id" onclick="return confirm('Are you sure of adding this user to role?')" class="btn btn-danger btn-sm">Manage User Role</button>
+                        </form>*@
+                        <li class="nav-item">
+                            <a href="@Url.Action("AddUserRole", "Account", new { Id = item.Id})" onclick="return confirm('Are you sure of adding this user to role?')">Add User Role</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("RemoveUserRole", "Account", new { Id = item.Id})" onclick="return confirm('Are you sure of removing user from role?')">Remove User Role</a>
+                        </li>
                     </div>
 
-                    <div>
+                    @*<div>
                         <form asp-action="DeleteUsers" asp-controller="Account" method="post">
                             <button asp-action="DeleteUsers" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
                         </form>
 
-                    </div>
+                    </div>*@
 
                     @*<a asp-action="DeleteUsers" asp-controller="Account" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>*@
                 </td>

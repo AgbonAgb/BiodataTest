@@ -11,16 +11,17 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BiodataTest.Helper
 {
-    public class AutoMapperProfile:Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
             CreateMap<BioData, BioDataViewModel>().ReverseMap();
-            CreateMap<Dept,DeptViewModel>().ReverseMap();
+            CreateMap<Dept, DeptViewModel>().ReverseMap();
             CreateMap<ApplicationUser, RegisterUser>().ReverseMap();
             CreateMap<CategoryViewModel, Category>().ReverseMap();
-                CreateMap<CareerViewModel, Career>().ReverseMap();
+            CreateMap<CareerViewModel, Career>().ReverseMap();
             CreateMap<ApplicationViewModel, ApplicationDetails>().ReverseMap();
+            CreateMap<YearsExperienceCostViewModel, YearsExperienceCost>().ReverseMap();
             //UsersViewModels
 
             //< ApplicationUser > (Ruser);

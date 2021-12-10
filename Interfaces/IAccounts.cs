@@ -16,7 +16,8 @@ namespace BiodataTest.Interfaces
         Task<IEnumerable<RoleViewModel>> ExistRoles();
         Task<ApplicationRole> PersonalRoles(string Id);
         Task<bool> CreateRole(ApplicationRole role);
-        Task<bool> AddUserRole(string userId, string role);
+        Task<bool> AddUserRole(string userId, string role);      
+        Task<bool> RemoveUserRole(string userId, string role);
         Task<SignInModel> SignIn(loginModel logindetails);
         Task<IEnumerable<UsersViewModels>> AllUsers();
         Task<UsersViewModels> getUser(string Id);

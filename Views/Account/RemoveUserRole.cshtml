@@ -1,25 +1,19 @@
 ﻿@model BiodataTest.ViewModels.UsersViewModels
 
 @{
-    ViewData["Title"] = "Role Mgt";
+    ViewData["Title"] = "RemoveUserRole";
 }
 
-@*<p>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</p>*@
 
-
-    <p>@Html.ValidationSummary(false)</p>
-
-
-<hr />
 <div class="panel panel-default">
-<div class="panel-body">
-        <form asp-action="AddUserRole" asp-controller="Account" method="post">
+    <div class="panel-body">
+        <form asp-action="RemoveUserRole" asp-controller="Account" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
             <div class="container">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Add or Remove User from role</div>
+                    <div class="panel-heading">Remove User from role</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
@@ -84,14 +78,14 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input type="submit" value="Add Role" class="btn btn-primary" />
+                                    <input type="submit" value="Remove" class="btn btn-primary" />
                                 </div>
 
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-2">
 
-                              
+                               
                             </div>
 
                         </div>
@@ -108,20 +102,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-
-<script type="text/javascript">
-    //$(document).ready(function () {
-    //    /*alert("Hello");*/
-    //    $("#RoleId").select2()
-    //});
-
-    $(document).ready(function () {
-        /* alert("Hello")*/
-        $('#roleId').multiselect(
-            {
-                includeSelectAllOption: true
-            });
-    });
-</script>
 

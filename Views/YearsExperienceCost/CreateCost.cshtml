@@ -1,0 +1,228 @@
+﻿@*@model BiodataTest.ViewModels.YearsExperienceCostViewModel*@
+@model IEnumerable<BiodataTest.Models.YearsExperienceCost>
+
+<head>
+    <script type="text/javascript">
+        //$(function () {
+        //    $('#txtStartDate').datetimepicker();
+        //});
+
+
+        @*$(function () {
+
+            $('#txtStartDate').datetimepicker();
+            /*alert("Am ok");*/-->
+            $('#categoryid').change(function () {
+
+                var Categoryid = $("#categoryid").val();
+
+               /* alert(Categoryid);*/
+                if (Categoryid != "") {
+                    $.ajax({
+                        /*url: "Career/FilterApplications",*/
+                        url: '@Url.Action("FilterApplications", "Career")',
+                        data: { id: Categoryid },
+                        type: "GET",
+                        success: function (response)
+                        {
+                            /*$('#dataTables-example').html("").html(response);*/
+                        }
+                        //error: function () {
+                        //    alert("Error");
+                        //alert("error : " + reponse);
+                        //}
+                    });
+                }
+            });
+
+
+        });*@
+    </script>
+</head>
+<hr />
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form asp-action="CreateCost" asp-controller="YearsExperienceCost" method="post">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+
+            
+                
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Years of Experience Cost Setup</div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label class="control-label">Category</label>
+
+                                    <select id="CategoryID" name="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.Category,"CategoryID","CategoryName"))">
+                                        @*<option value="">Select Department</option>*@
+                                    </select>
+
+                                    @*<span asp-validation-for="CategoryID" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label class="control-label">Career</label>
+
+                                    <select name="CareerID" id="CareerID" class="form-control" asp-items="@(new SelectList(@ViewBag.Career,"CareerID","CareerName"))">
+                                        @*<option value="">Select Department</option>*@
+                                    </select>
+                                    @*<span asp-validation-for="CareerID" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+
+                                <div class="form-group">
+                                    <label class="control-label">Years Lower Bound</label>
+                                    <br />
+
+                                    <input type="number" id="YearsLowerBound" name="YearsLowerBound" />
+                                    @*<span asp-validation-for="YearsLowerBound" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <div class="form-group">
+                                    <label class="control-label">Years Higher Bound</label>
+                                    <br />
+
+                                    <input type="number" id="YearsHigherBound" name="YearsHigherBound" />
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <div class="form-group">
+                                    <label class="control-label">Amount </label>
+                                    <br />
+                                    <input type="number" id="amount" name="amount" />
+                                    @*<span asp-validation-for="amount" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*<div class="row">
+
+
+                <div class="col-md-3">
+
+
+
+                </div>
+            </div>*@
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+
+
+                    </div>
+                </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+        </form>
+    </div>
+</div>
+@*table display*@
+<div class="container-fluid">
+
+    <div class="panel panel-success">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.YearsLowerBound)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.YearsHigherBound)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CareerID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CareerName)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.YearsLowerBound)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.YearsHigherBound)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CareerID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CareerName)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.CostId">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.CostId">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.CostId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

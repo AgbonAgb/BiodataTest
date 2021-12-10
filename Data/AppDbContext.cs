@@ -70,6 +70,7 @@ namespace BiodataTest.Data
         public DbSet<Skills> skills { get; set; }
         //ApplicationDetails
         public DbSet<ApplicationDetails> applications { get; set; }
+        public DbSet<YearsExperienceCost> yearsExperienceCost { get; set; }
 
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }
@@ -78,6 +79,7 @@ namespace BiodataTest.Data
         public DbSet<BiodataTest.ViewModels.CategoryViewModel> CategoryViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.CareerViewModel> CareerViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.ApplicationViewModel> ApplicationViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.YearsExperienceCostViewModel> YearsExperienceCostViewModel { get; set; }
 
     }
 }

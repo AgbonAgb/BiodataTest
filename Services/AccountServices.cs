@@ -28,6 +28,32 @@ namespace BiodataTest.Services
 
 
         }
+        public async Task<bool> RemoveUserRole(string userId, string role)
+        {
+            bool suc = false;
+            try
+            {
+                //Find user
+                //var user = await _userManager.FindByIdAsync(userId);
+                var user = await _userManager.FindByIdAsync(userId);//find create snapshop of that user
+                if (user != null)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                    suc = true;
+                   // return suc;
+                }
+
+               
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+
+            return suc;
+
+        }
         public async Task<bool> AddUserRole(string userId, string role)
         {
             bool suc = false;

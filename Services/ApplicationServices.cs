@@ -74,63 +74,183 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles)
         {
-            //User.IsInRole("Administrator")
+            string role =  Roles[0].ToString();
+            //var query = new object(); // string.Empty[];
+            var query = (IEnumerable<ApplicationDetails>)null;
 
-            string role = "";//= Roles[0];
 
-            foreach (string rl in Roles)
-            { 
-                
-                
-                role = role + "," + rl;
+
+            try
+            {
+
+
+                if (role.Contains("Admin"))
+                {
+                    query = await (from application in _appDbContext.applications
+                                   join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   select new ApplicationDetails
+                                   {
+                                       ApplicationId = application.ApplicationId,
+                                       EmployerId = application.EmployerId,
+                                       CareerID = application.CareerID,
+                                       CategoryID = application.CategoryID,
+                                       FirstName = application.FirstName,
+                                       LastName = application.LastName,
+                                       Email = application.Email,
+                                       PhoneNumber = application.PhoneNumber,
+                                       yearsExpe = application.yearsExpe,
+                                       CvPath = application.CvPath,
+                                       Address = application.Address,
+                                       CategoryName = category.CategoryName,
+                                       CareerName = career.CareerName,
+                                       approved=application.approved,
+                                       rejected=application.rejected
+
+                                   }
+                ).Where(application => application.approved == false && application.rejected == false).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
+
+
+
+                }
+                else if (role.Contains("Employer"))
+                {
+                    //only approved and available applications will be open t Employer to see
+                    query = await (from application in _appDbContext.applications
+                                   join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   select new ApplicationDetails
+                                   {
+                                       ApplicationId = application.ApplicationId,
+                                       EmployerId = application.EmployerId,
+                                       CareerID = application.CareerID,
+                                       CategoryID = application.CategoryID,
+                                       FirstName = application.FirstName,
+                                       LastName = application.LastName,
+                                       Email = application.Email,
+                                       PhoneNumber = application.PhoneNumber,
+                                       yearsExpe = application.yearsExpe,
+                                       CvPath = application.CvPath,
+                                       Address = application.Address,
+                                       //CategoryName = category.CategoryName,
+                                       CareerName = career.CareerName,
+                                       approved = application.approved,
+                                       rejected = application.rejected,
+                                       available=application.available
+
+                                   }
+                          ).Where(application => application.approved == true && application.available == true).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
+
+
+
+                }
+
             }
+            catch (Exception ex)
+            {
 
-
-            ////var query = await (from career in _appDbContext.careers.Where(x => x.CareerID == Id)
-            ////                   join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
-            ////                   join skill in _appDbContext.skills on career.CategoryID equals skill.CategoryID
-            ////                   select new CareerViewModel
-            ////                   {
-            ////                       CareerID = career.CareerID,
-            ////                       CareerName = career.CareerName,
-            ////                       CareerImageUrl = career.CareerImageUrl,
-            ////                       CategoryID = career.CategoryID,
-            ////                       CareerDesc = career.CareerDesc,
-            ////                       CategoryName = category.CategoryName,
-            ////                       skills = skill.skillDescription
-            ////                   }
-            ////             ).FirstOrDefaultAsync();
-
-            var query = await (from application in _appDbContext.applications
-                               join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
-                               join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
-                               select new ApplicationDetails
-                               {
-                                   ApplicationId = application.ApplicationId,
-                                   EmployerId = application.EmployerId,
-                                   CareerID = application.CareerID,
-                                   CategoryID = application.CategoryID,
-                                   FirstName = application.FirstName,
-                                   LastName = application.LastName,
-                                   Email = application.Email,
-                                   PhoneNumber = application.PhoneNumber,
-                                   yearsExpe = application.yearsExpe,
-                                   CvPath = application.CvPath,
-                                   Address = application.Address,
-                                   CategoryName = category.CategoryName,
-                                   CareerName = career.CareerName
-
-                               }
-                        ).ToListAsync();//.FirstOrDefaultAsync();
-
-
-
-            //var chk = await _appDbContext.applications.ToListAsync();
-            // ApplicationViewModel appmodel = (ApplicationViewModel)chk;
+                throw;
+            }
             return query;
         }
 
-        
+        public async Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles, string EndDate, string StartDate, int categoryid)
+        {
+            DateTime RealEndDate = DateTime.Now;
+            DateTime RealStartDate = DateTime.Now;
+
+            if (!string.IsNullOrEmpty(EndDate))
+            {
+                RealEndDate= Convert.ToDateTime(EndDate);
+            }
+
+            if (!string.IsNullOrEmpty(StartDate))
+            {
+                RealStartDate = Convert.ToDateTime(StartDate);
+            }
+
+
+            string role = Roles[0].ToString();
+            //var query = new object(); // string.Empty[];
+            var query = (IEnumerable<ApplicationDetails>)null;
+            try
+            {
+
+                if (role.Contains("Admin"))
+                {
+                    query = await (from application in _appDbContext.applications
+                                   join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   select new ApplicationDetails
+                                   {
+                                       ApplicationId = application.ApplicationId,
+                                       EmployerId = application.EmployerId,
+                                       CareerID = application.CareerID,
+                                       CategoryID = application.CategoryID,
+                                       FirstName = application.FirstName,
+                                       LastName = application.LastName,
+                                       Email = application.Email,
+                                       PhoneNumber = application.PhoneNumber,
+                                       yearsExpe = application.yearsExpe,
+                                       CvPath = application.CvPath,
+                                       Address = application.Address,
+                                       CategoryName = category.CategoryName,
+                                       CareerName = career.CareerName,
+                                       approved = application.approved,
+                                       rejected = application.rejected,
+                                       TransDate=application.TransDate
+
+                                   }
+                ).Where(application => application.approved == false && application.rejected == false && (application.CategoryID == categoryid || (application.TransDate >= RealStartDate && application.TransDate <= RealEndDate))).OrderByDescending(s => s.ApplicationId).ToListAsync();
+                    //|| application.TransDate <= RealEndDate)
+                    //.Where(application => application.approved == false && application.rejected == false && application.CategoryID == categoryid).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
+
+                    // query = query.Where(e => e.TransDate < RealStartDate );//&& e.TransDate < RealEndDate
+
+                    //.Where(application => application.approved == false && application.rejected == false && (application.CategoryID == categoryid || application.TransDate >= RealStartDate || application.TransDate <= RealEndDate)).OrderByDescending(s => s.ApplicationId).ToListAsync();
+                    //|| ((application.TransDate >= StartDate && application.TransDate <= EndDate))
+
+                }
+                else if (role.Contains("Employer"))
+                {
+                    //only approved and available applications will be open t Employer to see
+                    query = await (from application in _appDbContext.applications
+                                   join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   select new ApplicationDetails
+                                   {
+                                       ApplicationId = application.ApplicationId,
+                                       EmployerId = application.EmployerId,
+                                       CareerID = application.CareerID,
+                                       CategoryID = application.CategoryID,
+                                       FirstName = application.FirstName,
+                                       LastName = application.LastName,
+                                       Email = application.Email,
+                                       PhoneNumber = application.PhoneNumber,
+                                       yearsExpe = application.yearsExpe,
+                                       CvPath = application.CvPath,
+                                       Address = application.Address,
+                                       CategoryName = category.CategoryName,
+                                       CareerName = career.CareerName,
+                                       approved = application.approved,
+                                       rejected = application.rejected,
+                                       available = application.available,
+                                       TransDate = application.TransDate
+
+                                   }
+                          ).Where(application => application.approved == true && application.available == true && (application.CategoryID == categoryid || (application.TransDate >= RealStartDate && application.TransDate <= RealEndDate))).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
+
+
+                    //query = query.Where(e => e.TransDate > RealStartDate || e.TransDate < RealEndDate);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return query;
+        }
 
         public async Task<ApplicationDetails> GetApplication(int Id)
         {

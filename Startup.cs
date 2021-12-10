@@ -42,7 +42,7 @@ namespace BiodataTest
 
             //services.AddControllersWithViews();//Authorize controllers o =>o.Filters.Add(new AuthorizeFilter())
             //services.AddRazorPages().AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter()));//authorize all pages
-           
+
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -56,7 +56,7 @@ namespace BiodataTest
             .AddRoleManager<RoleManager<ApplicationRole>>()
             .AddEntityFrameworkStores<AppDbContext>();
 
-           
+
 
             services.AddScoped<IBiodata, BiodataServices>();
             services.AddScoped<IUserRepository, UserRepositoryServices>();
@@ -66,8 +66,9 @@ namespace BiodataTest
             services.AddScoped<IAccounts, AccountServices>();
             services.AddScoped<ICategory, CategoryServices>();
             services.AddScoped<ISkills, SkillServices>();
-                services.AddScoped<ICareer, CareerServices>();
+            services.AddScoped<ICareer, CareerServices>();
             services.AddScoped<IApplication, ApplicationServices>();
+            services.AddScoped<IYearsExperienceCost, YearsExperienceCostService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.Add<HttpContextAccessor>();
@@ -118,7 +119,7 @@ namespace BiodataTest
         {
             if (env.IsDevelopment())
             {
-                 context.Database.Migrate();
+                context.Database.Migrate();
                 app.UseDeveloperExceptionPage();
             }
             else

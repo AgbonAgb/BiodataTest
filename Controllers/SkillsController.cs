@@ -73,19 +73,7 @@ namespace BiodataTest.Controllers
             //new SelectList(@ViewBag.listofDept,"CategoryID","CategoryName"))
             var existing = await _category.GetAllCategory();
 
-            ////List<Category> list2 = new List<Category>();
-
-            ////list2 = existing.Select(o => new Category
-            ////{
-
-            ////    CategoryName=o.CategoryName,
-            ////    CategoryID = o.CategoryID
-            ////}
-
-            ////).ToList();
-
-            ////list2.Insert(0, new Category { CategoryID = 0, CategoryName = "Select Category" });
-            ///
+           
             List<Category> list2 = existing.AsEnumerable()
                          .Select(o => new Category
                          {

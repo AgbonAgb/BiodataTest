@@ -15,5 +15,6 @@ namespace BiodataTest.Interfaces
         Task<ApplicationDetails> GetApplication(int Id);
         Task<IEnumerable<ApplicationDetails>> GetAllApplications();
         Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles);
+        Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles, string EndDate, string StartDate, int categoryid);
     }
 }

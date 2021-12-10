@@ -438,6 +438,73 @@ namespace BiodataTest.Controllers
             return View(user);
 
         }
+        //
+        //Remove user from rol
+        [HttpGet]
+        public async Task<IActionResult> RemoveUserRole(string Id)
+        {
+            UsersViewModels users = new UsersViewModels();
+
+            users = await _iaccounts.getUser(Id);
+
+            // users = await _iaccounts.getUser(Id);
+
+            await allRoles();//THIS WILL LOAD THE VIEWBAG WHEN PAGE IS COMIMG UP
+
+            return View(users);
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveUserRole(UsersViewModels user, string RoleName)
+        {
+
+            //List<UserInfo> userList = _context.UserInfo.ToList();
+            //ViewBag.ShowMembers = new SelectList(userList, "Id", "Email");
+
+            var allRoless = await _iaccounts.ExistRoles();
+
+
+            foreach (var Item in allRoless)
+            {
+                if (Item.Id.Trim() == user.RoleId.Trim())
+                {
+                    RoleName = Item.Name;
+                    break;
+                }
+
+            }
+            if (!string.IsNullOrEmpty(RoleName) && !string.IsNullOrEmpty(user.Id))
+            {
+                bool succ = await _iaccounts.RemoveUserRole(user.Id, RoleName);
+
+                if (succ == true)
+                {
+                    ViewBag.Msg = "Role removed successfully ---" + RoleName;
+                    ModelState.AddModelError("User Role remover", "Role removed successfully ---" + RoleName);
+                    return RedirectToAction("getAllUsers");
+                }
+                else
+                {
+                    ViewBag.Msg = "Check to confirm is user was in selected role " + RoleName;
+                    ModelState.AddModelError("User Role remover", "Check to confirm is user was in selected role " + RoleName);
+
+                    await allRoles();
+
+                    return View(user);
+                }
+            }
+            else
+            {
+                ViewBag.Msg = "User existed before for this role " + RoleName;
+                ModelState.AddModelError("Add User to role", "User existed before for this role " + RoleName);
+                await allRoles();
+                return View(user);
+            }
+
+            await allRoles();
+            return View(user);
+
+        }
+
 
         //get list of roles
         //new SelectList(@ViewBag.listofRoles,"RoleId","RoletName"))
