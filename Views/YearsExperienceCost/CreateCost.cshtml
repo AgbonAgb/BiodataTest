@@ -3,29 +3,38 @@
 
 <head>
     <script type="text/javascript">
-        //$(function () {
-        //    $('#txtStartDate').datetimepicker();
-        //});
+        $(document).ready(function () {
+            FliterCareers();
+           
 
+            $('#categoryID').change(function () {
+                FliterCareers();
 
-        @*$(function () {
+            });
 
-            $('#txtStartDate').datetimepicker();
-            /*alert("Am ok");*/-->
-            $('#categoryid').change(function () {
+        });
 
-                var Categoryid = $("#categoryid").val();
+       
+
+        var FliterCareers = function () {
+
+             var _categoryidVal = $("#categoryID").val();//get value at category dropdown and b=not text
 
                /* alert(Categoryid);*/
-                if (Categoryid != "") {
+                if (_categoryidVal != "") {
                     $.ajax({
                         /*url: "Career/FilterApplications",*/
-                        url: '@Url.Action("FilterApplications", "Career")',
-                        data: { id: Categoryid },
+                        url: '@Url.Action("FilterCategoryCareer", "YearsExperienceCost")',
+                        data: { id: _categoryidVal },
                         type: "GET",
                         success: function (response)
                         {
-                            /*$('#dataTables-example').html("").html(response);*/
+                            //load carrer dropdown with the respose
+                            $('#careerID').find('option').remove()
+                            $(response).each(
+                                function (index, item) {
+                                    $('#careerID').append('<option value="' + item.careerID + '">' + item.careerName + '</option>')
+                                });
                         }
                         //error: function () {
                         //    alert("Error");
@@ -33,10 +42,12 @@
                         //}
                     });
                 }
-            });
+        }
 
 
-        });*@
+
+
+
     </script>
 </head>
 <hr />
@@ -57,7 +68,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Category</label>
 
-                                    <select id="CategoryID" name="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.Category,"CategoryID","CategoryName"))">
+                                    <select id="categoryID" name="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.Category,"CategoryID","CategoryName"))">
                                         @*<option value="">Select Department</option>*@
                                     </select>
 
@@ -71,7 +82,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Career</label>
 
-                                    <select name="CareerID" id="CareerID" class="form-control" asp-items="@(new SelectList(@ViewBag.Career,"CareerID","CareerName"))">
+                                    <select name="careerID" id="careerID" class="form-control" asp-items="@(new SelectList(@ViewBag.Career,"CareerID","CareerName"))">
                                         @*<option value="">Select Department</option>*@
                                     </select>
                                     @*<span asp-validation-for="CareerID" class="text-danger"></span>*@

@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211211144646_skillupdated")]
+    partial class skillupdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d08c1594-4bf0-4677-b8cf-db32b25df5f9",
-                            ConcurrencyStamp = "60358152-14cc-4657-99cb-aea4ee48e77e",
+                            Id = "d67daa10-ad27-459c-a2ab-f407d231d0fa",
+                            ConcurrencyStamp = "e44848b4-d7a0-42be-89a5-d0917d7a7c39",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2cd77f28-8a0b-474b-8e75-9711fd56af52",
+                            Id = "56983c54-d0b4-4617-a5eb-d722d755c5ac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e3ca5bb-6bc1-4727-80c7-f5bcf31476b9",
+                            ConcurrencyStamp = "b3874822-9317-4120-a8d7-96493181fdd9",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e56567b9-7131-4047-b013-3b0d82eb0014",
+                            SecurityStamp = "3e321ec8-0d91-4f25-b2a8-7950b927b513",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -458,14 +460,8 @@ namespace BiodataTest.Migrations
                     b.Property<int>("CareerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CareerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("skillCode")
                         .HasColumnType("nvarchar(max)");

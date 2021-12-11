@@ -157,5 +157,40 @@ namespace BiodataTest.Controllers
             
             return View(allcost);
         }
+
+        public async Task<JsonResult> FilterCategoryCareer(int Id)
+        {
+
+
+
+            //List<Dept> departmentlist = new List<Dept>();
+
+
+
+            
+
+            //var data = dbContext.Departments.Where(x => x.DivId == DivId).ToList();
+            //return Json(data);
+
+
+            var careertExist = await _icareer.GetCareers();
+
+            var newc = careertExist.Where(x => x.CategoryID == Id).ToList();//.FirstOrDefaultAsync();
+
+            //List<Career> list3 = careertExist.AsEnumerable()
+            //             .Select(o => new Career
+            //             {
+            //                 CareerID = o.CareerID,
+            //                 CareerName = o.CareerName
+
+
+            //             }).Where(x=>x.CategoryID==Id).ToList();
+
+            //  ViewBag.Category = list2;
+
+            return Json(newc);
+            //return list3;
+
+        }
     }
 }

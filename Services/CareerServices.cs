@@ -58,7 +58,7 @@ namespace BiodataTest.Services
 
             var query = await (from career in _appDbContext.careers.Where(x=> x.CareerID==Id)
                                join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
-                               join skill in _appDbContext.skills on career.CategoryID equals skill.CategoryID
+                               join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
                                select new CareerViewModel
                                {    CareerID=career.CareerID,
                                    CareerName = career.CareerName,
@@ -78,28 +78,10 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<CareerViewModel>> GetCareers()
         {
-            // bool succ = false;
-            ////var query = await _appDbContext.careers
-            ////             .Join(
-            ////                  _appDbContext.categorys,
-            ////                  career => career.CategoryID,
-            ////                  category => category.CategoryID,
-
-            ////                  (career, category) => new CareerViewModel
-            ////                  {
-            ////                      CareerName = career.CareerName,
-            ////                      CareerImageUrl = career.CareerImageUrl,
-            ////                      CategoryID = career.CategoryID,
-            ////                      CareerDesc = career.CareerDesc,
-            ////                      CategoryName = category.CategoryName,
-
-
-
-            ////                  }
-            ////              ).ToListAsync();
+            
             var query = await (from career in _appDbContext.careers
                                join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
-                               join skill in _appDbContext.skills on career.CategoryID equals skill.CategoryID
+                               join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
                                select new CareerViewModel
                                {
                                    CareerID = career.CareerID,

@@ -57,7 +57,7 @@ namespace BiodataTest.Services
                                  join career in _appDbContext.careers on yex.CareerID equals career.CareerID
                                  select new YearsExperienceCost
                                  {
-                                     YearsHigherBound = yex.YearsLowerBound,
+                                     YearsHigherBound = yex.YearsHigherBound,
                                      YearsLowerBound = yex.YearsLowerBound,
                                      CareerID = yex.CareerID,
                                      CareerName = career.CareerName,

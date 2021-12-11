@@ -17,5 +17,8 @@ namespace BiodataTest.Models
         [BindProperty, MaxLength(500)]
         public string skillDescription { get; set; }
         public int CategoryID { get; set; }
+        public int CareerID { get; set; }
+        public string CategoryName { get; set; }
+        public string CareerName { get; set; }
     }
 }

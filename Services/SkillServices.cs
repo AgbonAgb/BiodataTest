@@ -19,7 +19,7 @@ namespace BiodataTest.Services
         public async Task<bool> CreateSkills(Skills skill)
         {
             bool succ = false;
-            var sk = await _appDbContext.skills.Where(a => a.skillCode == skill.skillCode || a.CategoryID == skill.CategoryID).FirstOrDefaultAsync();
+            var sk = await _appDbContext.skills.Where(a => a.skillCode == skill.skillCode || a.skillId==skill.skillId).FirstOrDefaultAsync();
             if(sk == null)
             {
                 await _appDbContext.AddAsync(skill);
@@ -51,7 +51,28 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<Skills>> GetSkills()
         {
-            return await _appDbContext.skills.ToListAsync();//
+            // return await _appDbContext.skills.ToListAsync();//
+
+           // return await _appDbContext.skills.ToListAsync();//
+
+
+            var skk = await (from skil in _appDbContext.skills
+                             join cat in _appDbContext.categorys on skil.CategoryID equals cat.CategoryID
+                             join carr in _appDbContext.careers on skil.CareerID equals carr.CareerID
+                             select new Skills
+                             {
+                                 skillId = skil.skillId,
+                                 skillCode = skil.skillCode,
+                                 skillDescription = skil.skillDescription,
+                                 CategoryID=skil.CategoryID,
+                                 CareerID=skil.CareerID,
+                                 CareerName=carr.CareerName,
+                                 CategoryName=cat.CategoryName
+
+                             }
+                            ).ToListAsync();
+
+            return skk;
         }
 
         public async Task<bool> UpdateSkills(Skills skill)

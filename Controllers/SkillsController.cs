@@ -12,10 +12,12 @@ namespace BiodataTest.Controllers
     {
         private readonly ISkills _skills;
         private readonly ICategory _category;
-        public SkillsController(ISkills skills, ICategory category)
+        private readonly ICareer _icareer;
+        public SkillsController(ISkills skills, ICategory category, ICareer icareer)
         {
             _skills = skills;
             _category = category;
+            _icareer = icareer;
         }
         public IActionResult Index()
         {
@@ -28,8 +30,29 @@ namespace BiodataTest.Controllers
 
 
             ViewBag.listofCategory = await loadCategories();
+            ViewBag.Career = await loadCareer();
 
             return View(Sk);
+        }
+        public async Task<List<Career>> loadCareer()
+        {
+            //new SelectList(@ViewBag.listofDept,"CategoryID","CategoryName"))
+            var careertExist = await _icareer.GetCareers();
+
+            List<Career> list3 = careertExist.AsEnumerable()
+                         .Select(o => new Career
+                         {
+                             CareerID = o.CareerID,
+                             CareerName = o.CareerName
+
+
+                         }).ToList();
+
+            //  ViewBag.Category = list2;
+
+
+            return list3;
+
         }
         [HttpPost]
         public async Task<IActionResult> CreateSkills(Skills Sk)
@@ -85,6 +108,17 @@ namespace BiodataTest.Controllers
 
 
             return (list2);
+
+        }
+        public async Task<JsonResult> FilterCategoryCareer(int Id)
+        {
+
+            var careertExist = await _icareer.GetCareers();
+
+            var newc = careertExist.Where(x => x.CategoryID == Id).ToList();//.FirstOrDefaultAsync();
+
+            return Json(newc);
+            //return list3;
 
         }
         //public async Task<IActionResult> GetCategories()

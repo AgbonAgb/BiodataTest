@@ -109,7 +109,8 @@ namespace BiodataTest.Controllers
 
 
 
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                return RedirectToAction("existedCareers", "Career");
             }
             else
             {
