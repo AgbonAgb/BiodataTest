@@ -14,5 +14,7 @@ namespace BiodataTest.Models
         public string CategoryName { get; set; }
         [Display(Name = "Category Code")]
         public string CategoryCode { get; set; }
+
+        
     }
 }

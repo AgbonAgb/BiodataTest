@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BiodataTest.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +16,8 @@ namespace BiodataTest.ViewModels
         public string CategoryName { get; set; }
         [Display(Name = "Category Code")]
         public string CategoryCode { get; set; }
+        [NotMapped]
+        public IEnumerable<Category> AllCategories { get; set; }
 
         //public CategoryViewModel(string test)
         //{

@@ -1,31 +1,86 @@
 ﻿@model BiodataTest.ViewModels.CategoryViewModel
 
-@{
-    ViewData["Title"] = "CreateCategory";
-}
 
-<h1>CreateCategory</h1>
-
-<h4>CategoryViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="panel panel-default">
+    <div class="panel-body">
         <form asp-action="CreateCategory">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Career category</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label asp-for="CategoryName" class="control-label"></label>
+                                <input asp-for="CategoryName" class="form-control" />
+                                <span asp-validation-for="CategoryName" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="CategoryCode" class="control-label"></label>
+                                <input asp-for="CategoryCode" class="form-control" />
+                                <span asp-validation-for="CategoryCode" class="text-danger"></span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CategoryCode" class="control-label"></label>
-                <input asp-for="CategoryCode" class="form-control" />
-                <span asp-validation-for="CategoryCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
         </form>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Existing Data</div>
+        <div class="panel-body">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryCode)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AllCategories)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryCode)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.CategoryID">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

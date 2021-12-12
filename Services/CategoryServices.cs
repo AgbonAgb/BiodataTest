@@ -78,7 +78,7 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<Category>> GetAllCategory()
         {
-            var allCat = await _appDbContext.categorys.ToListAsync();
+            var allCat = await _appDbContext.categorys.OrderByDescending(x=>x.CategoryID).ToListAsync();
 
             return allCat;
         }

@@ -32,7 +32,12 @@ namespace BiodataTest.Controllers
             CategoryViewModel Cat = new CategoryViewModel();
 
 
+           
+            var createdC = await _iCategory.GetAllCategory();
 
+            Cat.AllCategories = createdC;
+
+            
 
 
 
@@ -46,7 +51,20 @@ namespace BiodataTest.Controllers
             var createdC = await _iCategory.CreateCaterory(mapped);
             if(createdC)
             {
-                return RedirectToAction("existedCategories");
+                ModelState.Clear();
+                //CategoryViewModel Cat2 = new CategoryViewModel();
+
+                var existedCat = await _iCategory.GetAllCategory();
+
+                Cat.CategoryName = string.Empty;// "";
+                Cat.CategoryCode = string.Empty;
+
+                Cat.AllCategories = existedCat;
+
+
+                //return RedirectToAction("existedCategories");
+
+                return View(Cat);
             }
             else
             {
