@@ -117,6 +117,62 @@
     </div>
 </div>
 
+<div class="container-fluid">
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Existing Skills</div>
+        <div class="panel-body">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.skillCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.skillDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CareerName)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AllSkills)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.skillCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.skillDescription)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CareerName)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.skillId">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.skillId">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.skillId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

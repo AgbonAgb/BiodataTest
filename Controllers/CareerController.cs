@@ -41,6 +41,8 @@ namespace BiodataTest.Controllers
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
             ViewBag.listofCategory = await loadCategories();
+            //get aLL Careers
+            CVM.AllCareers =  await _career.GetCareers();
 
             return View(CVM);
         }
@@ -77,8 +79,15 @@ namespace BiodataTest.Controllers
             {
                 //if sucess go to list page of existing
                 //return View(bioDataViewModel);
+                ModelState.Clear();
+                CareerViewModel CVM2 = new CareerViewModel();
+                ViewBag.listofCategory = await loadCategories();
+                CVM2.CareerName = string.Empty;
+                CVM2.CareerDesc = string.Empty;
 
-                return RedirectToAction("existedCareers");
+                CVM.AllCareers = await _career.GetCareers();
+                // return RedirectToAction("existedCareers");
+                return View(CVM);
             }
             else
             {

@@ -81,7 +81,7 @@ namespace BiodataTest.Services
             
             var query = await (from career in _appDbContext.careers
                                join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
-                               join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
+                               //join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
                                select new CareerViewModel
                                {
                                    CareerID = career.CareerID,
@@ -89,8 +89,8 @@ namespace BiodataTest.Services
                                    CareerImageUrl = career.CareerImageUrl,
                                    CategoryID = career.CategoryID,
                                    CareerDesc = career.CareerDesc,
-                                   CategoryName = category.CategoryName,
-                                   skills = skill.skillDescription
+                                   CategoryName = category.CategoryName
+                                  // skills = skill.skillDescription
                                }
                          ).ToListAsync();
 

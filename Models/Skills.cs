@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,5 +21,7 @@ namespace BiodataTest.Models
         public int CareerID { get; set; }
         public string CategoryName { get; set; }
         public string CareerName { get; set; }
+        [NotMapped]
+        public IEnumerable<Skills> AllSkills { get; set; }
     }
 }

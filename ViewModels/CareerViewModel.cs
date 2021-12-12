@@ -26,7 +26,9 @@ namespace BiodataTest.ViewModels
         public IFormFile CareerImgfile { get; set; }
         public bool isActive { get; set; }
         public string CategoryName { get; set; }
-        
+        [NotMapped]
+        public IEnumerable<CareerViewModel> AllCareers { get; set; }
+
 
 
 

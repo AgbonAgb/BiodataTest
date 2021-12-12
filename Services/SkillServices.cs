@@ -70,7 +70,7 @@ namespace BiodataTest.Services
                                  CategoryName=cat.CategoryName
 
                              }
-                            ).ToListAsync();
+                            ).OrderByDescending(x=>x.skillId).ToListAsync();
 
             return skk;
         }

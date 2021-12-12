@@ -32,6 +32,10 @@ namespace BiodataTest.Controllers
             ViewBag.listofCategory = await loadCategories();
             ViewBag.Career = await loadCareer();
 
+            //get all existing skills
+            Sk.AllSkills = await _skills.GetSkills();
+
+
             return View(Sk);
         }
         public async Task<List<Career>> loadCareer()
@@ -60,16 +64,23 @@ namespace BiodataTest.Controllers
             var skill = await _skills.CreateSkills(Sk);
 
             if (skill)
-
             {
-                return RedirectToAction("ExistingSkill");
+                Skills Sk2 = new Skills();
+                ModelState.Clear();
+                ViewBag.listofCategory = await loadCategories();
+                ViewBag.Career = await loadCareer();
+
+                Sk2.AllSkills = await _skills.GetSkills();
+                return View(Sk2);
+
+                //return RedirectToAction("ExistingSkill");
             }
             else
             {
                 return View(Sk);
             }
 
-           
+
         }
 
         [HttpGet]
@@ -86,7 +97,7 @@ namespace BiodataTest.Controllers
             //}
             //else
             //{
-                
+
             //}
 
 
@@ -96,7 +107,7 @@ namespace BiodataTest.Controllers
             //new SelectList(@ViewBag.listofDept,"CategoryID","CategoryName"))
             var existing = await _category.GetAllCategory();
 
-           
+
             List<Category> list2 = existing.AsEnumerable()
                          .Select(o => new Category
                          {
