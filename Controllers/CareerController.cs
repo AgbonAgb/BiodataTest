@@ -85,9 +85,9 @@ namespace BiodataTest.Controllers
                 CVM2.CareerName = string.Empty;
                 CVM2.CareerDesc = string.Empty;
 
-                CVM.AllCareers = await _career.GetCareers();
+                CVM2.AllCareers = await _career.GetCareers();
                 // return RedirectToAction("existedCareers");
-                return View(CVM);
+                return View(CVM2);
             }
             else
             {
@@ -154,7 +154,7 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> existedCareers()
         {
 
-            var existed = await _career.GetCareers();
+            var existed = await _career.GetCareersWithSkills();
 
 
             return View(existed);
@@ -184,7 +184,9 @@ namespace BiodataTest.Controllers
             ApplicationViewModel APpVm = new ApplicationViewModel();
             APpVm.CareerID = CRw.CareerID;
             APpVm.CategoryID = CRw.CategoryID;
-
+            APpVm.CategoryName = CRw.CategoryName;
+            APpVm.CareerName = CRw.CareerName;
+            APpVm.ApplicationByind = (IEnumerable<ApplicationDetails>)null;
             return View(APpVm);
         }
 
@@ -223,10 +225,18 @@ namespace BiodataTest.Controllers
 
             if (newCr)
             {
+
+                ModelState.Clear();
+                ApplicationViewModel APpVm2 = new ApplicationViewModel();
+                APpVm2.CareerID = ApVM.CareerID;
+                APpVm2.CategoryID = ApVM.CategoryID;
+                APpVm2.ApplicationByind = await _application.GetApplicationind(ApVM.CareerID, ApVM.Email);
                 //if sucess go to list page of existing
                 //return View(bioDataViewModel);
 
-                return RedirectToAction("existedCareers");
+                //return RedirectToAction("existedCareers");
+
+                return View(APpVm2);
             }
             else
             {

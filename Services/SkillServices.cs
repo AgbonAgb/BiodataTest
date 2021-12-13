@@ -19,7 +19,7 @@ namespace BiodataTest.Services
         public async Task<bool> CreateSkills(Skills skill)
         {
             bool succ = false;
-            var sk = await _appDbContext.skills.Where(a => a.skillCode == skill.skillCode || a.skillId==skill.skillId).FirstOrDefaultAsync();
+            var sk = await _appDbContext.skills.Where(a => a.CareerID == skill.CareerID || a.CategoryID==skill.CategoryID).FirstOrDefaultAsync();
             if(sk == null)
             {
                 await _appDbContext.AddAsync(skill);
@@ -46,7 +46,24 @@ namespace BiodataTest.Services
 
         public async Task<Skills> GetIndSkills(int Id)
         {
-            return await _appDbContext.skills.Where(x => x.skillId == Id).FirstOrDefaultAsync();
+            //return await _appDbContext.skills.Where(x => x.skillId == Id).FirstOrDefaultAsync();
+            var skk = await (from skil in _appDbContext.skills
+                             join cat in _appDbContext.categorys on skil.CategoryID equals cat.CategoryID
+                             join carr in _appDbContext.careers on skil.CareerID equals carr.CareerID
+                             select new Skills
+                             {
+                                 skillId = skil.skillId,
+                                 skillCode = skil.skillCode,
+                                 skillDescription = skil.skillDescription,
+                                 CategoryID = skil.CategoryID,
+                                 CareerID = skil.CareerID,
+                                 CareerName = carr.CareerName,
+                                 CategoryName = cat.CategoryName
+
+                             }
+                          ).Where(x => x.skillId == Id).SingleOrDefaultAsync();//.ToListAsync();
+
+            return skk;
         }
 
         public async Task<IEnumerable<Skills>> GetSkills()
@@ -85,7 +102,7 @@ namespace BiodataTest.Services
                 sk.CategoryID = skill.CategoryID;
                 sk.skillCode = skill.skillCode;
                 sk.skillDescription = skill.skillDescription;
-                          
+                sk.CareerID = skill.CareerID;          
 
 
                 await _appDbContext.SaveChangesAsync();

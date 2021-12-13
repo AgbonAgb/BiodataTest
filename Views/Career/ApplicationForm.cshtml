@@ -1,7 +1,7 @@
 ﻿@model BiodataTest.ViewModels.ApplicationViewModel
 
 @{
-//ViewData["Title"] = "ApplicationForm";
+    //ViewData["Title"] = "ApplicationForm";
 }
 
 
@@ -10,69 +10,90 @@
         <form asp-action="ApplicationForm" enctype="multipart/form-data" asp-controller="Career">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ApplicationId" />
-
             <div class="form-group">
 
                 <input asp-for="CareerID" class="form-control" hidden />
 
             </div>
             <div class="form-group">
-                <
+
                 <input asp-for="CategoryID" class="form-control" hidden />
 
             </div>
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label asp-for="FirstName" class="control-label"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-                <div class="col-md-4">
-                    <label asp-for="LastName" class="control-label"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
+            <div class="panel panel-primary" style="border-width:0px">
+                <div class="panel-heading">Application Form</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for=" CategoryName" class="control-label"></label>
+                            <input asp-for="CategoryName" class="form-control" readonly />
+                            @*<span asp-validation-for="CategoryName" class="text-danger"></span>*@
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="CareerName" class="control-label"></label>
+                            <input asp-for="CareerName" class="form-control" readonly />
+                            @*<span asp-validation-for="CareerName" class="text-danger"></span>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="Address" class="control-label"></label>
+                            <textarea asp-for="Address" class="form-control"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="yearsExpe" class="control-label"></label>
+                            <input asp-for="yearsExpe" class="form-control" />
+                            <span asp-validation-for="yearsExpe" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="col-md-4">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
+
+
+            <div class="col-md-2">
+                <label class="control-label">Upload CV</label>
+                <input asp-for="CVfile" class="form-control" type="file" />
+                <span asp-validation-for="CVfile" class="text-danger"></span>
             </div>
-
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label asp-for="Address" class="control-label"></label>
-                    <textarea asp-for="Address" class="form-control"></textarea>
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
-                @*<div class="col-md-4">
-            <label asp-for="CvPath" class="control-label"></label>
-            <input asp-for="CvPath" class="form-control" type="file" />
-            <span asp-validation-for="CvPath" class="text-danger"></span>
-        </div>*@
-
-                <div class="col-md-2">
-                    <label asp-for="yearsExpe" class="control-label"></label>
-                    <input asp-for="yearsExpe" class="form-control" />
-                    <span asp-validation-for="yearsExpe" class="text-danger"></span>
-                </div>
-                <div class="col-md-2">
-                    <label class="control-label">Upload CV</label>
-                    <input asp-for="CVfile" class="form-control" type="file" />
-                    <span asp-validation-for="CVfile" class="text-danger"></span>
-                </div>
-            </div>
-
-            
+            <br />
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -81,7 +102,130 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (Model.ApplicationByind != null)
+{
+    <div class="panel panel-success">
+        <div class="panel-heading">Your Application details</div>
+        <div class="panel-body">
+            <div class="row">
+
+                <table class="table">
+                    <thead class="th">
+                        <tr>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.ApplicationId)*@
+                                ID
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.CareerID)*@
+                                @*@Html.DisplayNameFor(model => model.CareerID)*@
+                                Career
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.CategoryID)*@
+                                Category
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+                                Phone
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Address)*@
+                                Address
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.yearsExpe)*@
+                                Years
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TransDate)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.approved)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.rejected)
+                            </th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+
+                        @foreach (var item in Model.ApplicationByind)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApplicationId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CareerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.yearsExpe)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransDate)
+                                </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.approved)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.rejected)
+                                </td>
+
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit</a> |
+
+
+                                </td>
+
+                            </tr>
+                        }
+                        
+
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </div>
+}
+    <div>
+        <a asp-action="Application" asp-controller="Career">Back to List</a>
+    </div>
 

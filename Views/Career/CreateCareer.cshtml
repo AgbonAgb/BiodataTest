@@ -6,7 +6,7 @@
         <form asp-action="CreateCareer" asp-controller="Career" method="post" role="form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="border-width:0px">
                 <div class="panel-heading">Career</div>
                 <div class="panel-body">
                     <div class="row">
@@ -65,12 +65,13 @@
             <div class="col-md-4">
 
                 <div class="form-group">
-                    <label asp-for="CareerImgfile" class="control-label"></label>
+                    <label  class="control-label">Upload Career Image</label>
                     <input asp-for="CareerImgfile" class="form-control" type="file" />
                     <span asp-validation-for="CareerImgfile" class="text-danger"></span>
                 </div>
 
             </div>
+            <br />
             <div class="col-md-4">
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />

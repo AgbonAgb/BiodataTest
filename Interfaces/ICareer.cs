@@ -14,5 +14,6 @@ namespace BiodataTest.Interfaces
         Task<bool> UpdateCareer(Career CR);
         Task<CareerViewModel> GetCareer(int Id);
         Task<IEnumerable<CareerViewModel>> GetCareers();
+        Task<IEnumerable<CareerViewModel>> GetCareersWithSkills();
     }
 }

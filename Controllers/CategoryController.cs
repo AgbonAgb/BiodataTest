@@ -3,6 +3,7 @@ using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using BiodataTest.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,13 +32,35 @@ namespace BiodataTest.Controllers
         {
             CategoryViewModel Cat = new CategoryViewModel();
 
+            if (TempData["EditedCategory"] != null)
+            {
+               //var Category = (new Category)TempData["EditedCategory"];//as BiodataTest.Models.Category;
 
-           
-            var createdC = await _iCategory.GetAllCategory();
+                ViewData["EditedCategory"] = JsonConvert.DeserializeObject<Category>((string)TempData["EditedCategory"]);
 
-            Cat.AllCategories = createdC;
+                var category = ViewData["EditedCategory"]  as BiodataTest.Models.Category;
+                string sname = category.CategoryName;
+                Cat.CategoryName = category.CategoryName;
+                Cat.CategoryCode = category.CategoryCode;
+                Cat.CategoryID = category.CategoryID;
+               
+            }
+           else
+            {
+                var createdC = await _iCategory.GetAllCategory();
 
-            
+                Cat.AllCategories = createdC;
+            }
+
+            //// CategoryViewModel Cat = new CategoryViewModel();
+
+            //var createdC = await _iCategory.GetAllCategory();
+
+            //Cat.AllCategories = createdC;
+
+
+
+
 
 
 
@@ -46,10 +69,13 @@ namespace BiodataTest.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategoryViewModel Cat)
         {
+
+            
+
             var mapped = _mapper.Map<Category>(Cat);
 
             var createdC = await _iCategory.CreateCaterory(mapped);
-            if(createdC)
+            if (createdC)
             {
                 ModelState.Clear();
                 //CategoryViewModel Cat2 = new CategoryViewModel();
@@ -74,7 +100,7 @@ namespace BiodataTest.Controllers
         }
         public async Task<IActionResult> existedCategories()
         {
-            
+
 
             var createdC = await _iCategory.GetAllCategory();
 
@@ -88,6 +114,46 @@ namespace BiodataTest.Controllers
             //    return View(createdC);
             //}
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+
+            Category Cat = new Category();
+            var existedCat = await _iCategory.GetCategoryById(Id);
+            Cat = existedCat;
+
+            TempData["EditedCategory"] = JsonConvert.SerializeObject(Cat); ;
+           
+            return RedirectToAction("CreateCategory");
+            //return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(CategoryViewModel Cat)
+        {
+            var mapped = _mapper.Map<Category>(Cat);
+
+            var createdC = await _iCategory.EditCategory(mapped);
+            if (createdC)
+            {
+                ////ModelState.Clear();                
+                ////var existedCat = await _iCategory.GetAllCategory();
+
+                ////Cat.CategoryName = string.Empty;// "";
+                ////Cat.CategoryCode = string.Empty;
+
+                ////Cat.AllCategories = existedCat;
+
+                TempData["EditedCategory"] = null;
+                return RedirectToAction("CreateCategory");
+
+                //return View(Cat);
+            }
+            else
+            {
+                //return View(Cat);
+                return RedirectToAction("CreateCategory");
+            }
         }
     }
 }

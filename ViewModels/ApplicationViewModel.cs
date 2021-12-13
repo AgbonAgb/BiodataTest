@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BiodataTest.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,5 +51,7 @@ namespace BiodataTest.ViewModels
         public DateTime TransDate { get; set; }
         public string CareerName { get; set; }
         public string CategoryName { get; set; }
-    }
+        [NotMapped]
+        public IEnumerable<ApplicationDetails> ApplicationByind { get; set; }
+}
 }

@@ -1,9 +1,31 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
+    /*background-color:red !important;*/
 }
+
+
+
+h1 {
+  
+    font-size: 2em !important;
+}
+
+
+.navbar-collapse {
+    max-height: 50px !important;
+
+}
+/*User logon name*/
+.navbar-nav {
+    float: right !important;
+
+}
+
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -54,33 +76,49 @@ body {
 #qrCode {
     margin: 15px;
 }
+
+
+table td {
+    font-size: 12px !important;
+    word-wrap: break-word;
+    /*word-break: break-all;*/
+    white-space: normal !important;
+    text-align: justify;
+}
+table th {
+    border: 1px solid black !important;
+    font-size: 12px !important;
+   
+}
 /*
 .table-condensed {
     font-size:9px;
-}
-.table-bordered {
-    font-size: 9px;
 }*/
-.table .th .td {
-    /*background-color:brown;
-    border-color:blue;*/
-    border: 0.5px solid black;
-    padding: 5px;
-    /*font-size: 20px;*/
-    font-size: 20em;
-    border-spacing: 5px;
+.table-bordered {
+    /* font-size: 12px !important;*/
+    width: 100% !important;
+    table-layout: fixed;
+    white-space: nowrap;
 }
-/*.table {*/
-    /* width: 100%;
-    max-width: 400px;
-    height: 240px;*/
-    /*margin: 0 auto;
+/*.table .th .td {
+    background-color:brown;   
+    border: 0.5px solid black;
+    padding: 5px;*/
+    /*font-size: 20px;*/
+    /*font-size: 20em;
+    border-spacing: 5px;
+}*/
+/*table {
+     width: 100%;*/
+    /*max-width: 400px;*/
+    /*height: 240px;
+    margin: 0 auto;
     display: block;
     overflow-x: auto;
     border-spacing: 10px;
     font-size: 25px;
 }*/
-.tbody {
+/*/*.tbody {
     white-space: nowrap;
 }
 
@@ -127,4 +165,5 @@ body {
     .table-responsive {
         font-size: 10px !important;
     }
+    
 }

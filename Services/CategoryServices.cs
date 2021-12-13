@@ -33,7 +33,7 @@ namespace BiodataTest.Services
 
                // _logger.LogInformation("Category saved successfully for " + category.CategoryName, "");
             }
-
+            
             return rtn;
 
         }
@@ -61,11 +61,11 @@ namespace BiodataTest.Services
             bool rtn = false;
             var CatEdit = await _appDbContext.categorys.FindAsync(category.CategoryID);
 
-            if (CatEdit == null)
+            if (CatEdit != null)
             {
                 CatEdit.CategoryName = category.CategoryName;
                 CatEdit.CategoryCode = category.CategoryCode;
-
+                
 
                 await _appDbContext.SaveChangesAsync();
                 rtn = true;

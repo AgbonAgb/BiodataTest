@@ -100,6 +100,29 @@ namespace BiodataTest.Services
             return query;
         }
 
+        public async Task<IEnumerable<CareerViewModel>> GetCareersWithSkills()
+        {
+            var query = await (from career in _appDbContext.careers
+                               join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
+                               join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
+                               select new CareerViewModel
+                               {
+                                   CareerID = career.CareerID,
+                                   CareerName = career.CareerName,
+                                   CareerImageUrl = career.CareerImageUrl,
+                                   CategoryID = career.CategoryID,
+                                   CareerDesc = career.CareerDesc,
+                                   CategoryName = category.CategoryName,
+                                   skills = skill.skillDescription
+                               }
+                        ).ToListAsync();
+
+
+
+
+            return query;
+        }
+
         public async Task<bool> UpdateCareer(Career CR)
         {
             bool succ = false;

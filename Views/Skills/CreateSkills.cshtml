@@ -54,8 +54,9 @@
     <div class="panel-body">
         <form asp-action="CreateSkills">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="skillId" />
             <div class="panel panel-primary">
-                <div class="panel-heading">Schedule an Appointment</div>
+                <div class="panel-heading">Create Skills</div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -105,10 +106,21 @@
 
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
+                    @if (ViewData["EditSkills"] != null)
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Edit" formaction="EditSkills" class="btn btn-primary" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Create" formaction="CreateSkills" class="btn btn-primary" />
+                        </div>
+                    }
+                    @*<div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>*@
 
                 </div>
             </div>
@@ -116,6 +128,8 @@
         </form>
     </div>
 </div>
+@if(Model.AllSkills !=null)
+{
 
 <div class="container-fluid">
 
@@ -123,8 +137,8 @@
         <div class="panel-heading">Existing Skills</div>
         <div class="panel-body">
             <div class="row">
-                <table class="table">
-                    <thead>
+                <table class="table-bordered">
+                    <thead class="table th">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.skillCode)
@@ -141,7 +155,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody table td>
                         @foreach (var item in Model.AllSkills)
                         {
                             <tr>
@@ -159,7 +173,7 @@
                                     @Html.DisplayFor(modelItem => item.CareerName)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.skillId">Edit</a> |
+                                    <a asp-action="EditSkills" asp-route-id="@item.skillId">Edit</a> |
                                     <a asp-action="Details" asp-route-id="@item.skillId">Details</a> |
                                     <a asp-action="Delete" asp-route-id="@item.skillId">Delete</a>
                                 </td>
@@ -172,8 +186,6 @@
     </div>
 </div>
 
+}
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

@@ -258,6 +258,49 @@ namespace BiodataTest.Services
             // ApplicationViewModel appmodel = (ApplicationViewModel)chk;
             return chk;
         }
+        //user that submitted Applocation will see this in grid
+        public async Task<IEnumerable<ApplicationDetails>> GetApplicationind(int Id, string email)
+        {
+           
+            var query = (IEnumerable<ApplicationDetails>)null;
+
+
+
+            try
+            {
+
+
+                query = await (from application in _appDbContext.applications
+                               join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                               join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                               select new ApplicationDetails
+                               {
+                                   ApplicationId = application.ApplicationId,     
+                                   FirstName = application.FirstName,
+                                   LastName = application.LastName,
+                                   Email = application.Email,
+                                   PhoneNumber = application.PhoneNumber,
+                                   yearsExpe = application.yearsExpe,                                  
+                                   Address = application.Address,
+                                   CategoryName = category.CategoryName,
+                                   CareerName = career.CareerName,
+                                   approved = application.approved,
+                                   rejected = application.rejected,
+                                   CareerID=application.CareerID
+
+                               }
+               ).Where(application => application.approved == false && application.rejected == false && application.CareerID==Id && application.Email==email).ToListAsync();//.FirstOrDefaultAsync();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return query;
+        }
 
         public async Task<bool> UpdateApplication(ApplicationDetails Ap)
         {
