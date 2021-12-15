@@ -12,6 +12,7 @@ using System.IO;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
+
 namespace BiodataTest.Controllers
 {
     public class CareerController : Controller
@@ -25,7 +26,8 @@ namespace BiodataTest.Controllers
         private readonly IApplication _application;
         private string[] permittedExtensions2 = { ".doc", ".pdf", ".docx" };
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public CareerController(ICareer career, IMapper mapper, ICategory category, ISkills skills, IWebHostEnvironment webHostEnvironment, IApplication application, IHttpContextAccessor httpContextAccessor)
+        private readonly IShoppingCartItem _shoppingCartItem;
+        public CareerController(ICareer career, IMapper mapper, ICategory category, ISkills skills, IWebHostEnvironment webHostEnvironment, IApplication application, IHttpContextAccessor httpContextAccessor, IShoppingCartItem shoppingCartItem)
         {
             _career = career;
             _mapper = mapper;
@@ -34,10 +36,14 @@ namespace BiodataTest.Controllers
             _webHostEnvironment = webHostEnvironment;
             _application = application;
             _httpContextAccessor = httpContextAccessor;
-        }
+           _shoppingCartItem = shoppingCartItem;
+    }
         [HttpGet]
         public async Task<IActionResult> CreateCareer()
         {
+            HttpContext context = _httpContextAccessor.HttpContext;
+
+
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
             ViewBag.listofCategory = await loadCategories();
@@ -395,21 +401,39 @@ namespace BiodataTest.Controllers
         //ApproveCV
         public async Task<IActionResult> ApproveCV(int Id)
         {
-            //get approved staff along with their cost
-            //var Application = await _application.getCost();//
-            //Update Application table for approval
-            //set available to true, isactive to true//
-            //_bioData.GetBiodataCost(Id);
+            var k = await _application.ApproveCV(Id);
+            if(k == true)
+            {
+                //alert
+                //return RedirectToAction("existedApplications");
+            }
+            //else
+            //{
+            //    return RedirectToAction("existedApplications");
+            //}
+            // View(approvedstaff);
 
-            //step2: Add to Cart-Table <userId, staffname,DOB,Desc,Amount>
-            //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
+            return RedirectToAction("existedApplications");
+        }
+        public async Task<IActionResult> RejectCV(int Id)
+        {
 
+            var k = await _application.RejectCV(Id);
+            if (k == true)
+            {
+                //alert
+                //return RedirectToAction("existedApplications");
+            }
+            //else
+            //{
+            //    return RedirectToAction("existedApplications");
+            //}
+            // View(approvedstaff);
 
-            return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
+            return RedirectToAction("existedApplications");
 
 
         }
-
         public async Task<IActionResult> OnGetDownloadCV(string Id)
         {
 
@@ -429,6 +453,31 @@ namespace BiodataTest.Controllers
         }
         public async Task<IActionResult> AddUserCartlog(int Id)
         {
+            //details for ind application id
+            var appdetails = await _application.GetApplication(Id);
+            ApplicationDetails ap = new ApplicationDetails();
+            ap = appdetails;
+
+            // HttpContext context = _httpContextAccessor.HttpContext;
+            string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
+            ap.EmployerId = empid;//add user id
+
+            var ammped = _mapper.Map<ShoppingCartItem>(ap);
+
+
+            var addtocart = await _shoppingCartItem.AddToCart(ammped);
+            if (addtocart == true)
+            {
+                return RedirectToAction("MyCart");
+            }
+            else
+            {
+                return RedirectToAction("existedApplications");
+            }
+
+            //userid=8f60f1cf-ea64-4527-ac86-5f409aac0cdf;
+
+
             //get approved staff along with their cost
             //var approvedstaff = await _bioData.GetBiodataCost(Id);
 
@@ -436,7 +485,28 @@ namespace BiodataTest.Controllers
             //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
 
 
-            return RedirectToAction("approvedstaffCatalog");// View(approvedstaff);
+          
+
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> MyCart(int Id)
+        {
+            string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
+            ShoppingCartItemViewModel SPC = new ShoppingCartItemViewModel();
+
+            //spSPC.ShoppingCartTotal= "45000.00";
+
+            SPC.Cartitems = await _shoppingCartItem.getMyCartItems(empid);
+            SPC.ShoppingCartTotal = await _shoppingCartItem.GetShoppingCartTotal(empid);// decimal.Parse("25,00.00");
+            SPC.EmployerId = empid;
+
+            //var mycat = await _shoppingCartItem.getMyCartItems(empid);
+
+            return View(SPC);
+
+
+            
 
 
         }

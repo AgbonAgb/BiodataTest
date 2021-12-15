@@ -83,7 +83,9 @@ table td {
     word-wrap: break-word;
     /*word-break: break-all;*/
     white-space: normal !important;
+    /*white-space: initial;*/
     text-align: justify;
+    width: auto;
 }
 table th {
     border: 1px solid black !important;

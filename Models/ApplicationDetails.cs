@@ -12,7 +12,7 @@ namespace BiodataTest.Models
     {
         [Key]
         public int ApplicationId { get; set; }
-        public int EmployerId { get; set; }
+        public string EmployerId { get; set; }
         public int CareerID { get; set; }
         public int CategoryID { get; set; }
 

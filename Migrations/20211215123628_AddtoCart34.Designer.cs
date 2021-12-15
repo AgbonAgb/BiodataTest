@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211215123628_AddtoCart34")]
+    partial class AddtoCart34
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e3ebf78c-5252-4356-aa67-87d3125cdcbe",
-                            ConcurrencyStamp = "b588cf58-7840-4f25-afbd-f4b7da1987fd",
+                            Id = "e287017c-df8a-422b-b516-19aa7dc16537",
+                            ConcurrencyStamp = "e29d6337-0ff3-4b08-814d-5486da328874",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cafc075-2f11-4e85-8362-5e4f7b235c0c",
+                            Id = "49730400-1fc7-43f9-a342-2465caa80b82",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f32c46b2-357b-4f48-8ab1-f08ab0600f71",
+                            ConcurrencyStamp = "830addb6-d4eb-4b57-95e4-60eee435234a",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ff0d265-c8ee-41ff-810f-6ef8dc6ed408",
+                            SecurityStamp = "4a9309a1-c651-4f43-b271-6ab0fb3d4696",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -490,9 +492,6 @@ namespace BiodataTest.Migrations
 
                     b.Property<DateTime>("transDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("yearsExpe")
-                        .HasColumnType("int");
 
                     b.HasKey("ShoppingCartItemId");
 

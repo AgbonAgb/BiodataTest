@@ -69,6 +69,7 @@ namespace BiodataTest
             services.AddScoped<ICareer, CareerServices>();
             services.AddScoped<IApplication, ApplicationServices>();
             services.AddScoped<IYearsExperienceCost, YearsExperienceCostService>();
+            services.AddScoped<IShoppingCartItem, ShoppingCartItemServices>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.Add<HttpContextAccessor>();
@@ -78,7 +79,10 @@ namespace BiodataTest
 
             var connection = Configuration.GetConnectionString("Cnn");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
-
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
 
             //using Coogies//;//we could add this o => o.LoginPath="account/signin. Stop at .AddCookie(); if no external authentication required
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

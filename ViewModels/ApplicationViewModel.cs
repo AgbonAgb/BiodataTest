@@ -53,5 +53,9 @@ namespace BiodataTest.ViewModels
         public string CategoryName { get; set; }
         [NotMapped]
         public IEnumerable<ApplicationDetails> ApplicationByind { get; set; }
-}
+        public int skillId { get; set; }
+        [Display(Name = "Skill Code")]
+        public string skillCode { get; set; }        
+        public string skillDescription { get; set; }
+    }
 }

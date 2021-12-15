@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211215085502_AddtoCart")]
+    partial class AddtoCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e3ebf78c-5252-4356-aa67-87d3125cdcbe",
-                            ConcurrencyStamp = "b588cf58-7840-4f25-afbd-f4b7da1987fd",
+                            Id = "b425be6f-9e8a-495c-9abc-a1b3df4a08a1",
+                            ConcurrencyStamp = "c90bef8e-7698-41a1-bd8d-e1cafac12ba0",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cafc075-2f11-4e85-8362-5e4f7b235c0c",
+                            Id = "d21121f3-73a5-4cc4-80dd-1aa4a62db8eb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f32c46b2-357b-4f48-8ab1-f08ab0600f71",
+                            ConcurrencyStamp = "bcfa11d1-4064-408f-8d95-b35d75bceae4",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ff0d265-c8ee-41ff-810f-6ef8dc6ed408",
+                            SecurityStamp = "9d5b4176-ca9d-4623-84da-5f72f55914f8",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -230,8 +232,8 @@ namespace BiodataTest.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -446,57 +448,6 @@ namespace BiodataTest.Migrations
                     b.HasIndex("PurchaseOrderPoId");
 
                     b.ToTable("purchaseOrderDetails");
-                });
-
-            modelBuilder.Entity("BiodataTest.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("ShoppingCartItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CareerID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CareerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ShoppingCartTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<bool>("finalize")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("transDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("yearsExpe")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShoppingCartItemId");
-
-                    b.ToTable("shoppingCartItem");
                 });
 
             modelBuilder.Entity("BiodataTest.Models.Skills", b =>
@@ -794,19 +745,6 @@ namespace BiodataTest.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoleViewModel");
-                });
-
-            modelBuilder.Entity("BiodataTest.ViewModels.ShoppingCartItemViewModel", b =>
-                {
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("ShoppingCartTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("EmployerId");
-
-                    b.ToTable("ShoppingCartItemViewModel");
                 });
 
             modelBuilder.Entity("BiodataTest.ViewModels.UsersViewModels", b =>

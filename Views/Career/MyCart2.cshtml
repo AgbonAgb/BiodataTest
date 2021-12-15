@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BiodataTest.Models.ShoppingCartItem>
+
+@{
+    ViewData["Title"] = "MyCart2";
+}
+
+<h1>MyCart2</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CareerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.transDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoppingCartTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.finalize)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CareerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.transDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShoppingCartTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.finalize)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ShoppingCartItemId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ShoppingCartItemId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ShoppingCartItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211215094621_AddtoCart3")]
+    partial class AddtoCart3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e3ebf78c-5252-4356-aa67-87d3125cdcbe",
-                            ConcurrencyStamp = "b588cf58-7840-4f25-afbd-f4b7da1987fd",
+                            Id = "75cb79ca-2091-4e70-b2b8-65ef220ce4e0",
+                            ConcurrencyStamp = "4fd10a8e-dfc5-4e43-8064-19116e57cfe9",
                             Name = "Admin"
                         });
                 });
@@ -184,9 +186,9 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cafc075-2f11-4e85-8362-5e4f7b235c0c",
+                            Id = "39f4f51b-7406-4a1d-8366-db667b0e73ef",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f32c46b2-357b-4f48-8ab1-f08ab0600f71",
+                            ConcurrencyStamp = "2743f89c-78fb-46b4-989c-c92e212bd382",
                             Email = "agbonwinn@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Agbon",
@@ -194,7 +196,7 @@ namespace BiodataTest.Migrations
                             LockoutEnabled = false,
                             PasswordHash = "AQAAAAEAACcQAAAAEDeN6XPtWjB/59XyTXCdDACLuvRzqVCFvgkRF8CzJ0Cl3HEKB+d94afT2mksWCNMsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ff0d265-c8ee-41ff-810f-6ef8dc6ed408",
+                            SecurityStamp = "38f5e38d-ed95-4f84-8e80-a5728fa17d85",
                             TwoFactorEnabled = false,
                             UserName = "Agbon"
                         });
@@ -230,8 +232,8 @@ namespace BiodataTest.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -464,23 +466,20 @@ namespace BiodataTest.Migrations
                     b.Property<int>("CareerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CareerName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ShoppingCartItemId1")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("ShoppingCartTotal")
                         .HasColumnType("decimal(18, 2)");
@@ -491,10 +490,9 @@ namespace BiodataTest.Migrations
                     b.Property<DateTime>("transDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("yearsExpe")
-                        .HasColumnType("int");
-
                     b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ShoppingCartItemId1");
 
                     b.ToTable("shoppingCartItem");
                 });
@@ -796,19 +794,6 @@ namespace BiodataTest.Migrations
                     b.ToTable("RoleViewModel");
                 });
 
-            modelBuilder.Entity("BiodataTest.ViewModels.ShoppingCartItemViewModel", b =>
-                {
-                    b.Property<string>("EmployerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("ShoppingCartTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("EmployerId");
-
-                    b.ToTable("ShoppingCartItemViewModel");
-                });
-
             modelBuilder.Entity("BiodataTest.ViewModels.UsersViewModels", b =>
                 {
                     b.Property<string>("Id")
@@ -982,6 +967,13 @@ namespace BiodataTest.Migrations
                     b.HasOne("BiodataTest.Models.PurchaseOrder", null)
                         .WithMany("PoDetails")
                         .HasForeignKey("PurchaseOrderPoId");
+                });
+
+            modelBuilder.Entity("BiodataTest.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("BiodataTest.Models.ShoppingCartItem", null)
+                        .WithMany("cartitems")
+                        .HasForeignKey("ShoppingCartItemId1");
                 });
 
             modelBuilder.Entity("BiodataTest.Models.StaffCost", b =>

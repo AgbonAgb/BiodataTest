@@ -8,11 +8,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BiodataTest.Data;
 using BiodataTest.Models;
 using BiodataTest.AccountsModels;
+using Microsoft.AspNetCore.Http;
 
 namespace BiodataTest.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
+        private readonly IHttpContextAccessor _contextAccessor;
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor contextAccessor) : base(options)
+        {
+            _contextAccessor = contextAccessor;
+        }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -38,7 +44,7 @@ namespace BiodataTest.Data
             //modelBuilder.Entity<CategoryViewModel>().HasKey(m => m.CategoryID);
 
 
-            //modelBuilder.Entity<RoleViewModel>().HasNoKey();
+            //modelBuilder.Entity<ShoppingCartItemViewModel>().HasNoKey();
             //UsersViewModels
             //modelBuilder.Entity<Target>().HasKey(m => m.Guid);
             base.OnModelCreating(modelBuilder);
@@ -71,6 +77,7 @@ namespace BiodataTest.Data
         //ApplicationDetails
         public DbSet<ApplicationDetails> applications { get; set; }
         public DbSet<YearsExperienceCost> yearsExperienceCost { get; set; }
+        public DbSet<ShoppingCartItem> shoppingCartItem { get; set; }
 
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }
@@ -80,6 +87,7 @@ namespace BiodataTest.Data
         public DbSet<BiodataTest.ViewModels.CareerViewModel> CareerViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.ApplicationViewModel> ApplicationViewModel { get; set; }
         public DbSet<BiodataTest.ViewModels.YearsExperienceCostViewModel> YearsExperienceCostViewModel { get; set; }
+        public DbSet<BiodataTest.ViewModels.ShoppingCartItemViewModel> ShoppingCartItemViewModel { get; set; }
 
     }
 }

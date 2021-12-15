@@ -22,6 +22,7 @@ namespace BiodataTest.Helper
             CreateMap<CareerViewModel, Career>().ReverseMap();
             CreateMap<ApplicationViewModel, ApplicationDetails>().ReverseMap();
             CreateMap<YearsExperienceCostViewModel, YearsExperienceCost>().ReverseMap();
+            CreateMap<ApplicationDetails, ShoppingCartItem>().ReverseMap();
             //UsersViewModels
 
             //< ApplicationUser > (Ruser);

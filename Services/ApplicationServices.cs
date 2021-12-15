@@ -88,7 +88,7 @@ namespace BiodataTest.Services
                 {
                     query = await (from application in _appDbContext.applications
                                    join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
-                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   join career in _appDbContext.careers on application.CareerID equals career.CareerID
                                    select new ApplicationDetails
                                    {
                                        ApplicationId = application.ApplicationId,
@@ -105,7 +105,8 @@ namespace BiodataTest.Services
                                        CategoryName = category.CategoryName,
                                        CareerName = career.CareerName,
                                        approved=application.approved,
-                                       rejected=application.rejected
+                                       rejected=application.rejected,
+                                       TransDate=application.TransDate
 
                                    }
                 ).Where(application => application.approved == false && application.rejected == false).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
@@ -118,7 +119,8 @@ namespace BiodataTest.Services
                     //only approved and available applications will be open t Employer to see
                     query = await (from application in _appDbContext.applications
                                    join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
-                                   join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   //join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                                   join career in _appDbContext.careers on application.CareerID equals career.CareerID
                                    select new ApplicationDetails
                                    {
                                        ApplicationId = application.ApplicationId,
@@ -132,11 +134,12 @@ namespace BiodataTest.Services
                                        yearsExpe = application.yearsExpe,
                                        CvPath = application.CvPath,
                                        Address = application.Address,
-                                       //CategoryName = category.CategoryName,
+                                       CategoryName = category.CategoryName,
                                        CareerName = career.CareerName,
                                        approved = application.approved,
                                        rejected = application.rejected,
-                                       available=application.available
+                                       available=application.available,
+                                       TransDate = application.TransDate
 
                                    }
                           ).Where(application => application.approved == true && application.available == true).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
@@ -301,7 +304,44 @@ namespace BiodataTest.Services
             }
             return query;
         }
+        public async Task<bool> ApproveCV(int Id)
+        {
+            bool succ = false;
 
+
+            var chk = await _appDbContext.applications.FindAsync(Id);//.Where(x => x.CareerID == Id).FirstOrDefaultAsync();
+            if (chk != null)
+            {
+
+                chk.approved = true;//
+                chk.available = true;
+
+                //_appDbContext.Remove(chk);
+                await _appDbContext.SaveChangesAsync();
+                succ = true;
+            }
+
+            return succ;
+        }
+        public async Task<bool> RejectCV(int Id)
+        {
+            bool succ = false;
+
+
+            var chk = await _appDbContext.applications.FindAsync(Id);//.Where(x => x.CareerID == Id).FirstOrDefaultAsync();
+            if (chk != null)
+            {
+
+                chk.rejected = true;//
+                chk.available = false;
+
+                //_appDbContext.Remove(chk);
+                await _appDbContext.SaveChangesAsync();
+                succ = true;
+            }
+
+            return succ;
+        }
         public async Task<bool> UpdateApplication(ApplicationDetails Ap)
         {
             bool succ = false;

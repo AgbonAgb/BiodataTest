@@ -12,6 +12,8 @@ namespace BiodataTest.Interfaces
         Task<bool> CreateCareer(Career CR);
         Task<bool> DeleteCareer(int Id);
         Task<bool> UpdateCareer(Career CR);
+        //ApproveCV
+       
         Task<CareerViewModel> GetCareer(int Id);
         Task<IEnumerable<CareerViewModel>> GetCareers();
         Task<IEnumerable<CareerViewModel>> GetCareersWithSkills();

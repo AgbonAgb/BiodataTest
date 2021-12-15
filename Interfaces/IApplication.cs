@@ -13,6 +13,8 @@ namespace BiodataTest.Interfaces
         Task<bool> DeleteApplication(int Id);
         Task<bool> UpdateApplication(ApplicationDetails Ap);
         Task<ApplicationDetails> GetApplication(int Id);
+        Task<bool> ApproveCV(int Id);
+        Task<bool> RejectCV(int Id);
         Task<IEnumerable<ApplicationDetails>> GetApplicationind(int Id, string email);
         Task<IEnumerable<ApplicationDetails>> GetAllApplications();
         Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles);

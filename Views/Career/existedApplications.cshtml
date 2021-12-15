@@ -106,14 +106,17 @@
 </div>
 </div>
 
+<div>
+    <a asp-action="existedApplications" asp-controller="Career">Back resources</a>
+</div>
 
 @*<div class="container-fluid">*@
     <div class="panel panel-success">
         <div class="panel-heading"></div>
         <div class="panel-body">
             <div class="row">
-                <table class="table">
-                    <thead class="th">
+                <table class="table-bordered">
+                    <thead class="table th">
                         <tr>
                             <th>
                                 @*@Html.DisplayNameFor(model => model.ApplicationId)*@
@@ -174,10 +177,10 @@
                             <th>
                                 Actions
                             </th>
-                            <th></th>
+                           
                         </tr>
                     </thead>
-                    <tbody class="tbody">
+                    <tbody class="table td">
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -210,7 +213,9 @@
                                     @Html.DisplayFor(modelItem => item.yearsExpe)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.TransDate)
+                                    @*@string.Format("{0:ddd}", Convert.ToDateTime(Html.DisplayFor(model => model.Booking.BookingFromDate).ToString()))*@
+                                    @*@Html.DisplayFor(modelItem => item.TransDate.ToString("dd-MM-yyyy HH:mm"))*@
+                                    @Html.Raw(item.TransDate.ToString("dd-MM-yyyy HH:mm"))
                                 </td>
 
 
@@ -258,24 +263,19 @@
                                     }
                                     @if (User.IsInRole("Employer"))
                                     {
-                                        <div>
+                                <div>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                    </li>
 
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
-                                            </li>
-
-                                        </div>
+                                </div>
                                     }
 
                                 </td>
-                                @*<td>
-                            <div>
-                                <form asp-action="AddUserCartlog" asp-controller="Career" method="post">
-                                    <button asp-action="AddUserCartlog" asp-route-id="@item.ApplicationId" onclick="return confirm('Are you sure of adding this to your cartlog?')" class="nav-link-text">Add to Cartlog</button>
-                                </form>
-
-                            </div>
-                        </td>*@
+                                
                             </tr>
                         }
                     </tbody>

@@ -6,6 +6,7 @@ using BiodataTest.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,11 +26,13 @@ namespace BiodataTest.Controllers
         //Auto mapper
         private IMapper _mapper;
         private readonly ILogger<RegisterUser> _logger;
-        public AccountController(IAccounts account, IMapper mapper, ILogger<RegisterUser> logger)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AccountController(IAccounts account, IMapper mapper, ILogger<RegisterUser> logger, IHttpContextAccessor httpContextAccessor)
         {
             _iaccounts = account;
             _mapper = mapper;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             //_logger.LogInformation("User created a new account with password.");
         }
 
@@ -53,6 +56,10 @@ namespace BiodataTest.Controllers
             if (resp.UserExist != false)
             {
                 bool isPersistent = false;// this is tru if the user chcked Remember me to allow the credential go through other browsers
+                //get UserId
+               // HttpContext context = _httpContextAccessor.HttpContext;
+
+                string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var claims = new List<Claim>();
 
@@ -63,7 +70,8 @@ namespace BiodataTest.Controllers
                     claims.Add(new Claim(ClaimTypes.Name, resp.FullName));
                     claims.Add(new Claim(ClaimTypes.Email, resp.Email));
                     claims.Add(new Claim("Full Name", resp.FirstName + " " + resp.LastName));
-                    foreach(string rol in resp.Role)
+                        //claims.Add(new Claim("USerID", .FirstName + " " + resp.LastName));
+                    foreach (string rol in resp.Role)
                     {
                         claims.Add(new Claim(ClaimTypes.Role, rol));
                     }
