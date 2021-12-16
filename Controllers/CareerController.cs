@@ -477,7 +477,7 @@ namespace BiodataTest.Controllers
 
                 Alert("success", transRef, NotificationType.success);/*as AlertMessage;*/
 
-                return View("ShowBalance");
+                
 
 
                 return RedirectToAction("MyCart");

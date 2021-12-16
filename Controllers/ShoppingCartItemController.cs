@@ -7,11 +7,12 @@ using BiodataTest.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using static BiodataTest.Controllers.Common.Enum;
 //using AspNetCore.
 
 namespace BiodataTest.Controllers
 {
-    public class ShoppingCartItemController : Controller
+    public class ShoppingCartItemController :BaseController// Controller
     {
         private readonly IShoppingCartItem _shoppingCartItem;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -50,10 +51,23 @@ namespace BiodataTest.Controllers
             var remove = await _shoppingCartItem.RemoveItem(Id);
             if(remove==true)
             {
+
+
+
+                TempData["Message"] = "item removed from cart Successfull";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.success);/*as AlertMessage;*/
                 return RedirectToAction("MyCart", "Career");
             }
             else
             {
+                TempData["Message"] = "item could not be removed from cart";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.success);/*as AlertMessage;*/
                 return RedirectToAction("MyCart", "Career");
             }
            

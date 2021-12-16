@@ -4,52 +4,47 @@
     ViewData["Title"] = "MyCart";
 }
 
-<h1>MyCart</h1>
-
-<
-
 
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <form>
-
-
-            <div class="panel panel-primary">
-                @*<div class="panel-heading">Filter Section</div>*@
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-6" style="text-align:left">
-                            <div class="form-group">
-                                <div>
-                                    <a asp-action="existedApplications" asp-controller="Career">Back resources</a>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="text-align:right">
-                            <div class="form-group">
-
-
-                                <div>
-                                    @*<a asp-action="CheckOut" asp-controller="ShopingCart">CheckOut</a>*@
-                                    <a href="@Url.Action("CheckOut", "ShoppingCartItem", new { id =@Model.EmployerId})">CheckOut</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        @*<input type="submit" value="Search" class="btn btn-primary" />*@
-                    </div>
-                </div>
-            </div>
-        </form>
+        
         @if (Model.Cartitems != null)
         {
             <div class="container-fluid">
 
                 <div class="panel panel-success">
+                    <form>
+
+                        @*<div class="panel-heading">Filter Section</div>*@
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6" style="text-align:left">
+                                    <div class="form-group">
+                                        <div>
+                                            <a asp-action="existedApplications" asp-controller="Career">Back resources</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="text-align:right">
+                                    <div class="form-group">
+
+
+                                        <div>
+                                            @*<a asp-action="CheckOut" asp-controller="ShopingCart">CheckOut</a>*@
+                                            <a href="@Url.Action("CheckOut", "ShoppingCartItem", new { id =@Model.EmployerId})">CheckOut</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<input type="submit" value="Search" class="btn btn-primary" />*@
+                            </div>
+                        </div>
+
+                    </form>
                     <div class="panel-heading">My Cart Items</div>
                     <div class="panel-body">
                         <div class="row">
@@ -134,20 +129,23 @@
                                                 <a asp-action="Delete" asp-controller="ShoppingCartItem" asp-route-id="@item.ShoppingCartItemId">Remove Item</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Total Amount:</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                @Model.ShoppingCartTotal
-                                            </td>
-                                        </tr>
+
 
                                     }
+                                    <tr>
+                                    <tr>
+                                        <td>Total Amount:</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            @Model.ShoppingCartTotal
+                                        </td>
+                                    </tr>
 
+                                    </tr>
 
                                 </tbody>
                             </table>
