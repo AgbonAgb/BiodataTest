@@ -36,8 +36,13 @@
     <link rel="stylesheet" href="~/assets/css/argon.mine209.css?v=1.0.0" type="text/css">
     <link rel="stylesheet" href="~/css/loading.css">
     <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet"  type="text/css" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
     <script src="~/sweetAlert/sweetalert.min.js"></script>
+    <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />
+    
+
+
+
 
     <script src="~/lib/jquery/jquery.js"></script>
     <!-- Google Tag Manager -->
@@ -88,11 +93,11 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                                <a asp-controller="Career" asp-action="existedCareers" class="nav-link active" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-                                    <i class="ni ni-shop text-primary"></i>
-                                    <span class="nav-link-text">Home</span>
-                                </a>
-                            </li>
+                            <a asp-controller="Career" asp-action="existedCareers" class="nav-link active" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+                                <i class="ni ni-shop text-primary"></i>
+                                <span class="nav-link-text">Home</span>
+                            </a>
+                        </li>
                         @*@if (HttpContextAccessor.HttpContext.User.FindFirst("ApplicationRole").Value.Contains("Administrator"))
                             {
                                 <li class="nav-item">
@@ -145,54 +150,54 @@
                                     </div>
                                 </li>
                             }*@
-                    <li class="nav-item">
-                        <a class="nav-link" href="#requisition" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="requisition">
-                            <i class="ni ni-books text-blue"></i>
-                            <span class="nav-link-text">Bio Data</span>
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#requisition" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="requisition">
+                                <i class="ni ni-books text-blue"></i>
+                                <span class="nav-link-text">Bio Data</span>
+                            </a>
 
-                        @*<li><a asp-controller="Contact" asp-action="Index">Contact</a></li>*@
+                            @*<li><a asp-controller="Contact" asp-action="Index">Contact</a></li>*@
 
-                        @*@if (HttpContextAccessor.HttpContext.User.FindFirst("ApplicationRole").Value.Contains("Admin"))*@
-                        @if (SignInManager.IsSignedIn(User))// && User.IsInRole("Admin"))
-                        {
-                            // @await Component.InvokeAsync("AdminMenu")
-
-
-                            <div class="collapse" id="requisition">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a asp-controller="BioData" asp-action="existedBiodata" class="nav-link">List</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New Biodata</a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                                    </li>
-                                    @*<li class="nav-item">
-                        <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
-                    </li>*@
-
-                                </ul>
-                            </div>
-                        }
+                            @*@if (HttpContextAccessor.HttpContext.User.FindFirst("ApplicationRole").Value.Contains("Admin"))*@
+                            @if (SignInManager.IsSignedIn(User))// && User.IsInRole("Admin"))
+                            {
+                                // @await Component.InvokeAsync("AdminMenu")
 
 
-                    </li>
+                                <div class="collapse" id="requisition">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="existedBiodata" class="nav-link">List</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New Biodata</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                                                <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
+                                            </li>*@
+
+                                    </ul>
+                                </div>
+                            }
+
+
+                        </li>
                         <!--Second menu left side bar-->
 
                         <li class="nav-item">
@@ -372,14 +377,14 @@
 
                         </div>
 
-                        
 
-                      
+
+
                     </div>
 
-                    
+
                     <!-- Navbar links -->
-                
+
                 </div>
             </div>
         </nav>
@@ -447,7 +452,7 @@
     <!-- Agbon Added Scripts -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    
+
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
@@ -469,6 +474,8 @@
     <script src="~/assets/js/argon.mine209.js?v=1.0.0"></script>
     <!-- Demo JS - remove this in your project -->
     <script src="~/assets/js/demo.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/sweetAlert/sweetalert.min.js"></script>
     <script>
         // Facebook Pixel Code Don't Delete
         ! function (f, b, e, v, n, t, s) {

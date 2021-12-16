@@ -5,17 +5,46 @@
 }
 
 <h1>MyCart</h1>
-<div>
-    <a asp-action="existedApplications" asp-controller="Career">Back resources</a>
-</div>
 
-<div>
-    @*<a asp-action="CheckOut" asp-controller="ShopingCart">CheckOut</a>*@
-    <a href="@Url.Action("CheckOut", "ShoppingCartItem", new { Id =@Model.EmployerId})">CheckOut</a>
-</div>
+<
+
+
 
 <div class="panel panel-default">
     <div class="panel-body">
+        <form>
+
+
+            <div class="panel panel-primary">
+                @*<div class="panel-heading">Filter Section</div>*@
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6" style="text-align:left">
+                            <div class="form-group">
+                                <div>
+                                    <a asp-action="existedApplications" asp-controller="Career">Back resources</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            <div class="form-group">
+
+
+                                <div>
+                                    @*<a asp-action="CheckOut" asp-controller="ShopingCart">CheckOut</a>*@
+                                    <a href="@Url.Action("CheckOut", "ShoppingCartItem", new { id =@Model.EmployerId})">CheckOut</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<input type="submit" value="Search" class="btn btn-primary" />*@
+                    </div>
+                </div>
+            </div>
+        </form>
         @if (Model.Cartitems != null)
         {
             <div class="container-fluid">
@@ -59,15 +88,7 @@
                                             @*@Html.DisplayNameFor(model => model.Amount)*@
                                             Amount
                                         </th>
-                                        @*<th>
-            @Html.DisplayNameFor(model => model.transDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShoppingCartTotal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.finalize)
-        </th>*@
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -75,52 +96,55 @@
 
                                     @foreach (var item in Model.Cartitems)
                                     {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ApplicationId)
-                                        </td>
-                                        <td hidden>
-                                            @Html.DisplayFor(modelItem => item.CategoryID)
-                                        </td>
-                                        <td hidden>
-                                            @Html.DisplayFor(modelItem => item.CareerID)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CategoryName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CareerName)
-                                        </td>
-                                        <td hidden>
-                                            @Html.DisplayFor(modelItem => item.EmployerId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FirstName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.LastName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.yearsExpe)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Amount)
-                                        </td>
-                                        <td hidden>
-                                            @Html.DisplayFor(modelItem => item.transDate)
-                                        </td>
-                                        @*<td>
-            @Html.DisplayFor(modelItem => item.ShoppingCartTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.finalize)
-        </td>*@
-                                        <td>
-                                            @*<a asp-action="Edit" asp-route-id="@item.ShoppingCartItemId">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.ShoppingCartItemId">Details</a> |*@
-                                            <a asp-action="Delete" asp-controller="ShoppingCartItem" asp-route-id="@item.ShoppingCartItemId">Remove Item</a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ApplicationId)
+                                            </td>
+                                            <td hidden>
+                                                @Html.DisplayFor(modelItem => item.CategoryID)
+                                            </td>
+                                            <td hidden>
+                                                @Html.DisplayFor(modelItem => item.CareerID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CategoryName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CareerName)
+                                            </td>
+                                            <td hidden>
+                                                @Html.DisplayFor(modelItem => item.EmployerId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FirstName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LastName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.yearsExpe)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Amount)
+                                            </td>
+                                            <td hidden>
+                                                @Html.DisplayFor(modelItem => item.transDate)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Delete" asp-controller="ShoppingCartItem" asp-route-id="@item.ShoppingCartItemId">Remove Item</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Amount:</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                @Model.ShoppingCartTotal
+                                            </td>
+                                        </tr>
 
                                     }
 
@@ -129,10 +153,7 @@
                             </table>
                         </div>
 
-                        <div class="row" style="text-align:right">
-                            Total Amount:
-                            @Model.ShoppingCartTotal
-                        </div>
+
                     </div>
                 </div>
             </div>

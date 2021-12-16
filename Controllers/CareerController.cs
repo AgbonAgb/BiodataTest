@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-
+using static BiodataTest.Controllers.Common.Enum;
 
 namespace BiodataTest.Controllers
 {
-    public class CareerController : Controller
+    public class CareerController : BaseController// Controller
     {
         private readonly ICareer _career;
         private IMapper _mapper;
@@ -27,6 +27,8 @@ namespace BiodataTest.Controllers
         private string[] permittedExtensions2 = { ".doc", ".pdf", ".docx" };
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IShoppingCartItem _shoppingCartItem;
+
+        //private const string alertify = "Alertify";
         public CareerController(ICareer career, IMapper mapper, ICategory category, ISkills skills, IWebHostEnvironment webHostEnvironment, IApplication application, IHttpContextAccessor httpContextAccessor, IShoppingCartItem shoppingCartItem)
         {
             _career = career;
@@ -468,10 +470,26 @@ namespace BiodataTest.Controllers
             var addtocart = await _shoppingCartItem.AddToCart(ammped);
             if (addtocart == true)
             {
+
+                TempData["Message"] = ap.FirstName +" "+ " added to cart Successfull";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.success);/*as AlertMessage;*/
+
+                return View("ShowBalance");
+
+
                 return RedirectToAction("MyCart");
             }
             else
             {
+
+                TempData["Message"] = ap.FirstName + " " + " not added to cart Successfull";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.error);
                 return RedirectToAction("existedApplications");
             }
 

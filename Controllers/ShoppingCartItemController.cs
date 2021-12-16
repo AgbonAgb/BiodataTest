@@ -22,7 +22,22 @@ namespace BiodataTest.Controllers
         }
         public async Task<IActionResult> CheckOut(int Id)
         {
+           
+
             string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
+           // ShoppingCartItemViewModel SPC = new ShoppingCartItemViewModel();
+
+            //spSPC.ShoppingCartTotal= "45000.00";
+
+            var items = await _shoppingCartItem.getMyCartItems(empid);
+           decimal ShoppingCartTotal = await _shoppingCartItem.GetShoppingCartTotal(empid);// decimal.Parse("25,00.00");
+
+        //1 loop throught and set finalize to tue,
+        //2. update application table employeer id
+        //notify Admin and generate PO
+        //Check awaiting ordeer and generate PO
+           // SPC.EmployerId = empid;
+
             return View();
         }
 

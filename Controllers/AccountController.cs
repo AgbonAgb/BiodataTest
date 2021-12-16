@@ -59,7 +59,7 @@ namespace BiodataTest.Controllers
                 //get UserId
                // HttpContext context = _httpContextAccessor.HttpContext;
 
-                string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var claims = new List<Claim>();
 
