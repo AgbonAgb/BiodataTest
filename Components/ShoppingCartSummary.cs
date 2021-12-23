@@ -1,0 +1,57 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BiodataTest.Data;
+using BiodataTest.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+
+namespace BiodataTest.Components
+{
+    public class ShoppingCartSummary:ViewComponent
+    {
+
+       // private readonly ShoppingCart _shoppingCart;
+        private readonly AppDbContext _appDbContext;
+        private readonly IShoppingCartItem _shoppingCartItem;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ShoppingCartSummary(AppDbContext appDbContext, IShoppingCartItem shoppingCartItem, IHttpContextAccessor httpContextAccessor)
+        {
+           // _shoppingCart = shoppingCart;
+            _appDbContext = appDbContext;
+            _shoppingCartItem = shoppingCartItem;
+                _httpContextAccessor = httpContextAccessor;
+        }
+
+        public IViewComponentResult Invoke()
+        {
+            //var items = _shoppingCart.GetShoppingCartItems();
+            //_shoppingCart.ShoppingCartItems = items;
+
+            string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
+
+            var items = _shoppingCartItem.getMyCartItems(empid);// _appDbContext.shoppingCartItem..GetShoppingCartItems();
+                                                                // _shoppingCartItem..ShoppingCartItems = items;
+
+            //List<shoppingCartViewModel> list2 = existing.AsEnumerable()
+            //             .Select(o => new shoppingCartViewModel
+            //             {
+            //                 RefererId = o.StaffId,
+            //                 Referer = o.FirstName
+
+            //             }).ToList();
+
+
+            //var shoppingCartViewModel1  = items new shoppingCartViewModel
+            //{
+            //    ShoppingCart = _shoppingCart,
+            //    ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+            //};
+            //return View(shoppingCartViewModel);
+        }
+    }
+}
+}
