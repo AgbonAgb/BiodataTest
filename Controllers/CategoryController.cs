@@ -70,11 +70,11 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> CreateCategory(CategoryViewModel Cat)
         {
 
-            
+            string message;
 
             var mapped = _mapper.Map<Category>(Cat);
 
-            var createdC = await _iCategory.CreateCaterory(mapped);
+            var createdC = await _iCategory.CreateCaterory(mapped);//, out message
             if (createdC)
             {
                 ModelState.Clear();

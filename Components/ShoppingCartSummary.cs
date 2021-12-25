@@ -7,6 +7,7 @@ using BiodataTest.Data;
 using BiodataTest.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using BiodataTest.ViewModels;
 
 namespace BiodataTest.Components
 {
@@ -26,15 +27,42 @@ namespace BiodataTest.Components
                 _httpContextAccessor = httpContextAccessor;
         }
 
-        public IViewComponentResult Invoke()
+        public  IViewComponentResult Invoke()
         {
             //var items = _shoppingCart.GetShoppingCartItems();
             //_shoppingCart.ShoppingCartItems = items;
 
             string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
 
-            var items = _shoppingCartItem.getMyCartItems(empid);// _appDbContext.shoppingCartItem..GetShoppingCartItems();
-                                                                // _shoppingCartItem..ShoppingCartItems = items;
+            //  var items = _shoppingCartItem.getMyCartItems(empid);
+
+
+            ////ViewModels.ShoppingCartItemViewModel sc = new ViewModels.ShoppingCartItemViewModel()
+            ////    sc.Cartitems2 = items;
+            ////    sc.ShoppingCartTotal= _shoppingCartItem.getMyCartItems(empid);
+
+            ShoppingCartItemViewModel SPC = new ShoppingCartItemViewModel();
+
+            //spSPC.ShoppingCartTotal= "45000.00";
+
+            SPC.Cartitems = _shoppingCartItem.getMyCartItems2(empid);
+            SPC.ShoppingCartTotal =  _shoppingCartItem.GetShoppingCartTotal2(empid);// decimal.Parse("25,00.00");
+            SPC.EmployerId = empid;
+
+
+
+            //var shoppingCartViewModel1 = items new shoppingCartViewModel
+            //{
+            //    ShoppingCart = _shoppingCart,
+            //    ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+            //}
+
+            //var items = await _shoppingCartItem.getMyCartItems(empid);
+            //decimal ShoppingCartTotal = await _shoppingCartItem.GetShoppingCartTotal(empid);/
+
+
+            // _appDbContext.shoppingCartItem..GetShoppingCartItems();
+            // _shoppingCartItem..ShoppingCartItems = items;
 
             //List<shoppingCartViewModel> list2 = existing.AsEnumerable()
             //             .Select(o => new shoppingCartViewModel
@@ -51,7 +79,8 @@ namespace BiodataTest.Components
             //    ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
             //};
             //return View(shoppingCartViewModel);
+            return View(SPC);
         }
     }
 }
-}
+

@@ -151,54 +151,54 @@
                                     </div>
                                 </li>
                             }*@
-                            <li class="nav-item">
-                                <a class="nav-link" href="#requisition" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="requisition">
-                                    <i class="ni ni-books text-blue"></i>
-                                    <span class="nav-link-text">Bio Data</span>
-                                </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#requisition" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="requisition">
+                                <i class="ni ni-books text-blue"></i>
+                                <span class="nav-link-text">Bio Data</span>
+                            </a>
 
-                                @*<li><a asp-controller="Contact" asp-action="Index">Contact</a></li>*@
+                            @*<li><a asp-controller="Contact" asp-action="Index">Contact</a></li>*@
 
-                                @*@if (HttpContextAccessor.HttpContext.User.FindFirst("ApplicationRole").Value.Contains("Admin"))*@
-                                @if (SignInManager.IsSignedIn(User))// && User.IsInRole("Admin"))
-                                {
-                                    // @await Component.InvokeAsync("AdminMenu")
+                            @*@if (HttpContextAccessor.HttpContext.User.FindFirst("ApplicationRole").Value.Contains("Admin"))*@
+                            @if (SignInManager.IsSignedIn(User))// && User.IsInRole("Admin"))
+                            {
+                                // @await Component.InvokeAsync("AdminMenu")
+                                @await Component.InvokeAsync("ShoppingCartSummary")
+
+                                <div class="collapse" id="requisition">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="existedBiodata" class="nav-link">List</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New Biodata</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                        <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
+                    </li>*@
+
+                                    </ul>
+                                </div>
+                            }
 
 
-                                    <div class="collapse" id="requisition">
-                                        <ul class="nav nav-sm flex-column">
-                                            <li class="nav-item">
-                                                <a asp-controller="BioData" asp-action="existedBiodata" class="nav-link">List</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a asp-controller="BioData" asp-action="CreateBioData" class="nav-link">New Biodata</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                                            </li>
-                                            @*<li class="nav-item">
-                                                <a class="nav-link text-dark" asp-action="Logout1"  asp-page="/Account/Logout1">Logout2</a>
-                                            </li>*@
-
-                                        </ul>
-                                    </div>
-                                }
-
-
-                            </li>
+                        </li>
                             <!--Second menu left side bar-->
 
                             <li class="nav-item">

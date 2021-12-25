@@ -171,3 +171,4 @@ C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.g
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\MyCart.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Career\MyCart2.cshtml.g.cs
 C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
+C:\Users\Mr Agbon\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShoppingCartSummary\Default.cshtml.g.cs

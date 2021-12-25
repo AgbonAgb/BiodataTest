@@ -97,7 +97,54 @@ namespace BiodataTest.Services
 
             return chk2;
         }
+        public IEnumerable<ShoppingCartItem> getMyCartItems2(string Empid)
+        {
+            bool succ = false;
+            //var chk = await _appDbContext.shoppingCartItem.Where(x => x.EmployerId == Empid && x.finalize==false).ToListAsync();//.sh
+
+            var chk2 =  (from sh in _appDbContext.shoppingCartItem
+                              join cat in _appDbContext.categorys on sh.CategoryID equals cat.CategoryID
+                              join car in _appDbContext.careers on sh.CareerID equals car.CareerID
+                              join app in _appDbContext.applications on sh.ApplicationId equals app.ApplicationId
+                              select new ShoppingCartItem
+                              {
+                                  ApplicationId = sh.ApplicationId,
+                                  CategoryID = sh.CategoryID,
+                                  CareerID = sh.CareerID,
+                                  CategoryName = cat.CategoryName,
+                                  CareerName = car.CareerName,
+                                  EmployerId = sh.EmployerId,
+                                  FirstName = sh.FirstName,
+                                  LastName = sh.LastName,
+                                  Amount = sh.Amount,
+                                  transDate = sh.transDate,
+                                  finalize = sh.finalize,
+                                  ShoppingCartItemId = sh.ShoppingCartItemId,
+                                  yearsExpe = app.yearsExpe
+
+
+                              }
+                              ).Where(x => x.EmployerId == Empid && x.finalize == false).ToList();//.ToListAsync();
+
+
+            //use Join                                                                                                    // throw new NotImplementedException();
+            //if (chk == null)
+            //{
+
+            //    await _appDbContext.AddAsync(sci);
+            //    await _appDbContext.SaveChangesAsync();
+            //    succ = true;
+            //}
+
+            return chk2;
+        }
         public async Task<decimal> GetShoppingCartTotal(string Empid)
+        {
+            var total = _appDbContext.shoppingCartItem.Where(c => c.EmployerId == Empid && c.finalize == false)
+                .Select(c => c.Amount).Sum();
+            return total;
+        }
+        public decimal GetShoppingCartTotal2(string Empid)
         {
             var total = _appDbContext.shoppingCartItem.Where(c => c.EmployerId == Empid && c.finalize == false)
                 .Select(c => c.Amount).Sum();

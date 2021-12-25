@@ -8,17 +8,14 @@ using System.Threading.Tasks;
 
 namespace BiodataTest.ViewModels
 {
-    public class ShoppingCartItemViewModel
-    { [Key]
+    public class ShoppingCartItemViewModelSumary
+    {
+        [Key]
 
         public string EmployerId { get; set; }
         [NotMapped]
-        public IEnumerable<ShoppingCartItem> Cartitems { get; set; }
+        public ShoppingCartItem Cartitems { get; set; }
         //public IEnumerable<ShoppingCartItem> Cartitems { get; set; }
         public decimal ShoppingCartTotal { get; set; }
-
-        //[NotMapped]
-        //public ShoppingCartItem Cartitems2 { get; set; }
-        //public IEnumerable<Skills> AllSkills { get; set; }
     }
 }

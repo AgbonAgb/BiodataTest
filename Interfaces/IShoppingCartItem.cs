@@ -12,5 +12,7 @@ namespace BiodataTest.Interfaces
         Task<bool> RemoveItem(int Id);
         Task<IEnumerable<ShoppingCartItem>> getMyCartItems(string Empid);//where finilize is 0
         Task<decimal> GetShoppingCartTotal(string Empid);
+        IEnumerable<ShoppingCartItem> getMyCartItems2(string Empid);
+        decimal GetShoppingCartTotal2(string Empid);
     }
 }
