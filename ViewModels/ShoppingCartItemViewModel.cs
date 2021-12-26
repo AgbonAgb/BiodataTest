@@ -16,6 +16,8 @@ namespace BiodataTest.ViewModels
         public IEnumerable<ShoppingCartItem> Cartitems { get; set; }
         //public IEnumerable<ShoppingCartItem> Cartitems { get; set; }
         public decimal ShoppingCartTotal { get; set; }
+        public int ShoppingitemQty { get; set; }
+
 
         //[NotMapped]
         //public ShoppingCartItem Cartitems2 { get; set; }

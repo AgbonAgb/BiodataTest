@@ -163,7 +163,7 @@
                             @if (SignInManager.IsSignedIn(User))// && User.IsInRole("Admin"))
                             {
                                 // @await Component.InvokeAsync("AdminMenu")
-                                @await Component.InvokeAsync("ShoppingCartSummary")
+                                
 
                                 <div class="collapse" id="requisition">
                                     <ul class="nav nav-sm flex-column">
@@ -350,6 +350,10 @@
                                     </li>
                                 </ul>
                                 <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+                                    <li>
+                                        @await Component.InvokeAsync("ShoppingCartSummary")
+                                    </li>
+                                    
                                     <li class="nav-item dropdown">
                                         <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <div class="media align-items-center">

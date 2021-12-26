@@ -31,23 +31,30 @@ namespace BiodataTest.Components
         {
             //var items = _shoppingCart.GetShoppingCartItems();
             //_shoppingCart.ShoppingCartItems = items;
-
-            string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
-
-            //  var items = _shoppingCartItem.getMyCartItems(empid);
-
-
-            ////ViewModels.ShoppingCartItemViewModel sc = new ViewModels.ShoppingCartItemViewModel()
-            ////    sc.Cartitems2 = items;
-            ////    sc.ShoppingCartTotal= _shoppingCartItem.getMyCartItems(empid);
-
+            string empid = "";
             ShoppingCartItemViewModel SPC = new ShoppingCartItemViewModel();
+            if (HttpContext.User.Identity.Name != null)
+            {
+                empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
 
-            //spSPC.ShoppingCartTotal= "45000.00";
+                //  var items = _shoppingCartItem.getMyCartItems(empid);
 
-            SPC.Cartitems = _shoppingCartItem.getMyCartItems2(empid);
-            SPC.ShoppingCartTotal =  _shoppingCartItem.GetShoppingCartTotal2(empid);// decimal.Parse("25,00.00");
-            SPC.EmployerId = empid;
+
+                ////ViewModels.ShoppingCartItemViewModel sc = new ViewModels.ShoppingCartItemViewModel()
+                ////    sc.Cartitems2 = items;
+                ////    sc.ShoppingCartTotal= _shoppingCartItem.getMyCartItems(empid);
+
+               
+
+                //spSPC.ShoppingCartTotal= "45000.00";
+
+                SPC.Cartitems = _shoppingCartItem.getMyCartItems2(empid);
+                SPC.ShoppingCartTotal = _shoppingCartItem.GetShoppingCartTotal2(empid);// decimal.Parse("25,00.00");
+                SPC.ShoppingitemQty = _shoppingCartItem.ShoppingitemQty(empid);
+                SPC.EmployerId = empid;
+            }
+
+           
 
 
 

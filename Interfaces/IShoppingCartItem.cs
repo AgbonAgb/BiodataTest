@@ -14,5 +14,6 @@ namespace BiodataTest.Interfaces
         Task<decimal> GetShoppingCartTotal(string Empid);
         IEnumerable<ShoppingCartItem> getMyCartItems2(string Empid);
         decimal GetShoppingCartTotal2(string Empid);
+        int ShoppingitemQty(string Empid);
     }
 }

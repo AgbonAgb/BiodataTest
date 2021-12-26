@@ -150,6 +150,13 @@ namespace BiodataTest.Services
                 .Select(c => c.Amount).Sum();
             return total;
         }
+        //int ShoppingitemQty(string Empid);
+        public int ShoppingitemQty(string Empid)
+        {
+            var Qty = _appDbContext.shoppingCartItem.Where(c => c.EmployerId == Empid && c.finalize == false).Count();
+                //.Select(c => c.Amount).Sum();
+            return Qty;
+        }
         public async Task<bool> RemoveItem(int Id)
         {
             bool succ = false;
