@@ -327,6 +327,7 @@ C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Sha
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld.cshtml.g.cs
+C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld3.cshtml.g.cs
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Loading.cshtml.g.cs
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_login.cshtml.g.cs
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NotificationPanel.cshtml.g.cs
@@ -344,3 +345,4 @@ C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csp
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.dll
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
+C:\Users\Godwin\Source\Repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
