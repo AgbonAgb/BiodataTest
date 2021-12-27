@@ -131,7 +131,8 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> RegisterUser()
         {
             RegisterUser Ruser = new RegisterUser();
-
+            //load Roles with only Employer if logon user is employer or no identity
+            //load all roles if logon user is admin
 
             return View(Ruser);
         }
