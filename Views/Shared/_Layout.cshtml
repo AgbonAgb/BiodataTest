@@ -40,6 +40,7 @@
     <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" type="text/css" />    
     <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -71,7 +72,7 @@
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header d-flex align-items-center">
-                <a class="navbar-brand" asp-controller="Career" asp-action="existedCareers">
+                <a class="fa fa-home" asp-controller="Career" asp-action="existedCareers">
                     @*<img src="~/assets/img/brand/blue.png" class="navbar-brand-img" alt="...">*@
                     <span class="nav-link-text">Home</span>
                 </a>
@@ -102,7 +103,7 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" href="#admin" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="admin">
-                                    <i class="ni ni-archive-2 text-green"></i>
+                                    <i class="fa fa-fw fa-user"></i>
                                     <span class="nav-link-text">Admin</span>
                                 </a>
                                 <div class="collapse" id="admin">
@@ -220,7 +221,7 @@
                         }
                         <li class="nav-item">
                             <a class="nav-link" href="#default" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="default">
-                                <i class="ni ni-books text-blue"></i>
+                                <i class="fa fa-fw fa-wrench"></i>
                                 <span class="nav-link-text">Defaults</span>
                             </a>
                             <div class="collapse" id="default">

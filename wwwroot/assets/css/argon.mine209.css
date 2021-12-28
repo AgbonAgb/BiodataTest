@@ -14182,11 +14182,11 @@ textarea[resize=horizontal] {
 
         .navbar-vertical .navbar-nav .nav-link.active {
             position: relative;
-            color:blue
+            color: blue
         }
 
         .navbar-vertical .navbar-nav .nav-link > i {
-            font-size: 1.5rem;
+            font-size: 1rem;
             line-height: 1.5rem;
             min-width: 2rem
         }
@@ -14200,7 +14200,7 @@ textarea[resize=horizontal] {
             }
 
     .navbar-vertical .navbar-nav .nav-sm .nav-link {
-        font-size: 1.5rem
+        font-size: 1rem
     }
 
     .navbar-vertical .navbar-nav .nav-link {
