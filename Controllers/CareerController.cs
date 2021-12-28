@@ -346,7 +346,7 @@ namespace BiodataTest.Controllers
             dp.Insert(0, new Category { CategoryID = 0, CategoryName = "Select All" });
             ViewBag.listofCategory = dp;
 
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           // var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var username = HttpContext.User.Identity.Name;
 
@@ -463,6 +463,16 @@ namespace BiodataTest.Controllers
             // HttpContext context = _httpContextAccessor.HttpContext;
             string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
             ap.EmployerId = empid;//add user id
+
+            if(string.IsNullOrEmpty(empid))
+            {
+                TempData["Message"] = "Please, kindly register and login to be able to perform this function";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.success);
+                return RedirectToAction("RegisterUser");
+            }
 
             var ammped = _mapper.Map<ShoppingCartItem>(ap);
 

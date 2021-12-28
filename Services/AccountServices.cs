@@ -309,46 +309,37 @@ namespace BiodataTest.Services
             }
         }
 
-        public async Task<bool> CreateUser(ApplicationUser user, string password)
+        public async Task<string> CreateUser(ApplicationUser user, string password)
         {
-            ////var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-            ////var result = await _userManager.CreateAsync(user, Input.Password);
-            ////if (result.Succeeded)
-            ////{
-            ////    _logger.LogInformation("User created a new account with password.");
-
-            ////    await _signInManager.SignInAsync(user, isPersistent: false);
-            ////    return LocalRedirect(returnUrl);
-            ////}
-            ////foreach (var error in result.Errors)
-            ////{
-            ////    ModelState.AddModelError(string.Empty, error.Description);
-            ////}
-
+            string userid = "";
+            
 
             try
             {
-                user.Id = Guid.NewGuid().ToString();
+               
                 //Inject identity role
                 //Checking if role exist
                 var userCheck = await _userManager.FindByEmailAsync(user.Email);
                 if (userCheck == null)
                 {
+                    user.Id = Guid.NewGuid().ToString();
+                    
                     //Creating user
                     var userResult = await _userManager.CreateAsync(user, password);
 
                     if (userResult.Succeeded)
                     {
+                        userid = user.Id;
                         //i will try to create role when successful
-                        return true;
+                        return userid;
                     }
                 }
 
-                return false;
+                return userid;
             }
             catch (Exception ex)
             {
-                return false;
+                return userid;
 
             }
         }

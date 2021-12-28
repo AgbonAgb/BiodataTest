@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,11 +17,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static BiodataTest.Controllers.Common.Enum;
 
 namespace BiodataTest.Controllers
 {
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private IAccounts _iaccounts;
         //Auto mapper
@@ -56,8 +58,8 @@ namespace BiodataTest.Controllers
             if (resp.UserExist != false)
             {
                 bool isPersistent = false;// this is tru if the user chcked Remember me to allow the credential go through other browsers
-                //get UserId
-               // HttpContext context = _httpContextAccessor.HttpContext;
+                                          //get UserId
+                                          // HttpContext context = _httpContextAccessor.HttpContext;
 
                 //string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -70,14 +72,14 @@ namespace BiodataTest.Controllers
                     claims.Add(new Claim(ClaimTypes.Name, resp.FullName));
                     claims.Add(new Claim(ClaimTypes.Email, resp.Email));
                     claims.Add(new Claim("Full Name", resp.FirstName + " " + resp.LastName));
-                        //claims.Add(new Claim("USerID", .FirstName + " " + resp.LastName));
+                    //claims.Add(new Claim("USerID", .FirstName + " " + resp.LastName));
                     foreach (string rol in resp.Role)
                     {
                         claims.Add(new Claim(ClaimTypes.Role, rol));
                     }
 
-                    
-                   // claims.Add(new Claim("UserID", .FirstName + " " + resp.LastName));
+
+                    // claims.Add(new Claim("UserID", .FirstName + " " + resp.LastName));
 
                     //Claim Identity
                     var claimIdenties = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -127,13 +129,52 @@ namespace BiodataTest.Controllers
 
 
         }
+        public async Task<List<RoleViewModel>> allRoles2()
+        {
+
+            //good
+            var allRoles = await _iaccounts.ExistRoles();
+
+            List<RoleViewModel> dp = new List<RoleViewModel>();
+
+            if (User.IsInRole("Admin"))
+            {
+                dp = allRoles.Select(s => new RoleViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = s.Name
+                }
+
+                ).ToList();
+
+                dp.Insert(0, new RoleViewModel { Id = "0", Name = "Select Role" });
+            }
+            else
+            {
+                dp = allRoles.Select(s => new RoleViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = s.Name
+                }
+
+       ).Where(x=>x.Name=="Employer").ToList();
+
+
+                //dp.Insert(0, new RoleViewModel { Id = "0", Name = "Select Role" });
+            }
+
+
+            ViewBag.listofRoles = dp;
+
+            return ViewBag.listofRoles;
+        }
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser()
         {
             RegisterUser Ruser = new RegisterUser();
             //load Roles with only Employer if logon user is employer or no identity
             //load all roles if logon user is admin
-
+            await allRoles2();
             return View(Ruser);
         }
 
@@ -148,12 +189,52 @@ namespace BiodataTest.Controllers
             string userpassw = Ruser.password;
             var mapped = _mapper.Map<ApplicationUser>(Ruser);
             //Note password cannot be mapped in identity user
-
-            bool resp = await _iaccounts.CreateUser(mapped, userpassw);
-            if (resp == true)
+            string RoleName = "";
+            UsersViewModels user = new UsersViewModels();
+            user.RoleName = Ruser.RoleName;
+            user.RoleId = Ruser.RoleId;
+            
+            if(string.IsNullOrEmpty(user.RoleId))
             {
+                TempData["Message"] = "Please, select role";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.info);
+                return View("RegisterUser");
+            }
+
+            string resp = await _iaccounts.CreateUser(mapped, userpassw);
+            if (resp != "")
+            {
+                user.Id = resp;
+                //create role for the user after registration
+                await AddUserRole(user, RoleName);
+
+                TempData["Message"] = "User Created Successfull";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.info);
+
+              
+                if (HttpContext.User.Identity.Name == null)
+                {
+                    
+                    return RedirectToAction("login");
+                }
                 _logger.LogInformation("User created a new account with username " + Ruser.UserName);
-                return RedirectToAction("getAllUsers");
+                if (User.IsInRole("Admin"))
+                {
+
+                    return RedirectToAction("getAllUsers");
+                }
+                else
+                {
+
+                    return RedirectToAction("existedApplications");
+                }
+                
             }
             else
             {
@@ -222,7 +303,7 @@ namespace BiodataTest.Controllers
         {
             //List<UsersViewModels> users = new List<UsersViewModels>();//  liUsersViewModels();
             // var allusers = "{}";
-           // students = students.OrderByDescending(s => s.LastName);
+            // students = students.OrderByDescending(s => s.LastName);
             if (string.IsNullOrEmpty(SearchString))
             {
                 var allusers = await _iaccounts.AllUsers();
@@ -250,7 +331,7 @@ namespace BiodataTest.Controllers
                 var allusers = allusers1.Where(s => s.UserName.Contains(SearchString) || s.Email.Contains(SearchString)).ToList();
 
                 return View(allusers);
-                
+
             }
             ////switch (sortOrder)
             ////{
@@ -401,8 +482,6 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> AddUserRole(UsersViewModels user, string RoleName)
         {
 
-            //List<UserInfo> userList = _context.UserInfo.ToList();
-            //ViewBag.ShowMembers = new SelectList(userList, "Id", "Email");
 
             var allRoless = await _iaccounts.ExistRoles();
 

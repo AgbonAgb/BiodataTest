@@ -74,11 +74,16 @@ namespace BiodataTest.Services
 
         public async Task<IEnumerable<ApplicationDetails>> GetAllApplications(List<string> Roles)
         {
-            string role =  Roles[0].ToString();
+            
             //var query = new object(); // string.Empty[];
             var query = (IEnumerable<ApplicationDetails>)null;
+            string role = "";
+            if (Roles.Count > 0)
+            {
+                role = Roles[0].ToString();
+            }
 
-
+           
 
             try
             {
@@ -114,7 +119,7 @@ namespace BiodataTest.Services
 
 
                 }
-                else if (role.Contains("Employer"))
+                else if (role.Contains("Employer") || Roles.Count==0)
                 {
                     //only approved and available applications will be open t Employer to see
                     query = await (from application in _appDbContext.applications

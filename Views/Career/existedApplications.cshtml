@@ -10,33 +10,33 @@
 
         @*$(function () {
 
-            $('#txtStartDate').datetimepicker();
-            /*alert("Am ok");*/-->
-            $('#categoryid').change(function () {
+                $('#txtStartDate').datetimepicker();
+                /*alert("Am ok");*/-->
+                $('#categoryid').change(function () {
 
-                var Categoryid = $("#categoryid").val();
+                    var Categoryid = $("#categoryid").val();
 
-               /* alert(Categoryid);*/
-                if (Categoryid != "") {
-                    $.ajax({
-                        /*url: "Career/FilterApplications",*/
-                        url: '@Url.Action("FilterApplications", "Career")',
-                        data: { id: Categoryid },
-                        type: "GET",
-                        success: function (response)
-                        {
-                            /*$('#dataTables-example').html("").html(response);*/
-                        }
-                        //error: function () {
-                        //    alert("Error");
-                        //alert("error : " + reponse);
-                        //}
-                    });
-                }
-            });
+                   /* alert(Categoryid);*/
+                    if (Categoryid != "") {
+                        $.ajax({
+                            /*url: "Career/FilterApplications",*/
+                            url: '@Url.Action("FilterApplications", "Career")',
+                            data: { id: Categoryid },
+                            type: "GET",
+                            success: function (response)
+                            {
+                                /*$('#dataTables-example').html("").html(response);*/
+                            }
+                            //error: function () {
+                            //    alert("Error");
+                            //alert("error : " + reponse);
+                            //}
+                        });
+                    }
+                });
 
 
-        });*@
+            });*@
     </script>
 </head>
 
@@ -57,10 +57,10 @@
     </div>
 </div>-->
 <div class="panel panel-default">
-<div class="panel-body">
-    <form asp-controller="Career" asp-action="existedApplications" method="get" enctype="multipart/form-data">
+    <div class="panel-body">
+        <form asp-controller="Career" asp-action="existedApplications" method="get" enctype="multipart/form-data">
 
-        
+
             <div class="panel panel-primary">
                 <div class="panel-heading">Filter Section</div>
                 <div class="panel-body">
@@ -101,9 +101,9 @@
                     <input type="submit" value="Search" class="btn btn-primary" />
                 </div>
             </div>
-       
-    </form>
-</div>
+
+        </form>
+    </div>
 </div>
 
 <div>
@@ -111,177 +111,189 @@
 </div>
 
 @*<div class="container-fluid">*@
-    <div class="panel panel-success">
-        <div class="panel-heading"></div>
-        <div class="panel-body">
-            <div class="row">
-                <table class="table-bordered">
-                    <thead class="table th">
+<div class="panel panel-success">
+    <div class="panel-heading"></div>
+    <div class="panel-body">
+        <div class="row">
+            <table class="table-bordered">
+                <thead class="table th">
+                    <tr>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.ApplicationId)*@
+                            ID
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.CareerID)*@
+                            @*@Html.DisplayNameFor(model => model.CareerID)*@
+                            Career
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.CategoryID)*@
+                            Category
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+
+                        <th hidden>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th hidden>
+                            @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+                            Phone
+                        </th>
+                        <th hidden>
+                            @*@Html.DisplayNameFor(model => model.Address)*@
+                            Address
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.yearsExpe)*@
+                            Years
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TransDate)
+                        </th>
+
+
+                        <th hidden>
+                            @Html.DisplayNameFor(model => model.approved)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.available)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.POprocessing)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.iSActive)
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.rejected)
+                            </th>*@
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody class="table td">
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th>
-                                @*@Html.DisplayNameFor(model => model.ApplicationId)*@
-                                ID
-                            </th>
-                            <th>
-                                @*@Html.DisplayNameFor(model => model.CareerID)*@
-                                @*@Html.DisplayNameFor(model => model.CareerID)*@
-                                Career
-                            </th>
-                            <th>
-                                @*@Html.DisplayNameFor(model => model.CategoryID)*@
-                                Category
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FirstName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.LastName)
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CareerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
 
-                            <th hidden>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th hidden>
-                                @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
-                                Phone
-                            </th>
-                            <th hidden>
-                                @*@Html.DisplayNameFor(model => model.Address)*@
-                                Address
-                            </th>
-                            <th>
-                                @*@Html.DisplayNameFor(model => model.yearsExpe)*@
-                                Years
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TransDate)
-                            </th>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.yearsExpe)
+                            </td>
+                            <td>
+                                @*@string.Format("{0:ddd}", Convert.ToDateTime(Html.DisplayFor(model => model.Booking.BookingFromDate).ToString()))*@
+                                @*@Html.DisplayFor(modelItem => item.TransDate.ToString("dd-MM-yyyy HH:mm"))*@
+                                @Html.Raw(item.TransDate.ToString("dd-MM-yyyy HH:mm"))
+                            </td>
 
 
-                            <th hidden>
-                                @Html.DisplayNameFor(model => model.approved)
-                            </th>
-                            @*<th>
-                        @Html.DisplayNameFor(model => model.available)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.POprocessing)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.iSActive)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.rejected)
-                    </th>*@
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.approved)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.CvPath)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.available)
+                                </td>
+                                <td>
+                                @Html.DisplayFor(modelItem => item.POprocessing)
+                                </td>
+                                <td>
+                                @Html.DisplayFor(modelItem => item.iSActive)
+                                </td>
+                                <td>
+                                @Html.DisplayFor(modelItem => item.rejected)
+                                </td>*@
+                            <td>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
+                                        </li>
 
-                            <th>
-                                Actions
-                            </th>
-                           
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("OnGetDownloadCV", "Career", new { Id = item.CvPath })">View CV</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("ApproveCV", "Career", new { Id = item.ApplicationId})">Approve</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("RejectCV", "Career", new { Id = item.ApplicationId})">Reject</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                        </li>
+
+                                    </div>
+                                }
+                                @if (User.IsInRole("Employer"))
+                                {
+                                    <div>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                        </li>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
+                                        </li>
+
+                                    </div>
+                                }
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody class="table td">
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ApplicationId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CareerName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CategoryName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LastName)
-                                </td>
+                    }
+                </tbody>
+            </table>
 
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                                </td>
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.yearsExpe)
-                                </td>
-                                <td>
-                                    @*@string.Format("{0:ddd}", Convert.ToDateTime(Html.DisplayFor(model => model.Booking.BookingFromDate).ToString()))*@
-                                    @*@Html.DisplayFor(modelItem => item.TransDate.ToString("dd-MM-yyyy HH:mm"))*@
-                                    @Html.Raw(item.TransDate.ToString("dd-MM-yyyy HH:mm"))
-                                </td>
-
-
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.approved)
-                                </td>
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.CvPath)
-                                </td>
-                                @*<td>
-                            @Html.DisplayFor(modelItem => item.available)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.POprocessing)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.iSActive)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.rejected)
-                        </td>*@
-                                <td>
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <div>
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("OnGetDownloadCV", "Career", new { Id = item.CvPath })">View CV</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("ApproveCV", "Career", new { Id = item.ApplicationId})">Approve</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("RejectCV", "Career", new { Id = item.ApplicationId})">Reject</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
-                                            </li>
-
-                                        </div>
-                                    }
-                                    @if (User.IsInRole("Employer"))
-                                    {
-                                <div>
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ViewDetails", "Career", new { Id = item.ApplicationId})">View Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("AddUserCartlog", "Career", new { Id = item.ApplicationId})" onclick="return confirm('Are you sure of adding this to your cartlog?')">Add to Cartlog</a>
-                                    </li>
-
-                                </div>
-                                    }
-
-                                </td>
-                                
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div>
         </div>
     </div>
+</div>
 @*</div>*@

@@ -10,7 +10,7 @@ namespace BiodataTest.Interfaces
 {
    public interface IAccounts
     {
-        Task<bool> CreateUser(ApplicationUser user,string password);
+        Task<string> CreateUser(ApplicationUser user,string password);
         Task<bool> UpdateUser(UsersViewModels user);
         Task<bool>DeleteUser(UsersViewModels user);       
         Task<IEnumerable<RoleViewModel>> ExistRoles();

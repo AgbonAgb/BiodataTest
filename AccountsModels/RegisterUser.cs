@@ -25,6 +25,16 @@ namespace BiodataTest.AccountsModels
         public string Email { get; set; }
         public string UserName { get; set; }
 
-        public string FullName { get; set; }
+        //public string FullName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return this.FirstName + " " + this.LastName;
+            }
+        }
+
+        public string RoleName { get; set; }
+        public string RoleId { get; set; }
     }
 }
