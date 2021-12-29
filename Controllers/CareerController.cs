@@ -12,6 +12,7 @@ using System.IO;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using static BiodataTest.Controllers.Common.Enum;
+using BiodataTest.Utility;
 
 namespace BiodataTest.Controllers
 {
@@ -159,13 +160,26 @@ namespace BiodataTest.Controllers
 
         }
 
-        public async Task<IActionResult> existedCareers()
+        public async Task<IActionResult> existedCareers(int pg=1)
         {
-
+            //add pagination
             var existed = await _career.GetCareersWithSkills();
 
+            const int pageSize = 3;
+            if(pg < 1)
+            {
+                pg = 1;
+            }
 
-            return View(existed);
+            int rescount = existed.Count();
+            var pager = new Pager(rescount,pg,pageSize);
+            int recSkip=(pg-1) * pageSize;
+
+            var data = existed.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
+
+            //return View(existed);
 
 
         }

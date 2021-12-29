@@ -115,7 +115,7 @@ namespace BiodataTest.Services
                                    CategoryName = category.CategoryName,
                                    skills = skill.skillDescription
                                }
-                        ).ToListAsync();
+                        ).ToListAsync();//.Take(3)
 
 
 
