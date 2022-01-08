@@ -18,6 +18,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using static BiodataTest.Controllers.Common.Enum;
+using BiodataTest.Utility;
+using System.Text;
 
 namespace BiodataTest.Controllers
 {
@@ -29,12 +31,14 @@ namespace BiodataTest.Controllers
         private IMapper _mapper;
         private readonly ILogger<RegisterUser> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AccountController(IAccounts account, IMapper mapper, ILogger<RegisterUser> logger, IHttpContextAccessor httpContextAccessor)
+        private readonly IEmailSender _emailSender;
+        public AccountController(IAccounts account, IMapper mapper, ILogger<RegisterUser> logger, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
         {
             _iaccounts = account;
             _mapper = mapper;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
+            _emailSender = emailSender;
             //_logger.LogInformation("User created a new account with password.");
         }
 
@@ -200,7 +204,7 @@ namespace BiodataTest.Controllers
 
                 dynamic transRef = TempData["Message"];
 
-                Alert("success", transRef, NotificationType.info);
+                Alert("success", transRef, NotificationType.error);
                 return View("RegisterUser");
             }
 
@@ -215,9 +219,45 @@ namespace BiodataTest.Controllers
 
                 dynamic transRef = TempData["Message"];
 
-                Alert("success", transRef, NotificationType.info);
+                Alert("success", transRef, NotificationType.success);
+                //send email
+               CMail cm = null;
+                cm = new CMail();
 
-              
+                cm.Subject = "Registration Success";
+                cm.AttachedFile = "";
+                // cm.ToEmail.Add(mail);
+
+
+                //cm.Body = body;
+                cm.DisplayName = Ruser.UserName;// assets.Name;
+                cm.ComposedDate = DateTime.Now.ToLongDateString();
+
+                string em = Ruser.Email;
+                cm.ToEmail.Add(em);
+                //Username = item[i].ToString().Trim();
+                //body = body.Replace("Dear Adewole", "Dear " + Username);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Dear" + " " + Ruser.UserName +",");
+                sb.AppendLine();
+                sb.AppendLine("Kindly note that your registration on outsourcing portal was successfull");
+                sb.AppendLine();
+                sb.AppendLine("Hopefully, we shall work together");
+
+
+                cm.Body = sb.ToString();// = body.Replace("Dear Adewole", "Dear " + Username);
+                var semail = await _emailSender.sendPlainEmail(cm);
+                if (semail == true)
+                {
+
+                }
+                else
+                {
+                    //log error
+                }
+
+                //
+
                 if (HttpContext.User.Identity.Name == null)
                 {
                     

@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using BiodataTest.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using BiodataTest.Utility;
 
 namespace BiodataTest
 {
@@ -72,6 +73,8 @@ namespace BiodataTest
             services.AddScoped<IShoppingCartItem, ShoppingCartItemServices>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+           services.AddSingleton<IEmailSender,EmailSenderServices>();
             //services.Add<HttpContextAccessor>();
 
 
