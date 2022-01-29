@@ -78,6 +78,7 @@ namespace BiodataTest.Data
         public DbSet<ApplicationDetails> applications { get; set; }
         public DbSet<YearsExperienceCost> yearsExperienceCost { get; set; }
         public DbSet<ShoppingCartItem> shoppingCartItem { get; set; }
+        public DbSet<Payments> payments { get; set; }
 
         public DbSet<BiodataTest.AccountsModels.RegisterUser> RegisterUser { get; set; }
         public DbSet<BiodataTest.ViewModels.UsersViewModels> UsersViewModels { get; set; }

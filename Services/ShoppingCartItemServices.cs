@@ -174,5 +174,56 @@ namespace BiodataTest.Services
             return succ;
             
         }
+
+        public async Task<bool> AddPaymentTrans(Payments pay)
+        {
+            bool succ = false;
+
+            var chk = await _appDbContext.payments.Where(x => x.TransRef == pay.TransRef && x.EmployerId==pay.EmployerId).ToListAsync();//.sh
+                                                                                                                          // throw new NotImplementedException();
+            if (chk.Count == 0)
+            {
+                await _appDbContext.AddAsync(pay);
+                await _appDbContext.SaveChangesAsync();
+                succ = true;
+            }
+
+            return succ;
+        }
+
+        public async Task<string> UpdatePaymentTrans(string transref)
+        {//ret employerId
+            string empid ="";
+            var sk = await _appDbContext.payments.Where(a => a.CybRef == transref).FirstOrDefaultAsync();
+            if (sk != null)
+            {
+
+                sk.Status = 1;          
+
+
+                await _appDbContext.SaveChangesAsync();
+                empid = sk.EmployerId;
+            }
+
+            return empid;
+        }
+
+        public async Task<bool> UpdateShoppingCarttable(string transref, string empid)
+        {
+            //ret employerId
+            bool succ = false;// empid = "";
+            var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid).FirstOrDefaultAsync();
+            if (sk != null)
+            {
+
+                sk.finalize = true;// = 1;
+                sk.TransRef = transref;
+
+                await _appDbContext.SaveChangesAsync();
+                succ =true;
+            }
+
+            return succ;
+        }
     }
 }

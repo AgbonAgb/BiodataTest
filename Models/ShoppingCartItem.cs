@@ -31,6 +31,7 @@ namespace BiodataTest.Models
         public int yearsExpe { get; set; }
         [NotMapped]
         public IEnumerable<ShoppingCartItem> cartitems { get; set; }
+        public string TransRef { get; set; }
         // public IEnumerable<Skills> AllSkills { get; set; }
     }
 }

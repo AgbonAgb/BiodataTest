@@ -176,9 +176,13 @@ namespace BiodataTest.Services
             {
                 RealStartDate = Convert.ToDateTime(StartDate);
             }
+            string role = "";
+            if (Roles.Count > 0)
+            {
+                role = Roles[0].ToString();
+            }
 
-
-            string role = Roles[0].ToString();
+           // string role = Roles[0].ToString();
             //var query = new object(); // string.Empty[];
             var query = (IEnumerable<ApplicationDetails>)null;
             try
@@ -219,7 +223,7 @@ namespace BiodataTest.Services
                     //|| ((application.TransDate >= StartDate && application.TransDate <= EndDate))
 
                 }
-                else if (role.Contains("Employer"))
+                else if (role.Contains("Employer") || Roles.Count == 0)//|| Roles.Count==0
                 {
                     //only approved and available applications will be open t Employer to see
                     query = await (from application in _appDbContext.applications
@@ -368,6 +372,36 @@ namespace BiodataTest.Services
 
 
                    // _appDbContext.Remove(chk);
+                    await _appDbContext.SaveChangesAsync();
+                    succ = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return succ;
+        }
+
+        public async Task<bool> UpdateApplicationPostPayment(int Id, string Empid)
+        {
+            bool succ = false;
+            try
+            {
+                var chk = await _appDbContext.applications.Where(x => x.ApplicationId == Id).FirstOrDefaultAsync();
+
+                if (chk != null)
+                {
+                    chk.EmployerId = Empid;
+                    chk.available = false;
+                    chk.iSActive = false;
+
+
+
+                    // _appDbContext.Remove(chk);
                     await _appDbContext.SaveChangesAsync();
                     succ = true;
 

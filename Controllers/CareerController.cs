@@ -13,6 +13,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using static BiodataTest.Controllers.Common.Enum;
 using BiodataTest.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiodataTest.Controllers
 {
@@ -360,44 +361,50 @@ namespace BiodataTest.Controllers
             dp.Insert(0, new Category { CategoryID = 0, CategoryName = "Select All" });
             ViewBag.listofCategory = dp;
 
-           // var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var username = HttpContext.User.Identity.Name;
-
-
-            //Get User Roles to determine what he can see
-            List<string> Roles = ((ClaimsIdentity)User.Identity).Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value).ToList();
-
-            string role = "";//= Roles[0];
-
-            foreach (string rl in Roles)
-            {
-                role = role + "," + rl;
-            }
-
-          //get all applications 
-            
-            //var Retactualdata = allapp;
-
+            // var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var query = (IEnumerable<ApplicationDetails>)null;
+            var username = HttpContext.User.Identity.Name;
+            string role = "";
+            //if (!string.IsNullOrEmpty(username))
+            //{
+                //Get User Roles to determine what he can see
+                List<string> Roles = ((ClaimsIdentity)User.Identity).Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value).ToList();
 
-            if (string.IsNullOrEmpty(StartDate) && string.IsNullOrEmpty(EndDate) && categoryid == 0)
-            {
+               //= Roles[0];
+
+                foreach (string rl in Roles)
+                {
+                    role = role + "," + rl;
+                }
+
+            //}
+            
+
+                //get all applications 
+
+                //var Retactualdata = allapp;
+
                 
 
-                query = await _application.GetAllApplications(Roles);
-               // return View(allapp);
-            }
-            else
-            {
+                if (string.IsNullOrEmpty(StartDate) && string.IsNullOrEmpty(EndDate) && categoryid == 0)
+                {
 
-                query = await _application.GetAllApplications(Roles, EndDate, StartDate, categoryid);
 
-                
+                    query = await _application.GetAllApplications(Roles);
+                    // return View(allapp);
+                }
+                else
+                {
 
-            }
+                    query = await _application.GetAllApplications(Roles, EndDate, StartDate, categoryid);
+
+
+
+                }
+            //}
+            
             
 
 
@@ -467,6 +474,7 @@ namespace BiodataTest.Controllers
             //Send the File to Download.
             return File(bytes, "application/octet-stream", fileName);
         }
+        [Authorize]
         public async Task<IActionResult> AddUserCartlog(int Id)
         {
             //details for ind application id
@@ -534,14 +542,20 @@ namespace BiodataTest.Controllers
         [HttpGet]
         public async Task<IActionResult> MyCart(int Id)
         {
-            string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
+            var username = HttpContext.User.Identity.Name;
             ShoppingCartItemViewModel SPC = new ShoppingCartItemViewModel();
+            if (!string.IsNullOrEmpty(username))
+            {
+                string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
 
-            //spSPC.ShoppingCartTotal= "45000.00";
 
-            SPC.Cartitems = await _shoppingCartItem.getMyCartItems(empid);
-            SPC.ShoppingCartTotal = await _shoppingCartItem.GetShoppingCartTotal(empid);// decimal.Parse("25,00.00");
-            SPC.EmployerId = empid;
+                //spSPC.ShoppingCartTotal= "45000.00";
+
+                SPC.Cartitems = await _shoppingCartItem.getMyCartItems(empid);
+                SPC.ShoppingCartTotal = await _shoppingCartItem.GetShoppingCartTotal(empid);// decimal.Parse("25,00.00");
+                SPC.EmployerId = empid;
+
+            }
 
             //var mycat = await _shoppingCartItem.getMyCartItems(empid);
 
