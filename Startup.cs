@@ -141,7 +141,7 @@ namespace BiodataTest
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+           // app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();//added for authentication
             app.UseAuthorization();

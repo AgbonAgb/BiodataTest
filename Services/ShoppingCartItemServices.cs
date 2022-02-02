@@ -212,16 +212,78 @@ namespace BiodataTest.Services
         {
             //ret employerId
             bool succ = false;// empid = "";
-            var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid).FirstOrDefaultAsync();
-            if (sk != null)
-            {
+                              //var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid).FirstOrDefaultAsync();
+                              ////var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid && a.finalize == false).ToListAsync();//.FirstOrDefaultAsync();
+                              ////foreach(var aa in sk)
+                              ////{
+                              ////    aa.finalize = true;// = 1;
+                              ////    aa.TransRef = transref;
 
+
+            ////}
+            ////await _appDbContext.SaveChangesAsync();
+            ////succ = true;
+            ///
+            var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid && a.finalize == false).FirstOrDefaultAsync();
+            //foreach (var aa in sk)
+                if (sk != null)
+                {
                 sk.finalize = true;// = 1;
                 sk.TransRef = transref;
 
-                await _appDbContext.SaveChangesAsync();
-                succ =true;
+
             }
+             _appDbContext.UpdateRange(sk);//
+            await _appDbContext.SaveChangesAsync();
+            succ = true;
+
+            //Tested
+            ////var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid && a.finalize == false).ToListAsync();//.FirstOrDefaultAsync();
+            ////                                                                                                                     //foreach (var aa in sk)
+            ////if (sk != null)
+            ////{
+            ////    aa.finalize = true;// = 1;
+            ////    aa.TransRef = transref;
+
+
+            ////}
+            ////_appDbContext.UpdateRange(sk);//
+            ////await _appDbContext.SaveChangesAsync();
+            ////succ = true;
+
+
+
+
+
+
+
+
+
+            //var sk = await _appDbContext.shoppingCartItem.Where(a => a.EmployerId == empid && a.finalize == false).ToListAsync().ForEach(aa =>
+            //{
+            //    aa.finalize = true;// = 1;
+            //    aa.TransRef = transref;
+            //});
+
+
+
+
+
+            //var EmailAddress = await (from a in applicationDb.ApprovalLevel
+            //                          where a.LevelName == NewLevel
+            //                          select new Model(u.Email)).ToListAsync();
+
+            //applicationDb.ApprovalLevel.Savechanges(EmailAddress)
+
+            //if (sk != null)
+            //{
+
+            //    sk.finalize = true;// = 1;
+            //    sk.TransRef = transref;
+
+            //    await _appDbContext.SaveChangesAsync();
+            //    succ =true;
+            //}
 
             return succ;
         }

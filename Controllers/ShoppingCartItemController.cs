@@ -65,8 +65,8 @@ namespace BiodataTest.Controllers
             paycyb.MerchantRef = transRef;// "GodwinAGB202201";
             paycyb.CustomerId = "67898077";
             paycyb.IntegrationKey = "078b48a5c64442ddb63ac3d1f0604153";
-            paycyb.ReturnUrl = "http://0449-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
-
+            paycyb.ReturnUrl = "http://9320-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
+          //paycyb.ReturnUrl = "http://0449-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
 
             using (var Client = new HttpClient())
             {
@@ -132,6 +132,7 @@ namespace BiodataTest.Controllers
         }
 
         //await the rsponse of payment that was trigerred
+        [HttpGet]
         public async Task<IActionResult> CompleteCyberPay()
         {
             //var transRef = Request.QueryString["ref"].ToString();
@@ -177,8 +178,8 @@ namespace BiodataTest.Controllers
                         dynamic msg = TempData["Message"];
 
                         Alert("success", msg, NotificationType.success);
-                        return RedirectToAction("existedApplications");
-
+                        return RedirectToAction("existedApplications","career");
+                       // return RedirectToActionPermanent("existedApplications");
 
                         //employeer cart where Cybref =transRef, my table status and ref(
                         //update application table
