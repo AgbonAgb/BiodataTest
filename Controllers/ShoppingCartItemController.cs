@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 //using AspNetCore.
 
 namespace BiodataTest.Controllers
@@ -24,11 +25,13 @@ namespace BiodataTest.Controllers
         private readonly IShoppingCartItem _shoppingCartItem;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IApplication _application;
-        public ShoppingCartItemController(IShoppingCartItem shoppingCartItem, IHttpContextAccessor httpContextAccessor, IApplication application)
+        private readonly IConfiguration _config;
+        public ShoppingCartItemController(IShoppingCartItem shoppingCartItem, IHttpContextAccessor httpContextAccessor, IApplication application, IConfiguration config)
         {
             _shoppingCartItem = shoppingCartItem;
             _httpContextAccessor = httpContextAccessor;
             _application = application;
+            _config = config;
         }
         [Authorize]
         public async Task<IActionResult> CheckOut(int Id)
@@ -65,7 +68,8 @@ namespace BiodataTest.Controllers
             paycyb.MerchantRef = transRef;// "GodwinAGB202201";
             paycyb.CustomerId = "67898077";
             paycyb.IntegrationKey = "078b48a5c64442ddb63ac3d1f0604153";
-            paycyb.ReturnUrl = "http://9320-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
+            //string BConfig = Configuration.GetSection("ConnectionStrings")["BConnection"];
+            paycyb.ReturnUrl = _config.GetSection("PaymentDetails")["CyberPayReturnUrl"]; ;//.GetValue();// "http://9320-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
           //paycyb.ReturnUrl = "http://0449-212-100-86-17.ngrok.io/ShoppingCartItem/CompleteCyberPay/";//http://localhost:26954/
 
             using (var Client = new HttpClient())
@@ -76,7 +80,7 @@ namespace BiodataTest.Controllers
                 //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
 
-                Client.BaseAddress = new Uri("https://payment-api.staging.cyberpay.ng/");
+                Client.BaseAddress = new Uri(_config.GetSection("PaymentDetails")["CyberPayUrl"]);// ("https://payment-api.staging.cyberpay.ng/");
                 Client.DefaultRequestHeaders.Accept.Clear();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
