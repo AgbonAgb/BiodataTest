@@ -25,7 +25,12 @@
       "ProjectGuid": "17b2378c-a332-4824-8ac2-32d59918c301",
       "DisplayName": "AddressBook",
       "ColorIndex": 3
+    },
+    "2a7e7817-a0ff-4c59-90f1-7f64ed797d88": {
+      "ProjectGuid": "2a7e7817-a0ff-4c59-90f1-7f64ed797d88",
+      "DisplayName": "PlatformService",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }
