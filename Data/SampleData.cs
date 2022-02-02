@@ -9,7 +9,7 @@ namespace BiodataTest.Data
 {
     public class SampleData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static async void Initialize(IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetService<AppDbContext>();
 
@@ -53,9 +53,9 @@ namespace BiodataTest.Data
 
             }
 
-            AssignRoles(serviceProvider, user.Email, roles);
+           await AssignRoles(serviceProvider, user.Email, roles);
 
-            context.SaveChangesAsync();
+           await context.SaveChangesAsync();
         }
 
         public static async Task<IdentityResult> AssignRoles(IServiceProvider services, string email, string[] roles)
