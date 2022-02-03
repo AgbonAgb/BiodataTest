@@ -52,6 +52,7 @@ namespace BiodataTest.Data
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
             {
 
+
                 //UserName = "Agbon",
                 //Email = "agbonwinn@yahoo.com",
                 //FirstName = "Agbon",

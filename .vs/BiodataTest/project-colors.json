@@ -30,7 +30,17 @@
       "ProjectGuid": "2a7e7817-a0ff-4c59-90f1-7f64ed797d88",
       "DisplayName": "PlatformService",
       "ColorIndex": 4
+    },
+    "c2467e47-2470-4425-908b-18d63db0c63a": {
+      "ProjectGuid": "c2467e47-2470-4425-908b-18d63db0c63a",
+      "DisplayName": "PlatformService",
+      "ColorIndex": 5
+    },
+    "1513337d-ff17-4f22-b467-fa30b40b4570": {
+      "ProjectGuid": "1513337d-ff17-4f22-b467-fa30b40b4570",
+      "DisplayName": "PlatformService",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 7
 }
