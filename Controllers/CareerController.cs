@@ -584,6 +584,94 @@ namespace BiodataTest.Controllers
 
 
         }
+        [HttpGet]
+        public async Task<IActionResult> EditCareer(int Id)
+        {
+
+            CareerViewModel CVM = new CareerViewModel();
+            //load Career category
+           ViewBag.listofCategory = await loadCategories();
+            //get aLL Careers
+            CVM = await _career.GetCareeredit(Id);
+            if(CVM.isActive == true)
+            {
+                ViewBag.iSactive = true;
+            }
+            //set selected listofCategory to default based on Id
+
+            return View(CVM);
+        }
         //MyApplication
+        [HttpPost]
+        public async Task<IActionResult> EditCareer(CareerViewModel CVM)
+        {
+            //dlete exsisting image from folder
+            int id = CVM.CareerID;
+            string uniqueFileName = "";
+            if (CVM.CareerImgfile == null)
+            {
+                //return View(CVM);
+                 uniqueFileName = CVM.CareerImageUrl;
+            }
+            else
+            {
+                long size = CVM.CareerImgfile.Length;//.Sum(f => f.Length);
+
+
+
+                var ext = Path.GetExtension(CVM.CareerImgfile.FileName).ToLowerInvariant();
+
+                if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+                {
+                    //Add to model state, not permited ext
+                    ViewBag.listofCategory = await loadCategories();
+                    return View(CVM);
+                }
+                //Try to upload file and get the URL for DB 
+                //get the mimetype only pdf or word is ALLOWED
+                 uniqueFileName = await UploadedFile(CVM);
+            }
+            
+
+
+            var mmapper = _mapper.Map<Career>(CVM);
+            mmapper.CareerImageUrl = uniqueFileName;//add the cv path for DB
+            var newCr = await _career.UpdateCareer(mmapper);
+
+            if (newCr)
+            {
+
+                TempData["Message"] = "Update Successful";
+
+                dynamic transRef = TempData["Message"];
+
+                Alert("success", transRef, NotificationType.success);
+                //Alert("success", TempData["Message"], NotificationType.success);
+
+                //if sucess go to list page of existing
+                //return View(bioDataViewModel);
+                ModelState.Clear();
+                CareerViewModel CVM2 = new CareerViewModel();
+                ViewBag.listofCategory = await loadCategories();
+                CVM2.CareerName = string.Empty;
+                CVM2.CareerDesc = string.Empty;
+
+                CVM2.AllCareers = await _career.GetCareers();
+                 return RedirectToAction("CreateCareer", CVM2);
+                //return View(CVM2);
+            }
+            else
+            {
+                ViewBag.listofCategory = await loadCategories();
+                return View(CVM);
+            }
+
+
+
+            //string imgpath = CVM.CareerImageUrl;
+
+
+            //return View(CVM);
+        }
     }
 }

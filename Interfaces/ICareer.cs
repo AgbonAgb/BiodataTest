@@ -15,6 +15,8 @@ namespace BiodataTest.Interfaces
         //ApproveCV
        
         Task<CareerViewModel> GetCareer(int Id);
+        //
+        Task<CareerViewModel> GetCareeredit(int Id);
         Task<IEnumerable<CareerViewModel>> GetCareers();
         Task<IEnumerable<CareerViewModel>> GetCareersWithSkills();
     }

@@ -19,12 +19,19 @@ namespace BiodataTest.Services
         public async Task<bool> CreateSkills(Skills skill)
         {
             bool succ = false;
-            var sk = await _appDbContext.skills.Where(a => a.CareerID == skill.CareerID || a.CategoryID==skill.CategoryID).FirstOrDefaultAsync();
-            if(sk == null)
+            try
             {
-                await _appDbContext.AddAsync(skill);
-                await _appDbContext.SaveChangesAsync();
-                succ = true;
+                var sk = await _appDbContext.skills.Where(a => a.CareerID == skill.CareerID || a.CategoryID == skill.CategoryID).FirstOrDefaultAsync();
+                if (sk == null)
+                {
+                    await _appDbContext.AddAsync(skill);
+                    await _appDbContext.SaveChangesAsync();
+                    succ = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return succ;

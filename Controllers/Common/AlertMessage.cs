@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Roller.Web.Controllers.Common
+namespace BiodataTest.Controllers.Common
 {
     public class AlertMessage
     {

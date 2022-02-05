@@ -66,7 +66,8 @@ namespace BiodataTest.Services
                                    CategoryID = career.CategoryID,
                                    CareerDesc = career.CareerDesc,
                                    CategoryName = category.CategoryName,
-                                   skills = skill.skillDescription
+                                   skills = skill.skillDescription,
+                                   isActive=career.isActive
                                }
                          ).FirstOrDefaultAsync();
 
@@ -75,7 +76,34 @@ namespace BiodataTest.Services
 
             return query;
         }
+        public async Task<CareerViewModel> GetCareeredit(int Id)
+        {            ////var chk = await _appDbContext.careers.Where(x => x.CareerID == Id).FirstOrDefaultAsync();
 
+
+            ////return chk;
+            ///
+
+            var query = await (from career in _appDbContext.careers.Where(x => x.CareerID == Id)
+                               join category in _appDbContext.categorys on career.CategoryID equals category.CategoryID
+                               //join skill in _appDbContext.skills on career.CareerID equals skill.CareerID
+                               select new CareerViewModel
+                               {
+                                   CareerID = career.CareerID,
+                                   CareerName = career.CareerName,
+                                   CareerImageUrl = career.CareerImageUrl,
+                                   CategoryID = career.CategoryID,
+                                   CareerDesc = career.CareerDesc,
+                                   CategoryName = category.CategoryName,
+                                  // skills = skill.skillDescription,
+                                   isActive = career.isActive
+                               }
+                         ).FirstOrDefaultAsync();
+
+
+
+
+            return query;
+        }
         public async Task<IEnumerable<CareerViewModel>> GetCareers()
         {
             
@@ -149,5 +177,6 @@ namespace BiodataTest.Services
         }
         //Approve CV
        
+
     }
 }
