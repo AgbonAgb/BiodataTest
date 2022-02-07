@@ -255,7 +255,7 @@ namespace BiodataTest.Controllers
                 {
                     //log error
                 }
-
+                _logger.LogInformation("User created a new account with username " + Ruser.UserName);
                 //
 
                 if (HttpContext.User.Identity.Name == null)
@@ -263,7 +263,7 @@ namespace BiodataTest.Controllers
                     
                     return RedirectToAction("login");
                 }
-                _logger.LogInformation("User created a new account with username " + Ruser.UserName);
+               
                 if (User.IsInRole("Admin"))
                 {
 

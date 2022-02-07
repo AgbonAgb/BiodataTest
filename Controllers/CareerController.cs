@@ -646,6 +646,7 @@ namespace BiodataTest.Controllers
                 dynamic transRef = TempData["Message"];
 
                 Alert("success", transRef, NotificationType.success);
+               // Alert(("This is success message", NotificationType.success);
                 //Alert("success", TempData["Message"], NotificationType.success);
 
                 //if sucess go to list page of existing
