@@ -327,6 +327,7 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Hom
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\PurchaseOrder\createPurchaseOrder.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShoppingCartSummary\Default.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_EditCareerPartial.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld3.cshtml.g.cs
@@ -348,4 +349,3 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csp
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.dll
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache

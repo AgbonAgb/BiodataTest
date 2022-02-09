@@ -36,9 +36,12 @@
     @*<link rel="stylesheet" href="~/assets/css/argon.mine209.css?v=1.0.0" type="text/css">*@
     <link rel="stylesheet" href="~/assets/css/argon.mine209.css" type="text/css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" type="="text/css"" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>  
     <link rel="stylesheet" href="~/css/loading.css">
     <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/site.css" rel="stylesheet" type="text/css" />    
+   @* <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />*@
+    <script src="~/sweetAlert/sweetalert.min.js"></script>  
     
     @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 
@@ -402,6 +405,8 @@
                             @*<partial name="_login" />*@
                             @*  <partial name="_CookieConsentPartial" />*@
             <partial name="_NotificationPanel" />
+            
+           
             @*@Html.Partial("_NotificationPanel")*@
 
                             @RenderBody()
@@ -459,7 +464,7 @@
     <!-- Demo JS - remove this in your project -->
     <script src="~/assets/js/demo.min.js"></script>
     <script src="~/js/main.js"></script>
-    <script src="~/sweetAlert/sweetalert.min.js"></script>
+   @* <script src="~/sweetAlert/sweetalert.min.js"></script>*@
    @* <script src="~/sweetAlert~/sweetAlert/sweetalert-dev.js"></script>*@
     <script>
         // Facebook Pixel Code Don't Delete

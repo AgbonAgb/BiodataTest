@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using static BiodataTest.Controllers.Common.Enum;
 using BiodataTest.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace BiodataTest.Controllers
 {
@@ -587,9 +588,11 @@ namespace BiodataTest.Controllers
         [HttpGet]
         public async Task<IActionResult> EditCareer(int Id)
         {
+            //Alert("Yoo", NotificationType.success);
 
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
+
            ViewBag.listofCategory = await loadCategories();
             //get aLL Careers
             CVM = await _career.GetCareeredit(Id);
@@ -599,7 +602,30 @@ namespace BiodataTest.Controllers
             }
             //set selected listofCategory to default based on Id
 
-            return View(CVM);
+           // return View(CVM);
+
+            return PartialView("_EditCareerPartial", CVM);
+        }
+
+
+        public async Task<IActionResult> EditCareerJson(int Id)
+        {
+            
+            CareerViewModel CVM = new CareerViewModel();
+            //load Career category
+            ViewBag.listofCategory = await loadCategories();
+            //get aLL Careers
+            CVM = await _career.GetCareeredit(Id);
+            if (CVM.isActive == true)
+            {
+                ViewBag.iSactive = true;
+            }
+            //set selected listofCategory to default based on Id
+
+            // return View(CVM);
+           // var ret = JsonConvert.SerializeObject(CVM);
+
+            return Json (CVM);
         }
         //MyApplication
         [HttpPost]
@@ -641,12 +667,14 @@ namespace BiodataTest.Controllers
             if (newCr)
             {
 
-                TempData["Message"] = "Update Successful";
+                //TempData["Message"] = "Update Successful";
 
-                dynamic transRef = TempData["Message"];
+                //dynamic transRef = TempData["Message"];
 
-                Alert("success", transRef, NotificationType.success);
-               // Alert(("This is success message", NotificationType.success);
+                //Alert("success", transRef, NotificationType.success);
+                Alert("Update successful", NotificationType.success);
+
+                // Alert(("This is success message", NotificationType.success);
                 //Alert("success", TempData["Message"], NotificationType.success);
 
                 //if sucess go to list page of existing
