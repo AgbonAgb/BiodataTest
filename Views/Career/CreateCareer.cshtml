@@ -5,101 +5,158 @@
 <head>
 
     <script type="text/javascript">
-         //$('#btnEdit').change(function () {
-            //    alert("Am here oooh");
-            //});
-           // $('#btnEdit').on('click',  function () {
-         $(document).ready(function () {            
-           
-           $('#btnEdit').click(function () {
-                alert("Am here oooh2");
-                var _categoryidVal = $("#btnEdit").val();
-                alert("Am here oooh2"+_categoryidVal);
-                $("#MyPopup").modal("hide");
-                var obj = {};
-                obj.Id = $(this).attr('data-id');
+          $(document).ready(function () {
+           alert("Am here oooh1");
 
-                $.ajax({
-                    url: '@Url.Action("EditCareer", "Career")',
-                       // data: { id: _categoryidVal },
-                         data: JSON.stringify(obj),
-                        type: 'POST',
-                        dataType: 'html',
-                        contentType: "application/json; charset=utf-8",                    
-                        
-                    success: function (response) {
-                        alert("hello");
-                        $("#dvPartial").html(response);
-                        $("#MyPopup").modal("show");
-                    }
-                });
-                
+           $("#btnEdit").click(function () {
+                  alert("Am here oooh1");
+
+                  var _categoryidVal = $('#btnEdit').val();
+                  $("#ModalTitle").html("Update Record");
+          $("#MyModal").modal();
+          $.ajax({
+              type: "GET",
+              url: "/Career/EditCareerJson?Id=" + CareerID,
+              success: function (data) {
+                   alert("am back");
+                  var obj = JSON.parse(data);
+                  $("#CareerID").val(obj.CareerID);
+                  $("#CareerName").val(obj.StudentName);
+                  $("#CareerDesc").val(obj.Email);
+                  $("#DropDwn option:selected").text(obj.Category.CategoryName);
+                  $("#DropDwn option:selected").val(obj.Category.CategoryID);
+
+              }
+          });
+
+
+
+                  ////$("#MyPopup").modal("hide");
+                  ////var obj = {};
+                  ////obj.Id = $(this).attr('data-id');
+                  ////alert("Selected Id= "+_categoryidVal);
+                  ////$.ajax({
+                  ////    url: '@Url.Action("EditCareer1", "Career")',
+                  ////    ////data: { Id: _categoryidVal },
+                  ////    ////type: "POST",
+                  ////   // url: 'Career/EditCareer1',
+                  ////    //'Career/EditCareer1?Id='+_categoryidVal,
+                  ////        //data: { id: _categoryidVal },
+                  ////        data: JSON.stringify(_categoryidVal),
+                  ////        type: 'POST',
+                  ////        dataType: 'html',
+                  ////        contentType: "application/json; charset=utf-8",
+
+                  ////    success: function (response) {
+                  ////        alert("Just returned");
+                  ////        $("#dvPartial").html(response);
+                  ////        $("#MyPopup").modal("show");
+                  ////    }
+                  ////});
+
+
+
+
             });
 
-        ////     function EditData(CareerID) {
-        //////var url = 
-        ////alert("Hello");
-        ////$("#ModalTitle").html("Update Record");
-        ////$("#MyModal").modal();
-        ////$.ajax({
-        ////    type: "GET",
-        ////    url: "/Career/EditCareerJson?Id=" + CareerID;,
-        ////    success: function (data) {
-        ////         alert("am back");
-        ////        var obj = JSON.parse(data);
-        ////        $("#CareerID").val(obj.CareerID);
-        ////        $("#CareerName").val(obj.StudentName);
-        ////        $("#CareerDesc").val(obj.Email);
-        ////        $("#DropDwn option:selected").text(obj.Category.CategoryName);
-        ////        $("#DropDwn option:selected").val(obj.Category.CategoryID);
 
-        ////    }
-        ////});
-        //// } 
-
-        ////});
-           
-        
-        //$(function () {
-        //    $('#btnEdit').on('click',  function () {
-        //        alert("Am here oooh");
-        //        $("#MyPopup").modal("hide");
-        //        var obj = {};
-        //        obj.Id = $(this).attr('data-id');
-
-        //        $.ajax({
-        //            url: 'Career/EditCareer',
-        //            data: JSON.stringify(obj),
-        //            type: 'POST',
-        //            dataType: 'html',
-        //            contentType: "application/json; charset=utf-8",
-        //            success: function (response) {
-        //                $("#dvPartial").html(response);
-        //                $("#MyPopup").modal("show");
-        //            }
-        //        });
-        //    });
+          });
 
 
+           //$('#btnEdit').change(function () {
+           //       alert("Am here oooh333");
+           //   });
+             // $('#btnEdit').on('click',  function () {
+           ////$(document).ready(function () {
+           ////  alert("Am here oooh1");
+           ////  $('#btnEdit').click(function () {
+           ////       alert("Am here oooh2");
+           ////       var _categoryidVal = $("#btnEdit").val();
+           ////       alert("Am here oooh2"+_categoryidVal);
+           ////       $("#MyPopup").modal("hide");
+           ////       var obj = {};
+           ////       obj.Id = $(this).attr('data-id');
+
+           ////       $.ajax({
+           ////
+           ////              // data: { id: _categoryidVal },
+           ////                data: JSON.stringify(obj),
+           ////               type: 'POST',
+           ////               dataType: 'html',
+           ////               contentType: "application/json; charset=utf-8",
+
+           ////           success: function (response) {
+           ////               alert("hello");
+           ////               $("#dvPartial").html(response);
+           ////               $("#MyPopup").modal("show");
+           ////           }
+           ////       });
+
+           ////   });
+
+          ////     function EditData() {
+          //////var url =
+          ////alert("Hello");
+          ////$("#ModalTitle").html("Update Record");
+          ////$("#MyModal").modal();
+          ////$.ajax({
+          ////    type: "GET",
+          ////    url: "/Career/EditCareerJson?Id=" + CareerID;,
+          ////    success: function (data) {
+          ////         alert("am back");
+          ////        var obj = JSON.parse(data);
+          ////        $("#CareerID").val(obj.CareerID);
+          ////        $("#CareerName").val(obj.StudentName);
+          ////        $("#CareerDesc").val(obj.Email);
+          ////        $("#DropDwn option:selected").text(obj.Category.CategoryName);
+          ////        $("#DropDwn option:selected").val(obj.Category.CategoryID);
+
+          ////    }
+          ////});
+          //// }
+
+          //});
 
 
-            //$("body").on('click', '#btnAdd', function () {
-            //    $("#MyPopup").modal("hide");
-            //    $.ajax({
-            //        url: 'Home/AddCustomer',
-            //        data: {},
-            //        type: 'POST',
-            //        dataType: 'html',
-            //        contentType: "application/json; charset=utf-8",
-            //        success: function (response) {
-            //            $("#dvPartial").html(response);
-            //            $("#MyPopup").modal("show");
-            //        }
-            //    });
-            //});
-      //  });
+          //$(function () {
+          //    $('#btnEdit').on('click',  function () {
+          //        alert("Am here oooh");
+          //        $("#MyPopup").modal("hide");
+          //        var obj = {};
+          //        obj.Id = $(this).attr('data-id');
+
+          //        $.ajax({
+          //            url: 'Career/EditCareer',
+          //            data: JSON.stringify(obj),
+          //            type: 'POST',
+          //            dataType: 'html',
+          //            contentType: "application/json; charset=utf-8",
+          //            success: function (response) {
+          //                $("#dvPartial").html(response);
+          //                $("#MyPopup").modal("show");
+          //            }
+          //        });
+          //    });
+
+
+
+
+              //$("body").on('click', '#btnAdd', function () {
+              //    $("#MyPopup").modal("hide");
+              //    $.ajax({
+              //        url: 'Home/AddCustomer',
+              //        data: {},
+              //        type: 'POST',
+              //        dataType: 'html',
+              //        contentType: "application/json; charset=utf-8",
+              //        success: function (response) {
+              //            $("#dvPartial").html(response);
+              //            $("#MyPopup").modal("show");
+              //        }
+              //    });
+              //});
+        //  });
     </script>
-
 </head>
 <body>
     <div class="panel panel-default">
@@ -224,8 +281,9 @@
                                         @Html.DisplayFor(modelItem => item.CareerName)
                                         </td>*@
                                     <td>
-                                        @*<button  id="btnEdit" class="btn btn-primary btn-sm" value="@item.CareerID" data-id="@item.CareerID">Edit</button>*@
-                                        <button  onclick="EditData(@item.CareerID)" class="btn btn-primary btn-sm" data-id="@item.CareerID">Edit</button>
+                                        <button id="btnEdit" value="@item.CareerID" data-id="@item.CareerID">Edits</button>
+                                        /@*<a href="#" id="btnEdit" class="btn btn-primary btn-sm" onclick="EditData(@item.CareerID)" data-id="@item.CareerID">Edit</a>*@
+                                        <button onclick="EditData(@item.CareerID)" class="btn btn-primary btn-sm" data-id="@item.CareerID">Edit</button>
                                         @*<a asp-action="EditCareer" asp-route-id="@item.CareerID">Edit</a> |*@
                                         <a asp-action="Details" asp-route-id="@item.CareerID">Details</a> |
                                         <a asp-action="Delete" asp-route-id="@item.CareerID">Delete</a>
@@ -236,32 +294,31 @@
                     </table>
                 </div>
             </div>
-        </div>(
+        </div>
 
         @* <partial name="_EditCareerPartial" />*@
     </div>
     <!-- Modal Popup -->
-    <div id="MyPopup" class="modal fade" role="dialog">
+    @*<div id="MyPopup" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        &times;
-                    </button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-                    <div id="dvPartial"></div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" id="btnClosePopup" value="Close" data-dismiss="modal" class="btn btn-danger" />
-                </div>
-            </div>
+        <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        &times;
+        </button>
+        <h4 class="modal-title"></h4>
         </div>
-    </div>
+        <div class="modal-body">
+        <div id="dvPartial"></div>
+        </div>
+        <div class="modal-footer">
+        <input type="button" id="btnClosePopup" value="Close" data-dismiss="modal" class="btn btn-danger" />
+        </div>
+        </div>
+        </div>
+        </div>*@
 
-</body>
-<div class="modal fade" id="MyModal">
+    <div class="modal fade" id="MyModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -269,74 +326,77 @@
                     <h4 id="ModalTitle"></h4>
                 </div>
                 <div class="modal-body">
-            <form asp-action="EditCareer" asp-controller="Career" method="post" role="form" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CareerID" />
-            <input type="hidden" asp-for="CareerImageUrl" class="form-control" />
-            <div class="panel panel-primary" style="border-width:0px">
-                <div class="panel-heading">Edit Career</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="CategoryID" class="control-label"></label>
-                                <select asp-for="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
-                                </select>
-                                <span asp-validation-for="CategoryID" class="text-danger"></span>
+                    <form asp-action="EditCareer" asp-controller="Career" method="post" role="form" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="CareerID" />
+                        <input type="hidden" asp-for="CareerImageUrl" class="form-control" />
+                        <div class="panel panel-primary" style="border-width:0px">
+                            <div class="panel-heading">Edit Career</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CategoryID" class="control-label"></label>
+                                            <select asp-for="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
+                                            </select>
+                                            <span asp-validation-for="CategoryID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CareerName" class="control-label"></label>
+                                            <input asp-for="CareerName" class="form-control" />
+                                            <span asp-validation-for="CareerName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CareerDesc" class="control-label"></label>
+                                            <input asp-for="CareerDesc" class="form-control" />
+                                            <span asp-validation-for="CareerDesc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Upload Career Image</label>
+                                            <input asp-for="CareerImgfile" class="form-control" type="file" />
+                                            <span asp-validation-for="CareerImgfile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
-                        <div class="col-md-4">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="CareerName" class="control-label"></label>
-                                <input asp-for="CareerName" class="form-control" />
-                                <span asp-validation-for="CareerName" class="text-danger"></span>
-                            </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="isActive" checked="@ViewBag.iSactive" /> @Html.DisplayNameFor(model => model.isActive)
+                            </label>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="CareerDesc" class="control-label"></label>
-                                <input asp-for="CareerDesc" class="form-control" />
-                                <span asp-validation-for="CareerDesc" class="text-danger"></span>
-                            </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Upload Career Image</label>
-                                <input asp-for="CareerImgfile" class="form-control" type="file" />
-                                <span asp-validation-for="CareerImgfile" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isActive" checked="@ViewBag.iSactive" /> @Html.DisplayNameFor(model => model.isActive)
-                </label>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+</body>
+
 
 
 

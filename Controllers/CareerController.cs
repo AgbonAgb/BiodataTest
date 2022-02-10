@@ -585,9 +585,10 @@ namespace BiodataTest.Controllers
 
 
         }
-        [HttpGet]
-        public async Task<IActionResult> EditCareer(int Id)
+        [HttpPost]
+        public async Task<IActionResult> EditCareer1(int Id)
         {
+            Id = 1;
             //Alert("Yoo", NotificationType.success);
 
             CareerViewModel CVM = new CareerViewModel();
@@ -610,7 +611,7 @@ namespace BiodataTest.Controllers
 
         public async Task<IActionResult> EditCareerJson(int Id)
         {
-            
+            Id = 1;
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
             ViewBag.listofCategory = await loadCategories();
