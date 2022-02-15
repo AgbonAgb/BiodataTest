@@ -41,8 +41,8 @@ namespace BiodataTest.Controllers
             _webHostEnvironment = webHostEnvironment;
             _application = application;
             _httpContextAccessor = httpContextAccessor;
-           _shoppingCartItem = shoppingCartItem;
-    }
+            _shoppingCartItem = shoppingCartItem;
+        }
         [HttpGet]
         public async Task<IActionResult> CreateCareer()
         {
@@ -53,7 +53,7 @@ namespace BiodataTest.Controllers
             //load Career category
             ViewBag.listofCategory = await loadCategories();
             //get aLL Careers
-            CVM.AllCareers =  await _career.GetCareers();
+            CVM.AllCareers = await _career.GetCareers();
 
             return View(CVM);
         }
@@ -107,6 +107,18 @@ namespace BiodataTest.Controllers
             }
 
             //return View(CVM);
+        }
+        [HttpGet]
+        public async Task<IActionResult> listCareers()
+        {
+            CareerViewModel CVM2 = new CareerViewModel();
+            ViewBag.listofCategory = await loadCategories();
+            CVM2.CareerName = string.Empty;
+            CVM2.CareerDesc = string.Empty;
+
+            CVM2.AllCareers = await _career.GetCareers();
+            // return RedirectToAction("existedCareers");
+            return View(CVM2);
         }
         private async Task<string> UploadedFile(CareerViewModel model)
         {
@@ -162,20 +174,20 @@ namespace BiodataTest.Controllers
 
         }
 
-        public async Task<IActionResult> existedCareers(int pg=1)
+        public async Task<IActionResult> existedCareers(int pg = 1)
         {
             //add pagination
             var existed = await _career.GetCareersWithSkills();
 
             const int pageSize = 3;
-            if(pg < 1)
+            if (pg < 1)
             {
                 pg = 1;
             }
 
             int rescount = existed.Count();
-            var pager = new Pager(rescount,pg,pageSize);
-            int recSkip=(pg-1) * pageSize;
+            var pager = new Pager(rescount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
 
             var data = existed.Skip(recSkip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;
@@ -368,45 +380,45 @@ namespace BiodataTest.Controllers
             string role = "";
             //if (!string.IsNullOrEmpty(username))
             //{
-                //Get User Roles to determine what he can see
-                List<string> Roles = ((ClaimsIdentity)User.Identity).Claims
-                    .Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => c.Value).ToList();
+            //Get User Roles to determine what he can see
+            List<string> Roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value).ToList();
 
-               //= Roles[0];
+            //= Roles[0];
 
-                foreach (string rl in Roles)
-                {
-                    role = role + "," + rl;
-                }
+            foreach (string rl in Roles)
+            {
+                role = role + "," + rl;
+            }
 
             //}
-            
-
-                //get all applications 
-
-                //var Retactualdata = allapp;
-
-                
-
-                if (string.IsNullOrEmpty(StartDate) && string.IsNullOrEmpty(EndDate) && categoryid == 0)
-                {
 
 
-                    query = await _application.GetAllApplications(Roles);
-                    // return View(allapp);
-                }
-                else
-                {
+            //get all applications 
 
-                    query = await _application.GetAllApplications(Roles, EndDate, StartDate, categoryid);
+            //var Retactualdata = allapp;
 
 
 
-                }
+            if (string.IsNullOrEmpty(StartDate) && string.IsNullOrEmpty(EndDate) && categoryid == 0)
+            {
+
+
+                query = await _application.GetAllApplications(Roles);
+                // return View(allapp);
+            }
+            else
+            {
+
+                query = await _application.GetAllApplications(Roles, EndDate, StartDate, categoryid);
+
+
+
+            }
             //}
-            
-            
+
+
 
 
 
@@ -426,7 +438,7 @@ namespace BiodataTest.Controllers
         public async Task<IActionResult> ApproveCV(int Id)
         {
             var k = await _application.ApproveCV(Id);
-            if(k == true)
+            if (k == true)
             {
                 //alert
                 //return RedirectToAction("existedApplications");
@@ -487,7 +499,7 @@ namespace BiodataTest.Controllers
             string empid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;//.
             ap.EmployerId = empid;//add user id
 
-            if(string.IsNullOrEmpty(empid))
+            if (string.IsNullOrEmpty(empid))
             {
                 TempData["Message"] = "Please, kindly register and login to be able to perform this function";
 
@@ -504,13 +516,13 @@ namespace BiodataTest.Controllers
             if (addtocart == true)
             {
 
-                TempData["Message"] = ap.FirstName +" "+ " added to cart Successfull";
+                TempData["Message"] = ap.FirstName + " " + " added to cart Successfull";
 
                 dynamic transRef = TempData["Message"];
 
                 Alert("success", transRef, NotificationType.success);/*as AlertMessage;*/
 
-                
+
 
 
                 return RedirectToAction("MyCart");
@@ -536,7 +548,7 @@ namespace BiodataTest.Controllers
             //step3: update Staff Biodata, set available to false. hired will be set to true when PO is sorted out
 
 
-          
+
 
 
         }
@@ -563,7 +575,7 @@ namespace BiodataTest.Controllers
             return View(SPC);
 
 
-            
+
 
 
         }
@@ -585,35 +597,17 @@ namespace BiodataTest.Controllers
 
 
         }
-        [HttpPost]
-        public async Task<IActionResult> EditCareer1(int Id)
+        [HttpGet]
+        public async Task<IActionResult> EditCareer2(int Id)
         {
+            //[FromBody] Customer cust, 
+            //Id = cust.Id;
             Id = 1;
             //Alert("Yoo", NotificationType.success);
 
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
 
-           ViewBag.listofCategory = await loadCategories();
-            //get aLL Careers
-            CVM = await _career.GetCareeredit(Id);
-            if(CVM.isActive == true)
-            {
-                ViewBag.iSactive = true;
-            }
-            //set selected listofCategory to default based on Id
-
-           // return View(CVM);
-
-            return PartialView("_EditCareerPartial", CVM);
-        }
-
-
-        public async Task<IActionResult> EditCareerJson(int Id)
-        {
-            Id = 1;
-            CareerViewModel CVM = new CareerViewModel();
-            //load Career category
             ViewBag.listofCategory = await loadCategories();
             //get aLL Careers
             CVM = await _career.GetCareeredit(Id);
@@ -624,11 +618,45 @@ namespace BiodataTest.Controllers
             //set selected listofCategory to default based on Id
 
             // return View(CVM);
-           // var ret = JsonConvert.SerializeObject(CVM);
 
-            return Json (CVM);
+            return PartialView("_EditCareerPartial", CVM);
         }
-        //MyApplication
+
+
+        //public async Task<IActionResult> EditCareerJson(int Id)
+        //{
+        //    //Id = 1;
+        //    CareerViewModel CVM = new CareerViewModel();
+        //    //load Career category
+        //    ViewBag.listofCategory = await loadCategories();
+        //    //get aLL Careers
+        //    CVM = await _career.GetCareeredit(Id);
+        //    if (CVM.isActive == true)
+        //    {
+        //        ViewBag.iSactive = true;
+        //    }
+        //    string value = string.Empty;
+        //    var ed = new EditViewData
+        //    {
+        //        CareerID = CVM.CareerID,
+        //        CareerName = CVM.CareerName,
+        //        CareerDesc = CVM.CareerDesc,
+        //        CategoryID = CVM.CategoryID,
+        //        CategoryName = CVM.CategoryName,
+        //        CareerImageUrl=CVM.CareerImageUrl,
+        //        CategoryName1 = await loadCategories()
+
+        //    };
+
+        //    value = JsonConvert.SerializeObject(ed, Formatting.Indented, new JsonSerializerSettings
+        //    {
+        //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        //    });
+        //    return Json(value);
+
+        //    // return Json (CVM);
+        //}
+        ////MyApplication
         [HttpPost]
         public async Task<IActionResult> EditCareer(CareerViewModel CVM)
         {
@@ -638,7 +666,7 @@ namespace BiodataTest.Controllers
             if (CVM.CareerImgfile == null)
             {
                 //return View(CVM);
-                 uniqueFileName = CVM.CareerImageUrl;
+                uniqueFileName = CVM.CareerImageUrl;
             }
             else
             {
@@ -656,9 +684,9 @@ namespace BiodataTest.Controllers
                 }
                 //Try to upload file and get the URL for DB 
                 //get the mimetype only pdf or word is ALLOWED
-                 uniqueFileName = await UploadedFile(CVM);
+                uniqueFileName = await UploadedFile(CVM);
             }
-            
+
 
 
             var mmapper = _mapper.Map<Career>(CVM);
@@ -687,7 +715,7 @@ namespace BiodataTest.Controllers
                 CVM2.CareerDesc = string.Empty;
 
                 CVM2.AllCareers = await _career.GetCareers();
-                 return RedirectToAction("CreateCareer", CVM2);
+                return RedirectToAction("CreateCareer", CVM2);
                 //return View(CVM2);
             }
             else

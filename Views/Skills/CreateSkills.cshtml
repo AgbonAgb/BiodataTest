@@ -4,7 +4,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             FliterCareers();
-
+            CKEDITOR.replace(‘#skillDescription’); 
 
             $('#categoryID').change(function () {
                 FliterCareers();
@@ -83,9 +83,6 @@
 
                         </div>
 
-                    </div>
-                    <div class="row">
-
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="skillCode" class="control-label"></label>
@@ -94,12 +91,20 @@
                             </div>
                         </div>
 
+                    </div>
+                    <div class="row">
 
-                        <div class="col-md-4">
+                        
+
+
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-12">
 
                             <div class="form-group">
                                 <label asp-for="skillDescription" class="control-label"></label>
-                                <textarea asp-for="skillDescription" class="form-control"></textarea>
+                                <textarea asp-for="skillDescription" class="ckeditor"></textarea>
                                 @*<input asp-for="skillDescription" class="form-control" />*@
                                 <span asp-validation-for="skillDescription" class="text-danger"></span>
                             </div>

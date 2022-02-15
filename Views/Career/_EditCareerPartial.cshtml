@@ -1,0 +1,113 @@
+﻿@model BiodataTest.ViewModels.CareerViewModel
+@*@{
+    // ViewBag.Title = "title";
+    Layout = "_Layout";
+    }*@
+ @* <div id ="PlaceHolderHere"></div>*@
+<div class="modal" id="UpdateCareer">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UpdateCareerLabel">Edit Career</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+                <form asp-action="EditCareer" asp-controller="Career" method="post" role="form" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="CareerID" />
+                    <input type="hidden" asp-for="CareerImageUrl" class="form-control" />                 
+                       
+                        <div class="panel-body">
+                           @* <div class="panel-heading">Update</div>*@
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        @*<label asp-for="CategoryID" class="control-label"></label>
+                                            <input asp-for="CategoryID" class="form-control" />
+                                            <span asp-validation-for="CategoryID" class="text-danger"></span>*@
+                                        <label asp-for="CategoryID" class="control-label"></label>
+                                        <select asp-for="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
+                                        </select>
+                                        <span asp-validation-for="CategoryID" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label asp-for="CareerName" class="control-label"></label>
+                                        <input asp-for="CareerName" class="form-control" />
+                                        <span asp-validation-for="CareerName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            <div class="row" >
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label asp-for="CareerDesc" class="control-label"></label>
+                                        <input asp-for="CareerDesc" class="form-control" />
+                                        <span asp-validation-for="CareerDesc" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label">Upload Career Image</label>
+                                        <input asp-for="CareerImgfile" class="form-control" type="file" />
+                                        <span asp-validation-for="CareerImgfile" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+
+                        </div>
+                  
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="isActive" checked="@ViewBag.iSactive" /> @Html.DisplayNameFor(model => model.isActive)
+                        </label>
+                    </div>
+
+                    @*<div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>*@
+                </form>
+            </div>
+            <div class ="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<hr />
+@*<div class="panel panel-default">
+    <div class="panel-body">
+
+    </div>
+    </div>*@
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+    </div>*@
+

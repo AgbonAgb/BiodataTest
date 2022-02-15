@@ -40,7 +40,27 @@
       "ProjectGuid": "1513337d-ff17-4f22-b467-fa30b40b4570",
       "DisplayName": "PlatformService",
       "ColorIndex": 6
+    },
+    "bc798b26-35f8-41e5-8f19-80dfe601d685": {
+      "ProjectGuid": "bc798b26-35f8-41e5-8f19-80dfe601d685",
+      "DisplayName": "402588_CRUD_Modal_Partial_Core_MVC",
+      "ColorIndex": 7
+    },
+    "d4be526e-5e69-4673-b30f-438523f2ddec": {
+      "ProjectGuid": "d4be526e-5e69-4673-b30f-438523f2ddec",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 8
+    },
+    "ed10b929-8117-494a-babb-5f8f1d9c81d7": {
+      "ProjectGuid": "ed10b929-8117-494a-babb-5f8f1d9c81d7",
+      "DisplayName": "JqueryTest",
+      "ColorIndex": 9
+    },
+    "565a2804-9597-49cc-aef1-ce505fd4fed2": {
+      "ProjectGuid": "565a2804-9597-49cc-aef1-ce505fd4fed2",
+      "DisplayName": "Jquerytest2",
+      "ColorIndex": 10
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 11
 }
