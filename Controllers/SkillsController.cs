@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using Newtonsoft.Json;
+using static BiodataTest.Controllers.Common.Enum;
 //using System.Dynamic;
 
 namespace BiodataTest.Controllers
 {
-    public class SkillsController : Controller
+    public class SkillsController : BaseController
     {
         private readonly ISkills _skills;
         private readonly ICategory _category;
@@ -203,6 +204,10 @@ namespace BiodataTest.Controllers
                 //ViewBag.Career = await loadCareer();
 
                 //Sk2.AllSkills = await _skills.GetSkills();
+
+
+                Alert("Update successful", NotificationType.success);
+
 
                 TempData["EditSkills"] = null;
                 return RedirectToAction("CreateSkills");

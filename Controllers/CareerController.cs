@@ -602,7 +602,7 @@ namespace BiodataTest.Controllers
         {
             //[FromBody] Customer cust, 
             //Id = cust.Id;
-            Id = 1;
+            //Id = 1;
             //Alert("Yoo", NotificationType.success);
 
             CareerViewModel CVM = new CareerViewModel();
