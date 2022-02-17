@@ -126,7 +126,7 @@ namespace BiodataTest
         {
             if (env.IsDevelopment())
             {
-                context.Database.Migrate();
+               // context.Database.Migrate();
                 app.UseDeveloperExceptionPage();
             }
             else
