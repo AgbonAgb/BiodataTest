@@ -22,8 +22,11 @@ namespace BiodataTest.ViewModels
         public string skills { get; set; }
         public int skillId { get; set; }
         [Required(ErrorMessage = "Please choose CV to upload")]
-        [NotMapped]
-        public IFormFile CareerImgfile { get; set; }
+        [NotMapped]        
+        //[DataType(DataType.Upload)]
+        //[MaxFileSize(5 * 1024 * 1024)]
+        //[Extensions(new string[] { ".jpg", ".png" })]
+        public IFormFile CareerImgfile { get; set; }        
         public bool isActive { get; set; }
         public string CategoryName { get; set; }
         [NotMapped]

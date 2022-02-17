@@ -607,18 +607,22 @@ namespace BiodataTest.Controllers
 
             CareerViewModel CVM = new CareerViewModel();
             //load Career category
-
             ViewBag.listofCategory = await loadCategories();
+            //ViewBag.listofCategory = await loadCategories();
             //get aLL Careers
             CVM = await _career.GetCareeredit(Id);
-            if (CVM.isActive == true)
-            {
-                ViewBag.iSactive = true;
-            }
+            //CVM.CareerImgfile.FileName = String.Empty;
+            // CVM.
+            CVM.isActive = false;
+
+            //if (CVM.isActive == true)
+            //{
+            //    ViewBag.iSactive = true;
+            //}
             //set selected listofCategory to default based on Id
 
             // return View(CVM);
-
+           
             return PartialView("_EditCareerPartial", CVM);
         }
 
@@ -658,34 +662,79 @@ namespace BiodataTest.Controllers
         //}
         ////MyApplication
         [HttpPost]
-        public async Task<IActionResult> EditCareer(CareerViewModel CVM)
+        public async Task<IActionResult> EditCareer(CareerViewModel CVM, IFormCollection collection, IFormFile file)
         {
+
+
+
             //dlete exsisting image from folder
             int id = CVM.CareerID;
             string uniqueFileName = "";
-            if (CVM.CareerImgfile == null)
+            //var formFile = CVM.CareerImgfile;
+            //foreach (IFormFile postedFile in CVM.CareerImgfile)
+            //{
+            //}
+
+            try
             {
-                //return View(CVM);
+                //int n = CVM.CareerImgfile.Length;
+
+
+                //var collection = Request.Form;
+                //var mp_apt = collection["CareerImgfile2"];
+                //long size = file.Length;
+                if (file ==null || file.Length == 0)
+                {
+                    uniqueFileName = CVM.CareerImageUrl;
+                }
+                else
+                {
+                    long size = file.Length;
+                    CVM.CareerImgfile = file;
+                    var ext = Path.GetExtension(CVM.CareerImgfile.FileName).ToLowerInvariant();
+
+                    if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+                    {
+                        //Add to model state, not permited ext
+                        ViewBag.listofCategory = await loadCategories();
+                        return View(CVM);
+                    }
+                    //Try to upload file and get the URL for DB 
+                    //get the mimetype only pdf or word is ALLOWED
+                    uniqueFileName = await UploadedFile(CVM);
+                }
+            }
+            catch (System.NullReferenceException ex)
+            {
+
                 uniqueFileName = CVM.CareerImageUrl;
             }
-            else
-            {
-                long size = CVM.CareerImgfile.Length;//.Sum(f => f.Length);
 
 
 
-                var ext = Path.GetExtension(CVM.CareerImgfile.FileName).ToLowerInvariant();
+            ////if (formFile == null)
+            ////{
+            ////    //return View(CVM);
+            ////    uniqueFileName = CVM.CareerImageUrl;
+            ////}
+            ////else
+            ////{
+            ////    //.Sum(f => f.Length);
 
-                if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
-                {
-                    //Add to model state, not permited ext
-                    ViewBag.listofCategory = await loadCategories();
-                    return View(CVM);
-                }
-                //Try to upload file and get the URL for DB 
-                //get the mimetype only pdf or word is ALLOWED
-                uniqueFileName = await UploadedFile(CVM);
-            }
+            ////    long size = CVM.CareerImgfile.Length;
+
+            ////    var ext = Path.GetExtension(CVM.CareerImgfile.FileName).ToLowerInvariant();
+
+            ////    if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+            ////    {
+            ////        //Add to model state, not permited ext
+            ////        ViewBag.listofCategory = await loadCategories();
+            ////        return View(CVM);
+            ////    }
+            ////    //Try to upload file and get the URL for DB 
+            ////    //get the mimetype only pdf or word is ALLOWED
+            ////    uniqueFileName = await UploadedFile(CVM);
+            ////}
 
 
 
@@ -701,7 +750,7 @@ namespace BiodataTest.Controllers
                 //dynamic transRef = TempData["Message"];
 
                 //Alert("success", transRef, NotificationType.success);
-                Alert("Update successful", NotificationType.success);
+                //Alert("Update successful", NotificationType.success);
 
                 // Alert(("This is success message", NotificationType.success);
                 //Alert("success", TempData["Message"], NotificationType.success);

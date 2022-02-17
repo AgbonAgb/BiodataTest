@@ -22,15 +22,18 @@ $(function () {
         })
     })
 
-    /* save data from popup*/
+    /* save data from popup without upload*/
     PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
+        alert("i got here oooh")
         var sendData = form.serialize();
+        /*var sendData = form.FormData();// FormData();*/
         $.post(actionUrl, sendData).done(function (data) {
             PlaceHolderElement.find('.modal').modal('hide');
         })
     })
+
 
     /*Close or hide popup*/
     PlaceHolderElement.on('click', '[data-dismiss="modal"]', function (event) {

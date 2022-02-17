@@ -4,6 +4,80 @@
     Layout = "_Layout";
     }*@
  @* <div id ="PlaceHolderHere"></div>*@
+
+
+@*<head>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //FliterCareers();
+            //CKEDITOR.replace(‘#skillDescription’);
+
+           //$('body').on('click', '[data-save="modal"]', function (e) {
+           $('#submit').on('click',  function (e) {
+                //e.preventDefault();
+                 alert("am here local");
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                console.log(actionUrl);
+                var fdata = new FormData();
+                $('input[name="file"]').each(function (a, b) {
+                    var fileInput = $('input[name="file"]')[a];
+                    if (fileInput.files.length > 0) {
+                        var file = fileInput.files[0];
+                        fdata.append("file", file);
+                    }
+                });
+                fdata.delete("isActive");
+                $("form input[type='text']").each(function (x, y) {
+                    fdata.append($(y).attr("name"), $(y).val());
+                });
+                $("form input[type='hidden']").each(function (x, y) {
+                    fdata.append($(y).attr("name"), $(y).val());
+                });
+                //fdata.delete("isActive");
+                //$("form input[type='checkbox']").each(function (x, y) {
+                //    fdata.append($(y).attr("name"), $(y).val());
+                //});
+                //$(custDDL).val();
+                //fdata.delete("isActive");
+                fdata.append("CategoryID", $(CategoryID).val());
+
+                //if(document.getElementById('isActive').checked)
+                //{
+                //    var selectedValue = document.getElementById('isActive').value;
+                //    alert("Am checked: " + selectedValue);
+                //    //$(isActive).val() = true;
+                //}
+                //else{
+                //    //$(isActive).val() = false;
+                //}
+               //if($("#isActive").prop('checked', true))
+               //{
+               //    $(isActive).val() = true;
+               //}
+               //else
+               //{
+               //    $(isActive).val() = false;
+               //}
+               /*$("#isActive").prop('checked', true)*/;
+
+                //fdata.append("isActive", $("#isActive").val());
+                $.ajax({
+                    url: actionUrl,
+                    method: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fdata
+                })
+                    .done((response) => {
+                        $('body').find('.modal').modal('hide');
+                       
+                    });
+            })
+
+        });
+    </script>
+</head>*@
 <div class="modal" id="UpdateCareer">
 
     <div class="modal-dialog">
@@ -22,78 +96,87 @@
                 <form asp-action="EditCareer" asp-controller="Career" method="post" role="form" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="CareerID" />
-                    <input type="hidden" asp-for="CareerImageUrl" class="form-control" />                 
-                       
-                        <div class="panel-body">
-                           @* <div class="panel-heading">Update</div>*@
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        @*<label asp-for="CategoryID" class="control-label"></label>
-                                            <input asp-for="CategoryID" class="form-control" />
-                                            <span asp-validation-for="CategoryID" class="text-danger"></span>*@
-                                        <label asp-for="CategoryID" class="control-label"></label>
-                                        <select asp-for="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
-                                        </select>
-                                        <span asp-validation-for="CategoryID" class="text-danger"></span>
-                                    </div>
-                                </div>
+                    <input type="hidden" asp-for="CareerImageUrl" class="form-control" />
 
-                                <div class="col-md-4">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="CategoryID" class="control-label"></label>
+                                    <select asp-for="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
+                                    </select>
+                                    <span asp-validation-for="CategoryID" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label asp-for="CareerName" class="control-label"></label>
-                                        <input asp-for="CareerName" class="form-control" />
-                                        <span asp-validation-for="CareerName" class="text-danger"></span>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
 
-                                
-                            </div>
-                            <div class="row" >
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label asp-for="CareerDesc" class="control-label"></label>
-                                        <input asp-for="CareerDesc" class="form-control" />
-                                        <span asp-validation-for="CareerDesc" class="text-danger"></span>
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="CareerName" class="control-label"></label>
+                                    <input asp-for="CareerName" name="CareerName" class="form-control" />
+                                    <span asp-validation-for="CareerName" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label class="control-label">Upload Career Image</label>
-                                        <input asp-for="CareerImgfile" class="form-control" type="file" />
-                                        <span asp-validation-for="CareerImgfile" class="text-danger"></span>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-4">
-                                </div>
-                            </div>
 
                         </div>
-                  
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="CareerDesc" class="control-label"></label>
+                                    <input asp-for="CareerDesc" name="CareerDesc" class="form-control" />
+                                    <span asp-validation-for="CareerDesc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">Upload Career Image jpg or png</label>
+                                    @*  <input asp-for="CareerImgfile" name="CareerImgfile"  class="form-control" type="file" />*@
+                                    <input type="file" name="file" id="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                                    @* <span asp-validation-for="CareerImgfile" class="text-danger"></span>*@
+                                    <span asp-validation-for="@Model.CareerImgfile" class="text-danger"></span>
+                                </div>
+                            </div>
 
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="isActive" checked="@ViewBag.iSactive" /> @Html.DisplayNameFor(model => model.isActive)
-                        </label>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="isActive" />@Html.DisplayNameFor(model => model.isActive)
+                                    @*<input id="isActive" name="isActive" class="form-check-input" asp-for="isActive" />*@
+                                    @* <input type="checkbox" name="isActive">*@
+                                    @* <input  class="form-check-input" asp-for="isActive"/> *@
+                                    @* @Html.DisplayNameFor(model => model.isActive)*@
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="submit" id="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+
                     </div>
 
-                    @*<div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                    </div>*@
                 </form>
             </div>
-            <div class ="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            @*<div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-save="modal">Save</button>
-            </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>*@
         </div>
 
     </div>

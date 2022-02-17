@@ -74,7 +74,7 @@ namespace BiodataTest
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-           services.AddSingleton<IEmailSender,EmailSenderServices>();
+            services.AddSingleton<IEmailSender, EmailSenderServices>();
             //services.Add<HttpContextAccessor>();
 
 
@@ -141,7 +141,7 @@ namespace BiodataTest
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           // app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();//added for authentication
             app.UseAuthorization();
@@ -159,11 +159,11 @@ namespace BiodataTest
             // PrepDb.prepopulate(app);
         }
 
-       
-            private async Task CreateUserRoles(IServiceProvider serviceProvider)
-            {
-                var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-                var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             //var user = new User() { Email = "admin@gmail.com", UserName = "admin" };
 
@@ -182,17 +182,17 @@ namespace BiodataTest
             };
             var result = await UserManager.CreateAsync(user, "Pa$$word123");
 
-                var roleCheck = await RoleManager.RoleExistsAsync("Admin");
-                var role = new ApplicationRole();
-                role.Name = "Admin";
-                if (!roleCheck)
-                {
-                    //create the roles and seed them to the database  
-                    await RoleManager.CreateAsync(role);
-                }
-                await UserManager.AddToRoleAsync(user, "Admin");
-
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            var role = new ApplicationRole();
+            role.Name = "Admin";
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database  
+                await RoleManager.CreateAsync(role);
             }
-        
+            await UserManager.AddToRoleAsync(user, "Admin");
+
+        }
+
     }
 }

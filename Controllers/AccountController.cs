@@ -128,7 +128,7 @@ namespace BiodataTest.Controllers
             }
             else
             {
-                return View("RegisterUser");// View();
+                return RedirectToAction("RegisterUser");// View();
             }
 
 
@@ -161,16 +161,19 @@ namespace BiodataTest.Controllers
                     Name = s.Name
                 }
 
-       ).Where(x=>x.Name=="Employer").ToList();
+       ).Where(x => x.Name == "Employer").ToList();
 
 
                 //dp.Insert(0, new RoleViewModel { Id = "0", Name = "Select Role" });
             }
 
+           
+            
+                ViewBag.listofRoles = dp;
 
-            ViewBag.listofRoles = dp;
-
-            return ViewBag.listofRoles;
+                return ViewBag.listofRoles;
+            
+           
         }
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser()
@@ -178,7 +181,14 @@ namespace BiodataTest.Controllers
             RegisterUser Ruser = new RegisterUser();
             //load Roles with only Employer if logon user is employer or no identity
             //load all roles if logon user is admin
-            await allRoles2();
+            var allrl=  await allRoles2();
+            if (allrl.Count == 0)
+            {
+                Alert("User roles not setup, contact admin", NotificationType.success);
+                return View("Login");
+
+            }
+
             return View(Ruser);
         }
 
@@ -197,8 +207,8 @@ namespace BiodataTest.Controllers
             UsersViewModels user = new UsersViewModels();
             user.RoleName = Ruser.RoleName;
             user.RoleId = Ruser.RoleId;
-            
-            if(string.IsNullOrEmpty(user.RoleId))
+
+            if (string.IsNullOrEmpty(user.RoleId))
             {
                 TempData["Message"] = "Please, select role";
 
@@ -221,7 +231,7 @@ namespace BiodataTest.Controllers
 
                 Alert("success", transRef, NotificationType.success);
                 //send email
-               CMail cm = null;
+                CMail cm = null;
                 cm = new CMail();
 
                 cm.Subject = "Registration Success";
@@ -238,7 +248,7 @@ namespace BiodataTest.Controllers
                 //Username = item[i].ToString().Trim();
                 //body = body.Replace("Dear Adewole", "Dear " + Username);
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("Dear" + " " + Ruser.UserName +",");
+                sb.AppendLine("Dear" + " " + Ruser.UserName + ",");
                 sb.AppendLine();
                 sb.AppendLine("Kindly note that your registration on outsourcing portal was successfull");
                 sb.AppendLine();
@@ -260,10 +270,10 @@ namespace BiodataTest.Controllers
 
                 if (HttpContext.User.Identity.Name == null)
                 {
-                    
+
                     return RedirectToAction("login");
                 }
-               
+
                 if (User.IsInRole("Admin"))
                 {
 
@@ -274,7 +284,7 @@ namespace BiodataTest.Controllers
 
                     return RedirectToAction("existedApplications");
                 }
-                
+
             }
             else
             {
