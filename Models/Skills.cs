@@ -15,7 +15,9 @@ namespace BiodataTest.Models
         [Display(Name ="Skill Code")]
         public string skillCode { get; set; }
         [Display(Name = "Skill Description")]
-        [BindProperty, MaxLength(500)]
+        //[BindProperty, MaxLength(2000)]
+        //[StringLength(2000)]
+        [Column(TypeName = "nvarchar(max)")]
         public string skillDescription { get; set; }
         public int CategoryID { get; set; }
         public int CareerID { get; set; }

@@ -4,14 +4,16 @@ using BiodataTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiodataTest.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217122437_updatei")]
+    partial class updatei
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +110,8 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f9464e92-4754-43bc-949e-899a341467d6",
-                            ConcurrencyStamp = "cdda7286-aab2-4fa7-ba8c-246132b2f93e",
+                            Id = "194ce1ca-0aff-414b-9413-fea5352172fd",
+                            ConcurrencyStamp = "9263cd97-597c-4fb8-8dd3-34c9ac2fd051",
                             Name = "Admin"
                         });
                 });
@@ -187,13 +189,13 @@ namespace BiodataTest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fcfd500f-42ae-4251-b941-753b8bd15abc",
+                            Id = "e032c5ba-96dd-4b73-b9ac-b35bf8f7577c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eab640f8-f63e-4762-9fca-273b4d3eb5f3",
+                            ConcurrencyStamp = "d2e55a62-a094-4ef0-8acb-35e809a3b7bb",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cf82b646-28e5-42f9-aba8-685c698ca440",
+                            SecurityStamp = "bdc89d65-0e23-472f-866e-11714e299cad",
                             TwoFactorEnabled = false
                         });
                 });
@@ -556,7 +558,8 @@ namespace BiodataTest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("skillDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(2000)")
+                        .HasMaxLength(2000);
 
                     b.HasKey("skillId");
 
