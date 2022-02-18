@@ -126,7 +126,8 @@ namespace BiodataTest
         {
             if (env.IsDevelopment())
             {
-               // context.Database.Migrate();
+                //context.Database.Migrate();
+                context.Database.EnsureCreated(); //.Migrate();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -136,7 +137,8 @@ namespace BiodataTest
 
             if (env.IsProduction())
             {
-                context.Database.Migrate();
+               // context.Database.Migrate();
+                context.Database.EnsureCreated();
             }
 
             app.UseHttpsRedirection();
