@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BiodataTest.ViewModels.BioDataViewModel>
 
 @{
-    ViewData["Title"] = "approvedstaffCatalog";
+    ViewData["Title"] = "approved Applications";
 }
 
 <h1>approvedstaffCatalog</h1>
@@ -9,93 +9,98 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StaffId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StaffNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.DOB)
-            </th>
+<div class="panel panel-success">
+    <div class="panel-heading">Your Application details</div>
+    <div class="panel-body">
+        <div class="row">
+             <table class="table-bordered">
+            <thead class="table th">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
 
-            @*<th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.DOB)
+                    </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Department)
+                        </th>*@
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
 
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Department)
-        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>
 
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |*@
-                @*<a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>*@
-                <div>
-                    <li class="nav-item">
-                        <a href="@Url.Action("OnGetDownloadCV", "Biodata", new { Id = item.CvPath })">View CV</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="@Url.Action("ApproveCV", "Biodata", new { Id = item.StaffId })">Approve CV</a>
-                    </li>
-                    
-                    @*<a href="@Url.Action("AddUserCartlog", "Biodata", new { Id = item.StaffId })">View CV</a>*@
-                    @*<img src="~/CVFiles/@item.CvPath"
-        class="rounded-circle"
-        height="40" width="40"
-        asp-append-version="true" />*@
-                    @*<td>@item.CvPath</td>*@
-                    @*<td><a href="@Url.Action("OnGetDownloadCV","Biodata",new {Id=item.CvPath })">View CV</a></td>*@
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                            </td>*@
 
-                    @*<form asp-action="OnGetDownloadCV" asp-controller="Biodata" method="get">
-            <button asp-action="OnGetDownloadCV" asp-route-id="@item.CvPath" onclick="return confirm('Are you sure of downloading this filw?')" class="btn btn-danger btn-sm">View CV</button>
-        </form>*@
-                </div>
-            <div>
-                <form asp-action="AddUserCartlog" asp-controller="Biodata" method="post">
-                    <button asp-action="AddUserCartlog" asp-route-id="@item.StaffId" onclick="return confirm('Are you sure of adding this user to cartlog?')" class="btn btn-danger btn-sm">Add to Cartlog</button>
-                </form>
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |*@
+                            @*<a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>*@
+                            <div>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("OnGetDownloadCV", "Biodata", new { Id = item.CvPath })">View CV</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ApproveCV", "Biodata", new { Id = item.StaffId })">Approve CV</a>
+                                </li>
 
-            </div>
+
+                            </div>
+                            <div>
+                                <form asp-action="AddUserCartlog" asp-controller="Biodata" method="post">
+                                    <button asp-action="AddUserCartlog" asp-route-id="@item.StaffId" onclick="return confirm('Are you sure of adding this user to cartlog?')" class="btn btn-danger btn-sm">Add to Cartlog</button>
+                                </form>
+
+                            </div>
 
 
 
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+       
+
+    </div>
+</div>
+
+
+
+

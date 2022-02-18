@@ -13,8 +13,7 @@
     </script>
 </head>
 
-<h4>CareerViewModel</h4>
-<hr />
+
 <div class="panel panel-default">
     <div class="panel-body">
         <form asp-action="ApplicationForm" asp-controller="Career" method="get">
@@ -22,6 +21,9 @@
             <input type="hidden" asp-for="CareerID" />
             <div class="panel panel-primary">
                 <div class="panel-heading">Career Details</div>
+                <div class="form-group">
+                    <input type="submit" value="Apply" class="btn btn-primary" />
+                </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -51,7 +53,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Required Skills</label>

@@ -15,6 +15,7 @@ using static BiodataTest.Controllers.Common.Enum;
 using BiodataTest.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace BiodataTest.Controllers
 {
@@ -30,9 +31,12 @@ namespace BiodataTest.Controllers
         private string[] permittedExtensions2 = { ".doc", ".pdf", ".docx" };
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IShoppingCartItem _shoppingCartItem;
+        private readonly IEmailSender _emailSender;
 
         //private const string alertify = "Alertify";
-        public CareerController(ICareer career, IMapper mapper, ICategory category, ISkills skills, IWebHostEnvironment webHostEnvironment, IApplication application, IHttpContextAccessor httpContextAccessor, IShoppingCartItem shoppingCartItem)
+        public CareerController(ICareer career, IMapper mapper, ICategory category, ISkills skills, IWebHostEnvironment webHostEnvironment, IApplication application, IHttpContextAccessor httpContextAccessor, IShoppingCartItem shoppingCartItem
+            ,IEmailSender emailSender
+            )
         {
             _career = career;
             _mapper = mapper;
@@ -42,6 +46,7 @@ namespace BiodataTest.Controllers
             _application = application;
             _httpContextAccessor = httpContextAccessor;
             _shoppingCartItem = shoppingCartItem;
+            _emailSender = emailSender;
         }
         [HttpGet]
         public async Task<IActionResult> CreateCareer()
@@ -215,6 +220,7 @@ namespace BiodataTest.Controllers
 
         [HttpGet]
         //ApplicationViewModel
+       // [DisableRequestSizeLimit,RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue, ValueLengthLimit = int.MaxValue)]
         public async Task<IActionResult> ApplicationForm(CareerViewModel CRw)
         {
             ApplicationViewModel APpVm = new ApplicationViewModel();
@@ -227,7 +233,7 @@ namespace BiodataTest.Controllers
         }
 
         [HttpPost]
-        //public async Task<IActionResult> ApplicationForm(CareerViewModel CRw)
+       // [DisableRequestSizeLimit, RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue, ValueLengthLimit = int.MaxValue)]
         public async Task<IActionResult> ApplicationForm(ApplicationViewModel ApVM)
         {
 
@@ -256,26 +262,68 @@ namespace BiodataTest.Controllers
             mmapper.CvPath = uniqueFileName;//add the cv path for DB
             mmapper.iSActive = true;
             mmapper.TransDate = DateTime.Now;//.ToString("yyyy-mm-dd");
+            mmapper.CareerName = "";
+            mmapper.CategoryName = "";
 
             var newCr = await _application.CreateApplication(mmapper);
 
             if (newCr)
             {
+                Alert("Application successful", NotificationType.success);
+
+
+                //Send Email:
+
+                CMail cm = null;
+                cm = new CMail();
+
+                cm.Subject = "Registration Success";
+                cm.AttachedFile = "";
+                // cm.ToEmail.Add(mail);
+
+
+                //cm.Body = body;
+                cm.DisplayName = ApVM.FirstName + " "+ ApVM.LastName;// Ruser.UserName;// assets.Name;
+                cm.ComposedDate = DateTime.Now.ToLongDateString();
+
+                string em = ApVM.Email;// Ruser.Email;
+                cm.ToEmail.Add(em);
+                //Username = item[i].ToString().Trim();
+                //body = body.Replace("Dear Adewole", "Dear " + Username);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Dear" + " " + cm.DisplayName + ",");
+                sb.AppendLine();
+                sb.AppendLine("Please, note that you have successfully applied for " + ApVM .CareerName + " career in our outsourced portal ");
+                sb.AppendLine();
+                sb.AppendLine("Hopefully, we shall work together");
+
+
+                cm.Body = sb.ToString();// = body.Replace("Dear Adewole", "Dear " + Username);
+                var semail = await _emailSender.sendPlainEmail(cm);
+                if (semail == true)
+                {
+
+                }
+                else
+                {
+                    //log error
+                }
+
+
+
+
 
                 ModelState.Clear();
                 ApplicationViewModel APpVm2 = new ApplicationViewModel();
                 APpVm2.CareerID = ApVM.CareerID;
                 APpVm2.CategoryID = ApVM.CategoryID;
                 APpVm2.ApplicationByind = await _application.GetApplicationind(ApVM.CareerID, ApVM.Email);
-                //if sucess go to list page of existing
-                //return View(bioDataViewModel);
-
-                //return RedirectToAction("existedCareers");
-
+                
                 return View(APpVm2);
             }
             else
             {
+                Alert("Application not successful, please, confirm that you have not applied for this career before ", NotificationType.warning);
                 //ViewBag.listofCategory = await loadCategories();
                 return View(ApVM);
             }
@@ -410,11 +458,7 @@ namespace BiodataTest.Controllers
             }
             else
             {
-
                 query = await _application.GetAllApplications(Roles, EndDate, StartDate, categoryid);
-
-
-
             }
             //}
 

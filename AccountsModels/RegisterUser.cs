@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +25,18 @@ namespace BiodataTest.AccountsModels
            ErrorMessage = "The email address is not entered in a correct format")]
         public string Email { get; set; }
         public string UserName { get; set; }
-
+        //passwordConfirm
+        [NotMapped]
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string passwordConfirm { get; set; }
+        //Phone
+        [Required(ErrorMessage = "Please enter your phone number")]
+        [StringLength(25)]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone number")]
+        public string Phone { get; set; }
         //public string FullName { get; set; }
         public string FullName
         {

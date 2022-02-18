@@ -208,13 +208,32 @@ namespace BiodataTest.Controllers
             user.RoleName = Ruser.RoleName;
             user.RoleId = Ruser.RoleId;
 
-            if (string.IsNullOrEmpty(user.RoleId))
+            var allRoless = await _iaccounts.ExistRoles();
+
+
+            foreach (var Item in allRoless)
             {
-                TempData["Message"] = "Please, select role";
+                if (Item.Id.Trim() == user.RoleId.Trim())
+                {
+                    RoleName = Item.Name;
+                    user.RoleName = RoleName;
+                    break;
+                }
 
-                dynamic transRef = TempData["Message"];
+            }
 
-                Alert("success", transRef, NotificationType.error);
+
+
+
+            //get rolename from the ID
+
+            if (string.IsNullOrEmpty(user.RoleId) || string.IsNullOrEmpty(user.RoleName))
+            {
+                //TempData["Message"] = "Please, select role";
+
+                //dynamic transRef = TempData["Message"];
+
+                Alert(user.RoleName + " Registration not successessful bacuse role is not setup", NotificationType.error);
                 return View("RegisterUser");
             }
 
@@ -225,11 +244,7 @@ namespace BiodataTest.Controllers
                 //create role for the user after registration
                 await AddUserRole(user, RoleName);
 
-                TempData["Message"] = "User Created Successfull";
-
-                dynamic transRef = TempData["Message"];
-
-                Alert("success", transRef, NotificationType.success);
+                Alert(user.RoleName + " Registration successessful", NotificationType.success);
                 //send email
                 CMail cm = null;
                 cm = new CMail();

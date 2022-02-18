@@ -121,7 +121,7 @@
                                             <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register New User</a>
+                                            <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register User</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -152,10 +152,7 @@
                                     <ul class="nav nav-sm flex-column">
 
                                         <li class="nav-item">
-                                            <a asp-action="existedApplications" asp-controller="Career" class="nav-link">View Applications</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a asp-action="CreateCategory" asp-controller="Category" class="nav-link">Create New Category</a>
+                                            <a asp-action="CreateCategory" asp-controller="Category" class="nav-link">Create Category</a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-action="existedCategories" asp-controller="Category" class="nav-link">View Category</a>
@@ -163,16 +160,24 @@
                                         <li class="nav-item">
                                             <a asp-action="CreateSkills" asp-controller="Skills" class="nav-link">Create Skills</a>
                                         </li>
-                                        <li class="nav-item">
+                                       @* <li class="nav-item">
                                             <a asp-action="ExistingSkill" asp-controller="Skills" class="nav-link">View Skills</a>
-                                        </li>
+                                        </li>*@
                                         <li class="nav-item">
                                             <a asp-action="CreateCareer" asp-controller="Career" class="nav-link">Create Career</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a asp-action="listCareers" asp-controller="Career" class="nav-link">Create List</a>
+                                        @*<li class="nav-item">
+                                            <a asp-action="listCareers" asp-controller="Career" class="nav-link">View Career</a>
+                                        </li>*@
+                                         <li class="nav-item">
+                                            <a asp-controller="" asp-action="Career" class="nav-link">Approved/Rejected Applications</a>
                                         </li>
-
+                                        <li class="nav-item">
+                                            <a asp-action="existedApplications" asp-controller="Career" class="nav-link">View Applications</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Career" asp-action="MyCart" class="nav-link">My Cart</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -211,14 +216,17 @@
                                         <li class="nav-item">
                                             <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register User</a>
                                         </li>
-                                        <li class="nav-item">
+                                       @* <li class="nav-item">
                                             <a asp-controller="BioData" asp-action="approvedstaffCatalog" class="nav-link">Add to Catlog</a>
-                                        </li>
+                                        </li>*@
                                         <li class="nav-item">
                                             <a asp-controller="Career" asp-action="MyCart" class="nav-link">My Cart</a>
                                         </li>
-                                        <li class="nav-item">
+                                        @*<li class="nav-item">
                                             <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
+                                        </li>*@
+                                        <li class="nav-item">
+                                            <a asp-controller="" asp-action="" class="nav-link">Edit My Profile</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -244,7 +252,9 @@
                                     <li class="nav-item">
                                         <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register User</a>
                                     </li>
-
+                                     <li class="nav-item">
+                                        <a asp-controller="Home" asp-action="About" class="nav-link">About</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -313,8 +323,10 @@
 
                     <div class="row">
 
-                        <div class="col-md-10"><h1 class="text-white">Out Sourcing Solution</h1></div>
-
+                        <div class="col-md-8"><h1 class="text-white">Out Sourcing Solution</h1></div>
+                        <ul class="navbar-nav align-items-center ml-md-auto">
+                        <div class="col-md-2"><a class="text-white" asp-controller="Home" asp-action="About">About</a></div>
+                           </ul>
                         <div class="col-md-2">
 
                             <ul class="navbar-nav align-items-center ml-md-auto">
@@ -333,12 +345,14 @@
                                         <i class="ni ni-zoom-split-in"></i>
                                     </a>
                                 </li>
+                                
                             </ul>
                             <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+                                
                                 <li>
                                     @await Component.InvokeAsync("ShoppingCartSummary")
                                 </li>
-
+                                
                                 <li class="nav-item dropdown">
                                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="media align-items-center">

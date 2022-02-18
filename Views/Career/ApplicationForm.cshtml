@@ -78,9 +78,6 @@
 
                     <div class="row">
                         <div class="col-md-8">
-
-
-
                         </div>
                     </div>
                 </div>
@@ -90,7 +87,7 @@
 
             <div class="col-md-2">
                 <label class="control-label">Upload CV</label>
-                <input asp-for="CVfile" class="form-control" type="file" />
+                <input asp-for="CVfile" class="form-control" type="file" accept=".doc,.docx,.pdf" />
                 <span asp-validation-for="CVfile" class="text-danger"></span>
             </div>
             <br />
@@ -109,8 +106,8 @@
         <div class="panel-body">
             <div class="row">
 
-                <table class="table">
-                    <thead class="th">
+                <table class="table-bordered">
+                    <thead class="table th">
                         <tr>
                             <th>
                                 @*@Html.DisplayNameFor(model => model.ApplicationId)*@
@@ -133,7 +130,8 @@
                             </th>
 
                             <th>
-                                @Html.DisplayNameFor(model => model.Email)
+                                @*@Html.DisplayNameFor(model => model.Email)*@
+                                Email
                             </th>
                             <th>
                                 @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
@@ -159,8 +157,6 @@
                                 @Html.DisplayNameFor(model => model.rejected)
                             </th>
 
-
-
                         </tr>
                     </thead>
                     <tbody class="tbody">
@@ -184,20 +180,21 @@
                                     @Html.DisplayFor(modelItem => item.LastName)
                                 </td>
 
-                                <td hidden>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
-                                <td hidden>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </td>
-                                <td hidden>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.yearsExpe)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.TransDate)
+                                   @*// @Html.DisplayFor(modelItem => item.TransDate)*@
+                                    @Html.Raw(item.TransDate.ToString("dd-MM-yyyy HH:mm"))
                                 </td>
 
 
@@ -216,16 +213,18 @@
 
                             </tr>
                         }
-                        
+
 
                     </tbody>
                 </table>
-               
+
             </div>
         </div>
     </div>
 }
+<div class="row">
     <div>
-        <a asp-action="Application" asp-controller="Career">Back to List</a>
+        <a asp-action="existedCareers" asp-controller="Career">Back to Career</a>
     </div>
+</div>
 

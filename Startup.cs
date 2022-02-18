@@ -21,6 +21,7 @@ using BiodataTest.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using BiodataTest.Utility;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace BiodataTest
 {
@@ -39,7 +40,7 @@ namespace BiodataTest
 
             //To authorize all controllers
             services.AddControllersWithViews();// (o => o.Filters.Add(new AuthorizeFilter()));
-
+            //services.Configure<FormOptions>(x => x.ValueCountLimit = 100000000);
 
             //services.AddControllersWithViews();//Authorize controllers o =>o.Filters.Add(new AuthorizeFilter())
             //services.AddRazorPages().AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter()));//authorize all pages
@@ -86,7 +87,7 @@ namespace BiodataTest
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
-
+            
             //using Coogies//;//we could add this o => o.LoginPath="account/signin. Stop at .AddCookie(); if no external authentication required
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             services.Configure<CookiePolicyOptions>(options =>

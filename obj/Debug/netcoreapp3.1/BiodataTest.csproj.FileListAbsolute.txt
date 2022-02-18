@@ -531,4 +531,6 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld1.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\web.config
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs

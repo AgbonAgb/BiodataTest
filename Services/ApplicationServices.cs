@@ -152,6 +152,36 @@ namespace BiodataTest.Services
 
 
                 }
+                //else
+                //{
+                //    query = await (from application in _appDbContext.applications
+                //                   join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
+                //                   //join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                //                   join career in _appDbContext.careers on application.CareerID equals career.CareerID
+                //                   select new ApplicationDetails
+                //                   {
+                //                       ApplicationId = application.ApplicationId,
+                //                       EmployerId = application.EmployerId,
+                //                       CareerID = application.CareerID,
+                //                       CategoryID = application.CategoryID,
+                //                       FirstName = application.FirstName,
+                //                       LastName = application.LastName,
+                //                       Email = application.Email,
+                //                       PhoneNumber = application.PhoneNumber,
+                //                       yearsExpe = application.yearsExpe,
+                //                       CvPath = application.CvPath,
+                //                       Address = application.Address,
+                //                       CategoryName = category.CategoryName,
+                //                       CareerName = career.CareerName,
+                //                       approved = application.approved,
+                //                       rejected = application.rejected,
+                //                       available = application.available,
+                //                       TransDate = application.TransDate
+
+                //                   }
+                //          ).Where(application => application.approved == true && application.available == true).OrderByDescending(s => s.ApplicationId).ToListAsync();//.FirstOrDefaultAsync();
+
+                //}
 
             }
             catch (Exception ex)
@@ -284,13 +314,14 @@ namespace BiodataTest.Services
 
                 query = await (from application in _appDbContext.applications
                                join category in _appDbContext.categorys on application.CategoryID equals category.CategoryID
-                               join career in _appDbContext.careers on application.CategoryID equals career.CategoryID
+                               join career in _appDbContext.careers on application.CareerID equals career.CareerID
                                select new ApplicationDetails
                                {
                                    ApplicationId = application.ApplicationId,     
                                    FirstName = application.FirstName,
                                    LastName = application.LastName,
                                    Email = application.Email,
+                                   TransDate=application.TransDate,
                                    PhoneNumber = application.PhoneNumber,
                                    yearsExpe = application.yearsExpe,                                  
                                    Address = application.Address,
@@ -301,7 +332,7 @@ namespace BiodataTest.Services
                                    CareerID=application.CareerID
 
                                }
-               ).Where(application => application.approved == false && application.rejected == false && application.CareerID==Id && application.Email==email).ToListAsync();//.FirstOrDefaultAsync();
+               ).Where(application => application.approved == false && application.rejected == false && application.Email==email).ToListAsync();//.FirstOrDefaultAsync();
 
 
 

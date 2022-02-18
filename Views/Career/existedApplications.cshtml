@@ -261,7 +261,7 @@
 
                                     </div>
                                 }
-                                @if (User.IsInRole("Employer"))
+                                else if (User.IsInRole("Employer"))
                                 {
                                     <div>
                                         <li class="nav-item">
