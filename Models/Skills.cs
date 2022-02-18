@@ -17,6 +17,7 @@ namespace BiodataTest.Models
         [Display(Name = "Skill Description")]
         //[BindProperty, MaxLength(2000)]
         //[StringLength(2000)]
+        [Required(ErrorMessage = "Please provide skills")]
         [Column(TypeName = "nvarchar(max)")]
         public string skillDescription { get; set; }
         public int CategoryID { get; set; }
