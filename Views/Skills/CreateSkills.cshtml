@@ -3,23 +3,24 @@
 <head>
     <script type="text/javascript">
         $(document).ready(function () {
+            CKEDITOR.replace('#skillDescription');
+             //alert("Am responding 1");
             FliterCareers();
-            CKEDITOR.replace(‘#skillDescription’); 
-
+            
             $('#categoryID').change(function () {
+                 //alert("Am responding");
                 FliterCareers();
 
             });
 
         });
 
+        //start
+             var FliterCareers = function () {
 
+             var _categoryidVal = $('#categoryID').val();//get value at category dropdown and b=not text
 
-        var FliterCareers = function () {
-
-             var _categoryidVal = $("#categoryID").val();//get value at category dropdown and b=not text
-
-               /* alert(Categoryid);*/
+               alert(_categoryidVal);
                 if (_categoryidVal != "") {
                     $.ajax({
                         /*url: "Career/FilterApplications",*/
@@ -43,6 +44,10 @@
                 }
         }
 
+            //end
+
+       
+
 
 
 
@@ -65,7 +70,6 @@
                                 <label class="control-label">Category</label>
                                 <select id="categoryID" name="CategoryID" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCategory,"CategoryID","CategoryName"))">
                                 </select>
-
                                 <span asp-validation-for="CategoryID" class="text-danger"></span>
                             </div>
 
@@ -105,6 +109,7 @@
                             <div class="form-group">
                                 <label asp-for="skillDescription" class="control-label"></label>
                                 <textarea asp-for="skillDescription" class="ckeditor"></textarea>
+                                @*<textarea asp-for="skillDescription"></textarea>*@
                                 @*<input asp-for="skillDescription" class="form-control" />*@
                                 <span asp-validation-for="skillDescription" class="text-danger"></span>
                             </div>

@@ -118,11 +118,11 @@
                                             <a asp-controller="Account" asp-action="getAllRoles" class="nav-link">View Roles</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">View Users</a>
+                                            <a asp-controller="Account" asp-action="getAllUsers" class="nav-link">User Management</a>
                                         </li>
-                                        <li class="nav-item">
+                                        @*<li class="nav-item">
                                             <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register User</a>
-                                        </li>
+                                        </li>*@
                                     </ul>
                                 </div>
                             </li>
@@ -152,13 +152,13 @@
                                     <ul class="nav nav-sm flex-column">
 
                                         <li class="nav-item">
-                                            <a asp-action="CreateCategory" asp-controller="Category" class="nav-link">Create Category</a>
+                                            <a asp-action="CreateCategory" asp-controller="Category" class="nav-link">Category</a>
                                         </li>
-                                        <li class="nav-item">
+                                       @* <li class="nav-item">
                                             <a asp-action="existedCategories" asp-controller="Category" class="nav-link">View Category</a>
-                                        </li>
+                                        </li>*@
                                         <li class="nav-item">
-                                            <a asp-action="CreateSkills" asp-controller="Skills" class="nav-link">Create Skills</a>
+                                            <a asp-action="CreateSkills" asp-controller="Skills" class="nav-link">Skills</a>
                                         </li>
                                        @* <li class="nav-item">
                                             <a asp-action="ExistingSkill" asp-controller="Skills" class="nav-link">View Skills</a>
@@ -169,11 +169,12 @@
                                         @*<li class="nav-item">
                                             <a asp-action="listCareers" asp-controller="Career" class="nav-link">View Career</a>
                                         </li>*@
-                                         <li class="nav-item">
-                                            <a asp-controller="" asp-action="Career" class="nav-link">Approved/Rejected Applications</a>
-                                        </li>
+                                        
                                         <li class="nav-item">
                                             <a asp-action="existedApplications" asp-controller="Career" class="nav-link">View Applications</a>
+                                        </li>
+                                         <li class="nav-item">
+                                            <a asp-controller="" asp-action="Career" class="nav-link">Approved/Rejected Applications</a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-controller="Career" asp-action="MyCart" class="nav-link">My Cart</a>
@@ -252,9 +253,9 @@
                                     <li class="nav-item">
                                         <a asp-controller="Account" asp-action="RegisterUser" class="nav-link">Register User</a>
                                     </li>
-                                     <li class="nav-item">
+                                    @* <li class="nav-item">
                                         <a asp-controller="Home" asp-action="About" class="nav-link">About</a>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                         </li>

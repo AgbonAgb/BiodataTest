@@ -393,8 +393,25 @@ namespace BiodataTest.Controllers
             else
             {
                 var allusers1 = await _iaccounts.AllUsers();
-                var allusers = allusers1.Where(s => s.UserName.Contains(SearchString) || s.Email.Contains(SearchString)).ToList();
 
+                var allusers = allusers1.Where(s => s.Email.Contains(SearchString.Trim())).ToList();
+
+                ////List<UsersViewModels> seluser = new List<UsersViewModels>();
+                ////seluser = allusers1.AsEnumerable().Select(user => new UsersViewModels
+                ////{ Email = user.Email, UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Id = user.Id, RoleName = user.RoleName }
+                ////                    ).Where(s => s.Email.Contains(SearchString.Trim())).ToList();
+                //List<BioDataViewModel> list2 = existing.AsEnumerable()
+                //         .Select(o => new BioDataViewModel
+                //         {
+                //             RefererId = o.StaffId,
+                //             Referer = o.FirstName
+
+                //         }).ToList();
+
+
+
+                //var allusers = allusers1.Where(s => s.UserName.Contains(SearchString) || s.Email.Contains(SearchString)).FirstOrDefault();//.ToList();
+                //var allusers = allusers1.Where(s => s.Email.Contains(SearchString.Trim())).ToList();//.FirstOrDefault();//.ToList();
                 return View(allusers);
 
             }
@@ -423,7 +440,7 @@ namespace BiodataTest.Controllers
 
             users = await _iaccounts.getUser(Id);
 
-            return View(users);
+            return PartialView("_EditUsers",users);//EditUsers
 
         }
         [HttpPost]
@@ -433,6 +450,13 @@ namespace BiodataTest.Controllers
             //UsersViewModels users = new UsersViewModels();
             user.Id = Id;
 
+
+            if(user.RoleName == null)
+            {
+               // Alert(("This is success message", NotificationType.success);
+                //Alert("Please Provide user role", NotificationType.warning);
+                return View(user);
+            }
             bool succ = await _iaccounts.UpdateUser(user);
 
             if (succ == true)

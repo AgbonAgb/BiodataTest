@@ -350,6 +350,7 @@ C:\Users\Cyberspace\Desktop\CodeMentor\BiodataTest\obj\Debug\netcoreapp3.1\Bioda
 C:\Users\Cyberspace\Desktop\CodeMentor\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Cyberspace\Desktop\CodeMentor\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
 C:\Users\Cyberspace\Desktop\CodeMentor\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
+C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\web.config
 C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\libman.json
@@ -475,7 +476,6 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.Raz
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\AddUserRole.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\createRole.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\DeleteUsers.cshtml.g.cs
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditUsers.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllRoles.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\getAllUsers.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
@@ -503,13 +503,16 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Cat
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Category\existedCategories.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Dept\CreateDept.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Dept\ExistingDept.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\PurchaseOrder\createPurchaseOrder.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShoppingCartSummary\Default.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\EditCareer2.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld1.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld3.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Loading.cshtml.g.cs
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_login.cshtml.g.cs
@@ -529,8 +532,4 @@ C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csp
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.dll
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.pdb
 C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.genruntimeconfig.cache
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld1.cshtml.g.cs
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
-C:\Users\Godwin\source\repos\BiodataTest\bin\Debug\netcoreapp3.1\web.config
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\BiodataTest.csproj.AssemblyReference.cache
-C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+C:\Users\Godwin\source\repos\BiodataTest\obj\Debug\netcoreapp3.1\Razor\Views\Account\_EditUsers.cshtml.g.cs

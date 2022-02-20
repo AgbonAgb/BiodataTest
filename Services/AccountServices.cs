@@ -199,7 +199,7 @@ namespace BiodataTest.Services
             //};
             //return View(model);
 
-            return urols;
+            return urols.Where(s => s.Email != null).ToList();
 
             ////var users = await _userManager.Users.Select(s => new UsersViewModels
             ////{

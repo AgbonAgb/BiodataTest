@@ -1,0 +1,84 @@
+﻿@model BiodataTest.ViewModels.UsersViewModels
+
+<h4>UsersViewModels</h4>
+<hr />
+
+
+<div class=" modal fade" id="UpdateUser">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UpdateUserLabel">Edit User</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+                <form asp-action="EditUsers1">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                        <label asp-for="RoleName" class="control-label"></label>
+                        <input asp-for="RoleName" class="form-control" />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                        <label asp-for="RoleId" class="control-label"></label>
+                        <input asp-for="RoleId" class="form-control" />
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                        </div>*@
+                    <div class="form-group">
+                        <label asp-for="SearchTerm" class="control-label"></label>
+                        <input asp-for="SearchTerm" class="form-control" />
+                        <span asp-validation-for="SearchTerm" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-save="modal">Save</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*
+    <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    </div>
+
+    <div>
+    <a asp-action="Index">Back to List</a>
+    </div>*@
+
