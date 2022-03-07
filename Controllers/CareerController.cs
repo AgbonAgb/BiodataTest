@@ -43,6 +43,8 @@ namespace BiodataTest.Controllers
             _category = category;
             _skills = skills;
             _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment = webHostEnvironment;
             _application = application;
             _httpContextAccessor = httpContextAccessor;
             _shoppingCartItem = shoppingCartItem;

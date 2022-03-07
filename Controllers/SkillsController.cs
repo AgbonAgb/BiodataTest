@@ -7,6 +7,7 @@ using BiodataTest.Interfaces;
 using BiodataTest.Models;
 using Newtonsoft.Json;
 using static BiodataTest.Controllers.Common.Enum;
+using Microsoft.Extensions.Logging;
 //using System.Dynamic;
 
 namespace BiodataTest.Controllers
@@ -16,11 +17,13 @@ namespace BiodataTest.Controllers
         private readonly ISkills _skills;
         private readonly ICategory _category;
         private readonly ICareer _icareer;
-        public SkillsController(ISkills skills, ICategory category, ICareer icareer)
+        private readonly ILogger<SkillsController> _logger;
+        public SkillsController(ISkills skills, ICategory category, ICareer icareer, ILogger<SkillsController> logger)
         {
             _skills = skills;
             _category = category;
             _icareer = icareer;
+            _logger= logger;
         }
         public IActionResult Index()
         {
@@ -182,13 +185,40 @@ namespace BiodataTest.Controllers
             //var existedCat = await _iCategory.GetCategoryById(Id);
 
             var skill = await _skills.GetIndSkills(Id);
-            sk = skill;//
+            if(skill != null)
+            {
+                sk = skill;
+                TempData["EditSkills"] = JsonConvert.SerializeObject(sk); ;
+            }
+           else
+            {
+                TempData["EditSkills"] = null;
+                return NotFound();//
+                
+            }
 
-           // Cat = existedCat;
-
-            TempData["EditSkills"] = JsonConvert.SerializeObject(sk); ;
-
+            //return skill;
             return RedirectToAction("CreateSkills");
+
+        }
+
+        public async Task<IActionResult> DeleteSkills(int Id)
+        {
+
+            //var existedCat = await _iCategory.GetCategoryById(Id);
+           // bool resp = false;
+            bool skill = await _skills.DeleteSkill(Id);
+            if (skill)
+            {
+                return View();
+            }
+            else
+            {
+
+                return NotFound();  
+            }
+
+           // return resp;// RedirectToAction("CreateSkills");
             //return View();
         }
         [HttpPost]
@@ -218,31 +248,6 @@ namespace BiodataTest.Controllers
                 return RedirectToAction("CreateSkills");
             }
 
-
-
-            ////var mapped = _mapper.Map<Category>(Cat);
-
-            ////var createdC = await _iCategory.EditCategory(mapped);
-            ////if (createdC)
-            ////{
-            ////    ////ModelState.Clear();                
-            ////    ////var existedCat = await _iCategory.GetAllCategory();
-
-            ////    ////Cat.CategoryName = string.Empty;// "";
-            ////    ////Cat.CategoryCode = string.Empty;
-
-            ////    ////Cat.AllCategories = existedCat;
-
-            ////    TempData["EditedCategory"] = null;
-            ////    return RedirectToAction("CreateCategory");
-
-            ////    //return View(Cat);
-            ////}
-            ////else
-            ////{
-            ////    //return View(Cat);
-            ////    return RedirectToAction("CreateCategory");
-            ////}
         }
     }
 }

@@ -79,20 +79,7 @@ namespace BiodataTest.Controllers
             //Load career
 
             var allcost = await _iyearsExperienceCost.GetAllCost();
-            ////List<YearsExperienceCost> li = allcost.AsEnumerable()
-            ////    .Select(o => new YearsExperienceCost
-            ////    {
-            ////        YearsHigherBound = o.YearsLowerBound,
-            ////        YearsLowerBound = o.YearsLowerBound,
-            ////        CareerID = o.CareerID,
-            ////        CareerName = o.CareerName,
-            ////        amount = o.amount,
-            ////        CategoryName = o.CategoryName,
-            ////        CostId = o.CostId,
-            ////        CategoryID = o.CategoryID
-
-
-            ////    }).ToList();
+           
             ViewBag.Category = await loadCategories();
             ViewBag.Career = await loadCareer();
 
